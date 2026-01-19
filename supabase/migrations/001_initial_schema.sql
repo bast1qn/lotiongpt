@@ -429,3 +429,55 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_starred_messages_unique
 -- =====================================================
 -- Your database is now ready for LotionGPT with Memories, Projects, Snippets, and Starred Messages!
 -- =====================================================
+
+-- =====================================================
+-- 9. ARTIFACTS TABLE
+-- =====================================================
+-- Stores AI-generated files and code artifacts
+CREATE TABLE IF NOT EXISTS artifacts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  chat_id UUID NOT NULL,
+  name TEXT NOT NULL,
+  content TEXT NOT NULL,
+  file_type TEXT NOT NULL DEFAULT 'txt',
+  language TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE artifacts ENABLE ROW LEVEL SECURITY;
+
+-- Artifacts Policies
+CREATE POLICY "Users can view own artifacts"
+  ON artifacts FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can create own artifacts"
+  ON artifacts FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own artifacts"
+  ON artifacts FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own artifacts"
+  ON artifacts FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_artifacts_user_id ON artifacts(user_id);
+CREATE INDEX IF NOT EXISTS idx_artifacts_chat_id ON artifacts(user_id, chat_id);
+CREATE INDEX IF NOT EXISTS idx_artifacts_updated_at ON artifacts(user_id, updated_at DESC);
+
+-- Update updated_at timestamp
+CREATE TRIGGER update_artifacts_updated_at
+  BEFORE UPDATE ON artifacts
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- =====================================================
+-- SETUP COMPLETE
+-- =====================================================
+-- Your database is now ready for LotionGPT with Memories, Projects, Snippets, Starred Messages, and Artifacts!
+-- =====================================================

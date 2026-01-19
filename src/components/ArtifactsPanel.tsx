@@ -1,0 +1,276 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Icons } from './Icons';
+import { cn } from '@/lib/utils';
+import { fetchArtifacts, createArtifact, updateArtifact, deleteArtifact, downloadArtifact, ARTIFACT_FILE_TYPES, Artifact, ArtifactFormData } from '@/lib/db/artifacts';
+import { useToast } from '@/lib/hooks/useToast';
+
+interface ArtifactsPanelProps {
+  currentChatId: string | null;
+}
+
+export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
+  const { showToast } = useToast();
+  const [artifacts, setArtifacts] = useState<Artifact[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isCreating, setIsCreating] = useState(false);
+  const [isEditing, setIsEditing] = useState<string | null>(null);
+  const [previewArtifact, setPreviewArtifact] = useState<Artifact | null>(null);
+  const [formData, setFormData] = useState<ArtifactFormData>({
+    name: '',
+    content: '',
+    fileType: 'html',
+    language: '',
+  });
+
+  useEffect(() => {
+    loadArtifacts();
+  }, []);
+
+  const loadArtifacts = async () => {
+    setIsLoading(true);
+    const data = await fetchArtifacts();
+    setArtifacts(data);
+    setIsLoading(false);
+  };
+
+  const handleSubmit = async () => {
+    if (!formData.name.trim() || !formData.content.trim()) {
+      showToast('Bitte fülle alle Felder aus', 'error');
+      return;
+    }
+
+    if (!currentChatId) {
+      showToast('Kein Chat ausgewählt', 'error');
+      return;
+    }
+
+    let result;
+    if (isEditing) {
+      result = await updateArtifact(isEditing, formData);
+    } else {
+      result = await createArtifact(formData, currentChatId);
+    }
+
+    if (result) {
+      showToast(isEditing ? 'Artefakt aktualisiert' : 'Artefakt erstellt', 'success');
+      await loadArtifacts();
+      resetForm();
+    } else {
+      showToast('Fehler beim Speichern', 'error');
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    const success = await deleteArtifact(id);
+    if (success) {
+      showToast('Artefakt gelöscht', 'success');
+      if (previewArtifact?.id === id) {
+        setPreviewArtifact(null);
+      }
+      await loadArtifacts();
+    }
+  };
+
+  const handleDownload = (artifact: Artifact) => {
+    downloadArtifact(artifact);
+    showToast('Download gestartet', 'success');
+  };
+
+  const resetForm = () => {
+    setIsCreating(false);
+    setIsEditing(null);
+    setFormData({ name: '', content: '', fileType: 'html', language: '' });
+  };
+
+  const typeInfo = ARTIFACT_FILE_TYPES.find(t => t.id === formData.fileType);
+
+  return (
+    <div className="p-3 space-y-3">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
+          Artefakte
+        </h3>
+        <button
+          onClick={() => setIsCreating(true)}
+          className="p-1 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+        >
+          <Icons.Plus />
+        </button>
+      </div>
+
+      {/* Preview Panel */}
+      {previewArtifact && (
+        <div className="p-3 bg-[var(--color-bg-tertiary)] rounded-xl border border-[var(--color-border-subtle)] animate-fade-in">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <span className="text-lg">{ARTIFACT_FILE_TYPES.find(t => t.id === previewArtifact.fileType)?.icon}</span>
+              <span className="text-sm font-medium text-[var(--color-text-primary)]">
+                {previewArtifact.name}
+              </span>
+            </div>
+            <button
+              onClick={() => setPreviewArtifact(null)}
+              className="p-1 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+            >
+              <Icons.Close />
+            </button>
+          </div>
+          <pre className="text-xs text-[var(--color-text-secondary)] font-mono overflow-x-auto whitespace-pre-wrap bg-[var(--color-bg-secondary)] rounded-lg p-2 max-h-40">
+            {previewArtifact.content.slice(0, 300)}
+            {previewArtifact.content.length > 300 && '...'}
+          </pre>
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={() => handleDownload(previewArtifact)}
+              className="flex-1 px-3 py-1.5 text-xs bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg transition-colors"
+            >
+              Download
+            </button>
+            <button
+              onClick={() => {
+                setIsEditing(previewArtifact.id);
+                setFormData({
+                  name: previewArtifact.name,
+                  content: previewArtifact.content,
+                  fileType: previewArtifact.fileType,
+                  language: previewArtifact.language,
+                });
+                setPreviewArtifact(null);
+              }}
+              className="px-3 py-1.5 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-lg transition-colors"
+            >
+              Bearbeiten
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Create/Edit Form */}
+      {(isCreating || isEditing) && (
+        <div className="space-y-2 p-3 bg-[var(--color-bg-tertiary)] rounded-xl animate-fade-in-down">
+          <input
+            type="text"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            placeholder="Name (z.B. index.html)"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all"
+            autoFocus
+          />
+
+          <select
+            value={formData.fileType}
+            onChange={(e) => setFormData({ ...formData, fileType: e.target.value })}
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all"
+          >
+            {ARTIFACT_FILE_TYPES.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.icon} {type.name}
+              </option>
+            ))}
+          </select>
+
+          <textarea
+            value={formData.content}
+            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+            placeholder="Inhalt..."
+            rows={6}
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all font-mono text-[12px]"
+          />
+
+          <div className="flex gap-2 justify-end">
+            <button
+              onClick={resetForm}
+              className="px-3 py-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-lg transition-colors"
+            >
+              Abbrechen
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="px-3 py-1.5 text-sm bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg transition-colors"
+            >
+              {isEditing ? 'Speichern' : 'Erstellen'}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Artifacts List */}
+      {isLoading ? (
+        <div className="flex items-center justify-center py-8">
+          <div className="w-8 h-8 rounded-lg bg-[var(--color-bg-tertiary)] animate-pulse" />
+        </div>
+      ) : artifacts.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-8 text-center">
+          <div className="w-12 h-12 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+          </div>
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            Noch keine Artefakte
+          </p>
+          <p className="text-xs text-[var(--color-text-muted)] mt-1">
+            Speichere generierte Dateien
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-1">
+          {artifacts.map((artifact) => {
+            const typeInfo = ARTIFACT_FILE_TYPES.find(t => t.id === artifact.fileType);
+            return (
+              <div
+                key={artifact.id}
+                className="group relative p-3 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-lg">{typeInfo?.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-[var(--color-text-primary)] truncate">
+                      {artifact.name}
+                    </p>
+                    <p className="text-xs text-[var(--color-text-muted)]">
+                      {typeInfo?.name} · {artifact.content.length} Zeichen
+                    </p>
+                  </div>
+                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => setPreviewArtifact(artifact)}
+                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all"
+                      title="Vorschau"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => handleDownload(artifact)}
+                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all"
+                      title="Download"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(artifact.id)}
+                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all"
+                    >
+                      <Icons.Trash />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}

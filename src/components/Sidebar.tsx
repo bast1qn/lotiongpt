@@ -8,6 +8,7 @@ import { SettingsModal } from './SettingsModal';
 import { AuthButton } from './AuthButton';
 import { ProjectsPanel } from './ProjectsPanel';
 import { CodeSnippetsPanel } from './CodeSnippetsPanel';
+import { ArtifactsPanel } from './ArtifactsPanel';
 import { cn } from '@/lib/utils';
 
 interface SidebarProps {
@@ -22,7 +23,7 @@ interface SidebarProps {
 }
 
 type FilterMode = 'all' | 'today' | 'week';
-type PanelMode = 'none' | 'projects' | 'snippets';
+type PanelMode = 'none' | 'projects' | 'snippets' | 'artifacts';
 
 export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, chats, onRefreshChats, isOpen, onClose }: SidebarProps) {
   const [showSettings, setShowSettings] = useState(false);
@@ -114,6 +115,21 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               <Icons.Code />
               <span className="text-sm">Code Snippets</span>
             </button>
+            <button
+              onClick={() => setPanelMode(panelMode === 'artifacts' ? 'none' : 'artifacts')}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200",
+                panelMode === 'artifacts'
+                  ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                  : 'text-[var(--color-text-tertiary)] hover:text-white hover:bg-[var(--color-bg-elevated)]'
+              )}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              <span className="text-sm">Artefakte</span>
+            </button>
           </div>
         </nav>
 
@@ -149,6 +165,23 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               </button>
             </div>
             <CodeSnippetsPanel />
+          </div>
+        )}
+
+        {panelMode === 'artifacts' && (
+          <div className="flex-shrink-0 border-b border-[var(--color-border-subtle)] animate-fade-in max-h-[400px] overflow-y-auto">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--color-border-subtle)]">
+              <h3 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
+                Artefakte
+              </h3>
+              <button
+                onClick={() => setPanelMode('none')}
+                className="p-1 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+              >
+                <Icons.Close />
+              </button>
+            </div>
+            <ArtifactsPanel currentChatId={currentChatId} />
           </div>
         )}
 
