@@ -10,6 +10,7 @@ import { Icons } from '@/components/Icons';
 import { AuthGuard } from '@/components/AuthGuard';
 import { KeyboardShortcutsModal } from '@/components/KeyboardShortcutsModal';
 import { ChatSearchBar } from '@/components/ChatSearchBar';
+import { ExportModal } from '@/components/ExportModal';
 import { fetchChats, createChat, updateChat, deleteChat, fetchChat } from '@/lib/db/chats';
 import { getMemoriesForContext, extractMemoriesFromMessage, createMemory } from '@/lib/db/memories';
 import { storage } from '@/lib/storage';
@@ -34,6 +35,9 @@ function HomeContent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [matchingMessageIndices, setMatchingMessageIndices] = useState<number[]>([]);
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
+
+  // Export states
+  const [showExportModal, setShowExportModal] = useState(false);
 
   // Ref for ChatInput send function
   const chatInputRef = useRef<ChatInputRef>(null);
@@ -517,6 +521,17 @@ function HomeContent() {
               </svg>
             </button>
             <button
+              onClick={() => setShowExportModal(true)}
+              className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
+              title="Chat exportieren"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </button>
+            <button
               onClick={() => setShowKeyboardShortcuts(true)}
               className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
               title="Tastaturkürzel anzeigen (?)"
@@ -575,6 +590,15 @@ function HomeContent() {
       <KeyboardShortcutsModal
         isOpen={showKeyboardShortcuts}
         onClose={() => setShowKeyboardShortcuts(false)}
+      />
+
+      <ExportModal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        chatTitle={currentChat?.title || 'Chat'}
+        messages={currentChat?.messages || []}
+        chatCreatedAt={currentChat?.createdAt}
+        chatUpdatedAt={currentChat?.updatedAt}
       />
     </div>
   );
