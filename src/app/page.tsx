@@ -9,6 +9,7 @@ import { ChatInput, ChatInputRef, ChatModel } from '@/components/ChatInput';
 import { Icons } from '@/components/Icons';
 import { AuthGuard } from '@/components/AuthGuard';
 import { KeyboardShortcutsModal } from '@/components/KeyboardShortcutsModal';
+import { ChatSearchBar } from '@/components/ChatSearchBar';
 import { fetchChats, createChat, updateChat, deleteChat, fetchChat } from '@/lib/db/chats';
 import { getMemoriesForContext, extractMemoriesFromMessage, createMemory } from '@/lib/db/memories';
 import { storage } from '@/lib/storage';
@@ -27,6 +28,12 @@ function HomeContent() {
   const [editingMessageIndex, setEditingMessageIndex] = useState<number | null>(null);
   const [showFileUpload, setShowFileUpload] = useState(false);
   const [showKeyboardShortcuts, setShowKeyboardShortcuts] = useState(false);
+
+  // Search states
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [matchingMessageIndices, setMatchingMessageIndices] = useState<number[]>([]);
+  const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
 
   // Ref for ChatInput send function
   const chatInputRef = useRef<ChatInputRef>(null);
@@ -410,6 +417,48 @@ function HomeContent() {
     },
   });
 
+  // Search handlers
+  const handleSearchChange = useCallback((query: string) => {
+    setSearchQuery(query);
+    if (!currentChat) return;
+
+    if (!query.trim()) {
+      setMatchingMessageIndices([]);
+      setCurrentMatchIndex(0);
+      return;
+    }
+
+    const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    const matches = currentChat.messages
+      .map((msg, idx) => ({ idx, matches: regex.test(msg.content) }))
+      .filter(({ matches }) => matches)
+      .map(({ idx }) => idx);
+
+    setMatchingMessageIndices(matches);
+    setCurrentMatchIndex(0);
+
+    // Scroll to first match
+    if (matches.length > 0) {
+      document.getElementById(`message-${matches[0]}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [currentChat]);
+
+  const handleSearchNavigate = useCallback((direction: 'up' | 'down') => {
+    if (matchingMessageIndices.length === 0) return;
+
+    let newIndex = currentMatchIndex + (direction === 'down' ? 1 : -1);
+    if (newIndex < 0) newIndex = matchingMessageIndices.length - 1;
+    if (newIndex >= matchingMessageIndices.length) newIndex = 0;
+
+    setCurrentMatchIndex(newIndex);
+    const messageIndex = matchingMessageIndices[newIndex];
+    document.getElementById(`message-${messageIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [matchingMessageIndices, currentMatchIndex]);
+
+  const handleToggleSearch = useCallback(() => {
+    setSearchVisible(prev => !prev);
+  }, []);
+
   if (isLoadingChats) {
     return (
       <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)]">
@@ -456,26 +505,47 @@ function HomeContent() {
               </h1>
             </div>
           </div>
-          <button
-            onClick={() => setShowKeyboardShortcuts(true)}
-            className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
-            title="Tastaturkürzel anzeigen (?)"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2" />
-              <path d="M6 8h.01" />
-              <path d="M10 8h.01" />
-              <path d="M14 8h.01" />
-              <path d="M18 8h.01" />
-              <path d="M6 12h.01" />
-              <path d="M10 12h.01" />
-              <path d="M14 12h.01" />
-              <path d="M18 12h.01" />
-              <path d="M8 16h.01" />
-              <path d="M16 16h.01" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={handleToggleSearch}
+              className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
+              title="Suche im Chat"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setShowKeyboardShortcuts(true)}
+              className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
+              title="Tastaturkürzel anzeigen (?)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M6 8h.01" />
+                <path d="M10 8h.01" />
+                <path d="M14 8h.01" />
+                <path d="M18 8h.01" />
+                <path d="M6 12h.01" />
+                <path d="M10 12h.01" />
+                <path d="M14 12h.01" />
+                <path d="M18 12h.01" />
+                <path d="M8 16h.01" />
+                <path d="M16 16h.01" />
+              </svg>
+            </button>
+          </div>
         </header>
+
+        <ChatSearchBar
+          isVisible={searchVisible}
+          onClose={() => setSearchVisible(false)}
+          onSearch={handleSearchChange}
+          onNavigate={handleSearchNavigate}
+          currentResult={currentMatchIndex}
+          totalResults={matchingMessageIndices.length}
+        />
 
         <MessageList
           messages={currentChat?.messages || []}
@@ -485,6 +555,8 @@ function HomeContent() {
           onRegenerate={handleRegenerate}
           onDeleteMessage={handleDeleteMessage}
           editingMessageIndex={editingMessageIndex}
+          searchQuery={searchQuery}
+          highlightedMessageIndex={matchingMessageIndices[currentMatchIndex]}
         />
 
         <ChatInput

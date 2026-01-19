@@ -4,7 +4,7 @@ import { Message } from '@/types/chat';
 import { MessageItem } from './MessageItem';
 import { TypingIndicator } from './TypingIndicator';
 import { EmptyState } from './EmptyState';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 
 interface MessageListProps {
   messages: Message[];
@@ -14,6 +14,8 @@ interface MessageListProps {
   onRegenerate?: () => void;
   onDeleteMessage?: (messageIndex: number) => void;
   editingMessageIndex?: number | null;
+  searchQuery?: string;
+  highlightedMessageIndex?: number | null;
 }
 
 export function MessageList({
@@ -23,9 +25,21 @@ export function MessageList({
   onEditMessage,
   onRegenerate,
   onDeleteMessage,
-  editingMessageIndex = null
+  editingMessageIndex = null,
+  searchQuery = '',
+  highlightedMessageIndex = null
 }: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Find messages that match the search query
+  const matchingMessageIndices = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const regex = new RegExp(searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    return messages
+      .map((msg, idx) => ({ idx, matches: regex.test(msg.content) }))
+      .filter(({ matches }) => matches)
+      .map(({ idx }) => idx);
+  }, [messages, searchQuery]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -54,18 +68,25 @@ export function MessageList({
       <div className="max-w-3xl mx-auto px-4 py-6">
         <div className="flex flex-col gap-5">
           {messages.map((message, index) => (
-            <MessageItem
+            <div
               key={`${message.role}-${index}`}
-              message={message}
-              index={index}
-              isLast={index === messages.length - 1}
-              isEditing={editingMessageIndex === index}
-              onEditComplete={(newContent) => onEditMessage?.(index, newContent)}
-              onCancelEdit={() => onEditMessage?.(-1, '')}
-              onEdit={() => onEditMessage?.(index, '')}
-              onRegenerate={index === messages.length - 1 && message.role === 'assistant' && !isLoading ? onRegenerate : undefined}
-              onDelete={onDeleteMessage ? () => onDeleteMessage(index) : undefined}
-            />
+              id={`message-${index}`}
+              className={highlightedMessageIndex === index ? 'animate-pulse' : ''}
+            >
+              <MessageItem
+                message={message}
+                index={index}
+                isLast={index === messages.length - 1}
+                isEditing={editingMessageIndex === index}
+                searchQuery={searchQuery}
+                isSearchMatch={matchingMessageIndices.includes(index)}
+                onEditComplete={(newContent) => onEditMessage?.(index, newContent)}
+                onCancelEdit={() => onEditMessage?.(-1, '')}
+                onEdit={() => onEditMessage?.(index, '')}
+                onRegenerate={index === messages.length - 1 && message.role === 'assistant' && !isLoading ? onRegenerate : undefined}
+                onDelete={onDeleteMessage ? () => onDeleteMessage(index) : undefined}
+              />
+            </div>
           ))}
           {isLoading && <TypingIndicator />}
           <div ref={bottomRef} />

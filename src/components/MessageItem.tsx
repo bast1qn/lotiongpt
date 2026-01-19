@@ -17,6 +17,8 @@ interface MessageItemProps {
   isEditing?: boolean;
   onEditComplete?: (newContent: string) => void;
   onCancelEdit?: () => void;
+  searchQuery?: string;
+  isSearchMatch?: boolean;
 }
 
 export function MessageItem({
@@ -28,13 +30,31 @@ export function MessageItem({
   isLast = false,
   isEditing = false,
   onEditComplete,
-  onCancelEdit
+  onCancelEdit,
+  searchQuery = '',
+  isSearchMatch = false
 }: MessageItemProps) {
   const isUser = message.role === 'user';
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [editContent, setEditContent] = useState(message.content);
   const { showToast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  // Highlight search matches in text
+  const highlightText = (text: string, query: string): string => {
+    if (!query.trim()) return text;
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark class="bg-[var(--color-primary-500)]/30 text-[var(--color-text-primary)] px-0.5 rounded">$1</mark>');
+  };
+
+  // Format message with optional highlighting
+  const formatMessageWithHighlight = (content: string) => {
+    const formatted = formatMessage(content);
+    if (searchQuery.trim()) {
+      return highlightText(formatted, searchQuery);
+    }
+    return formatted;
+  };
 
   const handleCopy = async () => {
     const success = await copyToClipboard(message.content);
@@ -314,12 +334,14 @@ export function MessageItem({
                 'inline-block rounded-2xl px-4 py-3 max-w-full',
                 isUser
                   ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white rounded-tr-sm'
-                  : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)] rounded-tl-sm'
+                  : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)] rounded-tl-sm',
+                isSearchMatch && 'ring-2 ring-[var(--color-primary-500)]'
               )}
             >
-              <div className="text-[15px] leading-relaxed prose prose-invert prose-p:last:mb-0 max-w-none">
-                {formatMessage(message.content)}
-              </div>
+              <div
+                className="text-[15px] leading-relaxed prose prose-invert prose-p:last:mb-0 max-w-none"
+                dangerouslySetInnerHTML={{ __html: formatMessageWithHighlight(message.content) }}
+              />
             </div>
           ) : null}
         </div>
