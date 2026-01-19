@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Chat, Message, ImageAttachment, FileAttachment } from '@/types/chat';
 import { truncateTitle } from '@/lib/utils';
 import { Sidebar } from '@/components/Sidebar';
 import { MessageList } from '@/components/MessageList';
-import { ChatInput, ChatModel } from '@/components/ChatInput';
+import { ChatInput, ChatInputRef, ChatModel } from '@/components/ChatInput';
 import { Icons } from '@/components/Icons';
 import { AuthGuard } from '@/components/AuthGuard';
+import { KeyboardShortcutsModal } from '@/components/KeyboardShortcutsModal';
 import { fetchChats, createChat, updateChat, deleteChat, fetchChat } from '@/lib/db/chats';
 import { getMemoriesForContext, extractMemoriesFromMessage, createMemory } from '@/lib/db/memories';
 import { storage } from '@/lib/storage';
+import { useKeyboardShortcuts } from '@/lib/hooks/useKeyboardShortcuts';
 
 function HomeContent() {
   const [chats, setChats] = useState<Chat[]>([]);
@@ -24,6 +26,10 @@ function HomeContent() {
   const [thinkingEnabled, setThinkingEnabled] = useState(true);
   const [editingMessageIndex, setEditingMessageIndex] = useState<number | null>(null);
   const [showFileUpload, setShowFileUpload] = useState(false);
+  const [showKeyboardShortcuts, setShowKeyboardShortcuts] = useState(false);
+
+  // Ref for ChatInput send function
+  const chatInputRef = useRef<ChatInputRef>(null);
 
   // Load chats from Supabase
   const loadChats = async () => {
@@ -338,6 +344,72 @@ function HomeContent() {
     handleSendMessage(suggestion);
   };
 
+  // Keyboard shortcuts (defined after all handlers)
+  useKeyboardShortcuts({
+    newChat: {
+      key: 'k',
+      ctrlKey: true,
+      metaKey: true,
+      description: 'Neuer Chat',
+      action: handleNewChat,
+    },
+    toggleSidebar: {
+      key: 'b',
+      ctrlKey: true,
+      metaKey: true,
+      description: 'Sidebar umschalten',
+      action: () => setSidebarOpen(prev => !prev),
+    },
+    sendMessage: {
+      key: 'enter',
+      metaKey: true,
+      description: 'Nachricht senden',
+      action: () => chatInputRef.current?.send(),
+      preventDefault: true,
+    },
+    copyLastResponse: {
+      key: 'c',
+      ctrlKey: true,
+      shiftKey: true,
+      description: 'Letzte Antwort kopieren',
+      action: () => {
+        if (currentChat && currentChat.messages.length > 0) {
+          const lastAssistantMsg = [...currentChat.messages].reverse().find(m => m.role === 'assistant');
+          if (lastAssistantMsg) {
+            navigator.clipboard.writeText(lastAssistantMsg.content);
+          }
+        }
+      },
+    },
+    editLastMessage: {
+      key: 'e',
+      ctrlKey: true,
+      metaKey: true,
+      description: 'Letzte Nachricht bearbeiten',
+      action: () => {
+        if (currentChat && currentChat.messages.length > 0) {
+          const lastUserMsgIndex = [...currentChat.messages].reverse().findIndex(m => m.role === 'user');
+          if (lastUserMsgIndex !== -1) {
+            const actualIndex = currentChat.messages.length - 1 - lastUserMsgIndex;
+            handleEditMessage(actualIndex, '');
+          }
+        }
+      },
+    },
+    focusSearch: {
+      key: '/',
+      ctrlKey: true,
+      metaKey: true,
+      description: 'Suche fokussieren',
+      action: () => setSidebarOpen(true),
+    },
+    showShortcuts: {
+      key: '?',
+      description: 'Tastaturkürzel anzeigen',
+      action: () => setShowKeyboardShortcuts(true),
+    },
+  });
+
   if (isLoadingChats) {
     return (
       <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)]">
@@ -369,19 +441,40 @@ function HomeContent() {
       />
 
       <main className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)]">
-        <header className="flex-shrink-0 flex items-center gap-4 px-4 sm:px-5 py-3 sm:py-4 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)]/80 backdrop-blur-sm">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
-          >
-            <Icons.Menu />
-          </button>
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-[var(--color-primary-500)] animate-pulse" />
-            <h1 className="text-sm font-medium text-[var(--color-text-secondary)]">
-              {currentChat?.title || 'Neuer Chat'}
-            </h1>
+        <header className="flex-shrink-0 flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)]/80 backdrop-blur-sm">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
+            >
+              <Icons.Menu />
+            </button>
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-[var(--color-primary-500)] animate-pulse" />
+              <h1 className="text-sm font-medium text-[var(--color-text-secondary)]">
+                {currentChat?.title || 'Neuer Chat'}
+              </h1>
+            </div>
           </div>
+          <button
+            onClick={() => setShowKeyboardShortcuts(true)}
+            className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-200"
+            title="Tastaturkürzel anzeigen (?)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M6 8h.01" />
+              <path d="M10 8h.01" />
+              <path d="M14 8h.01" />
+              <path d="M18 8h.01" />
+              <path d="M6 12h.01" />
+              <path d="M10 12h.01" />
+              <path d="M14 12h.01" />
+              <path d="M18 12h.01" />
+              <path d="M8 16h.01" />
+              <path d="M16 16h.01" />
+            </svg>
+          </button>
         </header>
 
         <MessageList
@@ -403,8 +496,14 @@ function HomeContent() {
           onThinkingChange={setThinkingEnabled}
           showFileUpload={showFileUpload}
           onToggleFileUpload={() => setShowFileUpload(!showFileUpload)}
+          ref={chatInputRef}
         />
       </main>
+
+      <KeyboardShortcutsModal
+        isOpen={showKeyboardShortcuts}
+        onClose={() => setShowKeyboardShortcuts(false)}
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, KeyboardEvent } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent, forwardRef, useImperativeHandle, useCallback } from 'react';
 import { Icons } from './Icons';
 import { ImageAttachment, FileAttachment } from '@/types/chat';
 import { cn } from '@/lib/utils';
@@ -8,6 +8,11 @@ import { storage } from '@/lib/storage';
 import { FileUpload } from './FileUpload';
 
 export type ChatModel = 'glm-4.6' | 'glm-4.7' | 'gemini-2.5-pro' | 'gemini-2.5-flash' | 'gpt-4.1' | 'claude-4.5-sonnet';
+
+export interface ChatInputRef {
+  send: () => void;
+  focus: () => void;
+}
 
 interface ChatInputProps {
   onSend: (message: string, images?: ImageAttachment[], files?: FileAttachment[]) => void;
@@ -29,7 +34,7 @@ const MODEL_INFO: Record<ChatModel, { name: string; provider: string; icon: stri
   'claude-4.5-sonnet': { name: 'Claude 4.5', provider: 'Anthropic', icon: '🧠' },
 };
 
-export function ChatInput({
+export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatInput({
   onSend,
   isLoading = false,
   selectedModel = 'glm-4.7',
@@ -38,7 +43,7 @@ export function ChatInput({
   onThinkingChange,
   showFileUpload = false,
   onToggleFileUpload
-}: ChatInputProps) {
+}, ref) {
   const [input, setInput] = useState('');
   const [images, setImages] = useState<ImageAttachment[]>([]);
   const [files, setFiles] = useState<FileAttachment[]>([]);
@@ -47,6 +52,26 @@ export function ChatInput({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const modelPickerRef = useRef<HTMLDivElement>(null);
+
+  // Handle send - defined before useImperativeHandle
+  const handleSend = useCallback(() => {
+    const trimmed = input.trim();
+    if ((trimmed || images.length > 0 || files.length > 0) && !isLoading) {
+      onSend(trimmed, images.length > 0 ? images : undefined, files.length > 0 ? files : undefined);
+      setInput('');
+      setImages([]);
+      setFiles([]);
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
+    }
+  }, [input, images, files, isLoading, onSend]);
+
+  // Expose methods via ref
+  useImperativeHandle(ref, () => ({
+    send: handleSend,
+    focus: () => textareaRef.current?.focus(),
+  }), [handleSend]);
 
   // Get initial settings from storage
   useEffect(() => {
@@ -150,19 +175,6 @@ export function ChatInput({
 
   const handleFileRemove = (index: number) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleSend = () => {
-    const trimmed = input.trim();
-    if ((trimmed || images.length > 0 || files.length > 0) && !isLoading) {
-      onSend(trimmed, images.length > 0 ? images : undefined, files.length > 0 ? files : undefined);
-      setInput('');
-      setImages([]);
-      setFiles([]);
-      if (textareaRef.current) {
-        textareaRef.current.style.height = 'auto';
-      }
-    }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -468,9 +480,9 @@ export function ChatInput({
 
         {/* Footer hint */}
         <p className="text-center text-xs text-[var(--color-text-muted)] mt-3">
-          Enter zum Senden, Shift + Enter für neue Zeile
+          Enter zum Senden, Shift + Enter für neue Zeile · Drücke ? für Tastaturkürzel
         </p>
       </div>
     </div>
   );
-}
+});
