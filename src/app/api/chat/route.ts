@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ImageAttachment } from '@/types/chat';
 
-const ZAI_API_URL = 'https://api.z.ai/api/paas/v4/chat/completions';
+const ZAI_API_URL = 'https://api.z.ai/api/coding/paas/v4/chat/completions';
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
@@ -52,10 +52,10 @@ function formatMessageContent(message: ChatMessage): string | Array<{ type: stri
 export async function POST(request: NextRequest) {
   try {
     const body: ChatRequest = await request.json();
-    const { messages, model = 'glm-4.6', visionModel = 'glm-4.6v-flashx', temperature = 0.7, maxTokens = 4096 } = body;
+    const { messages, model = 'glm-4-flash', visionModel = 'glm-4v-flash', temperature = 0.7, maxTokens = 4096 } = body;
 
-    // API Key from header or default
-    const apiKey = request.headers.get('x-api-key') || '5fcd17049e3b4b98bd3634993e32e923.TUudeRsviXYEU6D5';
+    // API Key from environment variable or header
+    const apiKey = request.headers.get('x-api-key') || process.env.ZAI_API_KEY || '';
 
     // Check if any message has images - if so, use vision model
     const hasImages = messages.some((m) => m.images && m.images.length > 0);
