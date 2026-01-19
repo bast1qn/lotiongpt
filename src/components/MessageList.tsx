@@ -4,7 +4,7 @@ import { Message } from '@/types/chat';
 import { MessageItem } from './MessageItem';
 import { TypingIndicator } from './TypingIndicator';
 import { EmptyState } from './EmptyState';
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useState, useCallback } from 'react';
 
 interface MessageListProps {
   messages: Message[];
@@ -34,6 +34,8 @@ export function MessageList({
   starredIndices = []
 }: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   // Find messages that match the search query
   const matchingMessageIndices = useMemo(() => {
@@ -45,9 +47,28 @@ export function MessageList({
       .map(({ idx }) => idx);
   }, [messages, searchQuery]);
 
+  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
+    if (!showScrollButton) {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isLoading, editingMessageIndex, showScrollButton]);
+
+  // Track scroll position to show/hide jump button
+  const handleScroll = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+    setShowScrollButton(distanceFromBottom > 100);
+  }, []);
+
+  // Scroll to bottom
+  const scrollToBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading, editingMessageIndex]);
+    setShowScrollButton(false);
+  }, []);
 
   // Empty state
   if (messages.length === 0) {
@@ -68,8 +89,26 @@ export function MessageList({
   }
 
   return (
-    <div className="flex-1 overflow-y-auto">
-      <div className="max-w-3xl mx-auto px-4 py-6">
+    <div className="flex-1 overflow-y-auto relative">
+      {/* Jump to Bottom Button */}
+      {showScrollButton && (
+        <button
+          onClick={scrollToBottom}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-full shadow-lg shadow-[var(--color-primary-glow)] transition-all duration-200 hover:scale-105 animate-fade-in-up flex items-center gap-2"
+        >
+          <span className="text-sm font-medium">Neue Nachricht</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+            <polyline points="18 15 12 9 6 9" />
+          </svg>
+        </button>
+      )}
+
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="max-w-3xl mx-auto px-4 py-6"
+      >
         <div className="flex flex-col gap-5">
           {messages.map((message, index) => (
             <div
