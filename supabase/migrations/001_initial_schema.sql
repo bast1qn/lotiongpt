@@ -167,7 +167,69 @@ CREATE POLICY "Users can delete messages of own chats"
 CREATE INDEX IF NOT EXISTS idx_messages_chat_id ON messages(chat_id, created_at);
 
 -- =====================================================
--- 4. HELPER FUNCTIONS
+-- 4. MEMORIES TABLE
+-- =====================================================
+-- Stores user memories/preferences that the AI should remember
+CREATE TABLE IF NOT EXISTS memories (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  key TEXT NOT NULL,           -- e.g. 'birthday', 'name', 'location'
+  value TEXT NOT NULL,         -- e.g. '15.03.1990', 'Max', 'Berlin'
+  category TEXT NOT NULL CHECK (category IN ('personal', 'preferences', 'context', 'other')),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE memories ENABLE ROW LEVEL SECURITY;
+
+-- Memories Policies
+CREATE POLICY "Users can view own memories"
+  ON memories FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can create own memories"
+  ON memories FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own memories"
+  ON memories FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own memories"
+  ON memories FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_memories_user_id ON memories(user_id);
+CREATE INDEX IF NOT EXISTS idx_memories_category ON memories(user_id, category);
+
+-- Update updated_at timestamp
+CREATE TRIGGER update_memories_updated_at
+  BEFORE UPDATE ON memories
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Function to get all memories for current user
+CREATE OR REPLACE FUNCTION get_user_memories()
+RETURNS TABLE (
+  id UUID,
+  user_id UUID,
+  key TEXT,
+  value TEXT,
+  category TEXT,
+  created_at TIMESTAMP WITH TIME ZONE,
+  updated_at TIMESTAMP WITH TIME ZONE
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT * FROM memories
+  WHERE user_id = auth.uid()
+  ORDER BY created_at DESC;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- =====================================================
+-- 5. HELPER FUNCTIONS
 -- =====================================================
 
 -- Function to get all chats for current user
@@ -230,5 +292,5 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- =====================================================
 -- SETUP COMPLETE
 -- =====================================================
--- Your database is now ready for LotionGPT!
+-- Your database is now ready for LotionGPT with Memories!
 -- =====================================================

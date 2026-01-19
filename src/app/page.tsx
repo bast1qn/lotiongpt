@@ -9,6 +9,7 @@ import { ChatInput } from '@/components/ChatInput';
 import { Icons } from '@/components/Icons';
 import { AuthGuard } from '@/components/AuthGuard';
 import { fetchChats, createChat, updateChat, deleteChat, fetchChat } from '@/lib/db/chats';
+import { getMemoriesForContext, extractMemoriesFromMessage, createMemory } from '@/lib/db/memories';
 import { storage } from '@/lib/storage';
 
 function HomeContent() {
@@ -50,6 +51,15 @@ function HomeContent() {
   const handleNewChat = async () => {
     try {
       const newChat = await createChat('Neuer Chat');
+
+      // Inject memories as system message for new chats
+      const memoriesContext = await getMemoriesForContext();
+      if (memoriesContext) {
+        const systemMessage: Message = { role: 'system', content: memoriesContext };
+        newChat.messages = [systemMessage];
+        await updateChat(newChat.id, newChat.messages, newChat.title);
+      }
+
       setChats((prev) => [newChat, ...prev]);
       setCurrentChat(newChat);
       setSidebarOpen(false);
@@ -151,6 +161,12 @@ function HomeContent() {
         ],
         updatedAt: new Date().toISOString(),
       };
+
+      // Extract memories from the conversation
+      const extractedMemories = await extractMemoriesFromMessage(content, data.content);
+      for (const memory of extractedMemories) {
+        await createMemory(memory);
+      }
 
       // In Supabase speichern
       await updateChat(finalChat.id, finalChat.messages, finalChat.title);

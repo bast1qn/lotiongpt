@@ -31,3 +31,21 @@ export interface ChatResponse {
   content: string;
   model?: string;
 }
+
+export type MemoryCategory = 'personal' | 'preferences' | 'context' | 'other';
+
+export interface Memory {
+  id: string;
+  userId: string;
+  key: string;        // e.g. "birthday", "name", "preferred_language"
+  value: string;      // e.g. "15.03.1990", "Max", "German"
+  category: MemoryCategory;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MemoryFormData {
+  key: string;
+  value: string;
+  category: MemoryCategory;
+}
