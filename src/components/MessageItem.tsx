@@ -21,6 +21,8 @@ interface MessageItemProps {
   searchQuery?: string;
   isSearchMatch?: boolean;
   isStarred?: boolean;
+  suggestions?: string[];
+  onSuggestionClick?: (suggestion: string) => void;
 }
 
 export function MessageItem({
@@ -36,7 +38,9 @@ export function MessageItem({
   onCancelEdit,
   searchQuery = '',
   isSearchMatch = false,
-  isStarred = false
+  isStarred = false,
+  suggestions = [],
+  onSuggestionClick
 }: MessageItemProps) {
   const isUser = message.role === 'user';
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
@@ -366,6 +370,22 @@ export function MessageItem({
               />
             </div>
           ) : null}
+
+          {/* Suggested Follow-ups */}
+          {!isUser && !isEditing && suggestions.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3 ml-1">
+              {suggestions.map((suggestion, i) => (
+                <button
+                  key={i}
+                  onClick={() => onSuggestionClick?.(suggestion)}
+                  className="px-3 py-1.5 text-xs bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-primary-500)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-500)] rounded-lg transition-all duration-200 animate-fade-in"
+                  style={{ animationDelay: `${i * 50}ms` }}
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

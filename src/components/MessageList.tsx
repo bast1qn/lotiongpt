@@ -5,6 +5,7 @@ import { MessageItem } from './MessageItem';
 import { TypingIndicator } from './TypingIndicator';
 import { EmptyState } from './EmptyState';
 import { useEffect, useRef, useMemo, useState, useCallback } from 'react';
+import { generateSuggestions } from '@/lib/suggestions';
 
 interface MessageListProps {
   messages: Message[];
@@ -46,6 +47,15 @@ export function MessageList({
       .filter(({ matches }) => matches)
       .map(({ idx }) => idx);
   }, [messages, searchQuery]);
+
+  // Generate suggestions for each message
+  const getSuggestions = useCallback((message: Message, index: number) => {
+    // Only show suggestions for the last assistant message
+    if (message.role !== 'assistant' || index !== messages.length - 1) return [];
+    // Don't show if currently loading
+    if (isLoading) return [];
+    return generateSuggestions(message, messages);
+  }, [messages, isLoading]);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -124,6 +134,8 @@ export function MessageList({
                 searchQuery={searchQuery}
                 isSearchMatch={matchingMessageIndices.includes(index)}
                 isStarred={starredIndices.includes(index)}
+                suggestions={getSuggestions(message, index)}
+                onSuggestionClick={onSuggestionClick}
                 onEditComplete={(newContent) => onEditMessage?.(index, newContent)}
                 onCancelEdit={() => onEditMessage?.(-1, '')}
                 onEdit={() => onEditMessage?.(index, '')}
