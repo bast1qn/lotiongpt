@@ -49,11 +49,6 @@ export const storage = {
     this.saveChats(chats);
   },
 
-  deleteChat(id: string): void {
-    const chats = this.getChats().filter(c => c.id !== id);
-    this.saveChats(chats);
-  },
-
   createChat(title = 'Neuer Chat'): Chat {
     const chat: Chat = {
       id: Date.now().toString(),
@@ -64,6 +59,42 @@ export const storage = {
     };
     this.saveChat(chat);
     return chat;
+  },
+
+  // Branching
+  createBranch(
+    parentChat: Chat,
+    fromIndex: number,
+    branchTitle?: string
+  ): Chat {
+    // Messages up to and including the branch point
+    const branchMessages = parentChat.messages.slice(0, fromIndex + 1);
+
+    const chat: Chat = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      title: branchTitle || `${parentChat.title} (Branch)`,
+      messages: branchMessages,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      parentChatId: parentChat.id,
+      branchFromIndex: fromIndex,
+    };
+    this.saveChat(chat);
+    return chat;
+  },
+
+  getBranches(parentChatId: string): Chat[] {
+    return this.getChats().filter(c => c.parentChatId === parentChatId);
+  },
+
+  deleteChat(id: string): void {
+    // First, delete all branches of this chat
+    const branches = this.getBranches(id);
+    branches.forEach(branch => this.deleteChat(branch.id));
+
+    // Then delete the chat itself
+    const chats = this.getChats().filter(c => c.id !== id);
+    this.saveChats(chats);
   },
 
   // Settings

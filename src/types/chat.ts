@@ -31,6 +31,10 @@ export interface Chat {
   messages: Message[];
   createdAt: string;
   updatedAt: string;
+  // Branching support
+  parentChatId?: string;
+  branchFromIndex?: number; // The message index from which this branch was created
+  branchTitle?: string; // Optional custom title for the branch
 }
 
 export interface ChatRequest {

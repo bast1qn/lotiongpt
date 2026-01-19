@@ -375,6 +375,38 @@ function HomeContent() {
     }
   };
 
+  const handleBranch = async (messageIndex: number) => {
+    if (!currentChat) return;
+
+    // Create a branch from the current chat up to the specified message index
+    try {
+      const branchChat = await createChat(
+        `${currentChat.title} (Branch ${messageIndex + 1})`
+      );
+
+      // Copy messages up to and including the branch point
+      const branchMessages = currentChat.messages.slice(0, messageIndex + 1);
+
+      await updateChat(branchChat.id, branchMessages, branchChat.title);
+
+      // Update local state
+      const updatedBranch = { ...branchChat, messages: branchMessages };
+      setChats((prev) => [updatedBranch, ...prev]);
+      setCurrentChat(updatedBranch);
+      loadStarredIndices(branchChat.id);
+    } catch (error) {
+      console.error('Error creating branch:', error);
+      // Fallback to local storage
+      const branchChat = storage.createBranch(
+        currentChat,
+        messageIndex,
+        `${currentChat.title} (Branch ${messageIndex + 1})`
+      );
+      setChats((prev) => [branchChat, ...prev]);
+      setCurrentChat(branchChat);
+    }
+  };
+
   // Keyboard shortcuts (defined after all handlers)
   useKeyboardShortcuts({
     newChat: {
@@ -590,6 +622,7 @@ function HomeContent() {
           onRegenerate={handleRegenerate}
           onDeleteMessage={handleDeleteMessage}
           onToggleStar={handleToggleStar}
+          onBranch={handleBranch}
           editingMessageIndex={editingMessageIndex}
           searchQuery={searchQuery}
           highlightedMessageIndex={matchingMessageIndices[currentMatchIndex]}

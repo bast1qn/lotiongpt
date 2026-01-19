@@ -15,6 +15,7 @@ interface MessageListProps {
   onRegenerate?: () => void;
   onDeleteMessage?: (messageIndex: number) => void;
   onToggleStar?: (messageIndex: number) => void;
+  onBranch?: (messageIndex: number) => void;
   editingMessageIndex?: number | null;
   searchQuery?: string;
   highlightedMessageIndex?: number | null;
@@ -29,6 +30,7 @@ export function MessageList({
   onRegenerate,
   onDeleteMessage,
   onToggleStar,
+  onBranch,
   editingMessageIndex = null,
   searchQuery = '',
   highlightedMessageIndex = null,
@@ -142,6 +144,7 @@ export function MessageList({
                 onRegenerate={index === messages.length - 1 && message.role === 'assistant' && !isLoading ? onRegenerate : undefined}
                 onDelete={onDeleteMessage ? () => onDeleteMessage(index) : undefined}
                 onToggleStar={onToggleStar ? () => onToggleStar(index) : undefined}
+                onBranch={onBranch && message.role === 'assistant' ? () => onBranch(index) : undefined}
               />
             </div>
           ))}
