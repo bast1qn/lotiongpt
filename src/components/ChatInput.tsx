@@ -6,6 +6,7 @@ import { ImageAttachment, FileAttachment } from '@/types/chat';
 import { cn } from '@/lib/utils';
 import { storage } from '@/lib/storage';
 import { FileUpload } from './FileUpload';
+import { PromptTemplates } from './PromptTemplates';
 
 export type ChatModel = 'glm-4.6' | 'glm-4.7' | 'gemini-2.5-pro' | 'gemini-2.5-flash' | 'gpt-4.1' | 'claude-4.5-sonnet';
 
@@ -23,6 +24,7 @@ interface ChatInputProps {
   onThinkingChange?: (enabled: boolean) => void;
   showFileUpload?: boolean;
   onToggleFileUpload?: () => void;
+  onTemplateSelect?: (prompt: string) => void;
 }
 
 const MODEL_INFO: Record<ChatModel, { name: string; provider: string; icon: string }> = {
@@ -42,7 +44,8 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
   thinkingEnabled = true,
   onThinkingChange,
   showFileUpload = false,
-  onToggleFileUpload
+  onToggleFileUpload,
+  onTemplateSelect
 }, ref) {
   const [input, setInput] = useState('');
   const [images, setImages] = useState<ImageAttachment[]>([]);
@@ -182,6 +185,12 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
       e.preventDefault();
       handleSend();
     }
+  };
+
+  const handleTemplateSelect = (prompt: string) => {
+    setInput(prompt);
+    textareaRef.current?.focus();
+    onTemplateSelect?.(prompt);
   };
 
   const handlePaste = async (e: React.ClipboardEvent) => {
@@ -345,6 +354,9 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             <Icons.Paperclip />
             <span className="hidden sm:inline">Dateien</span>
           </button>
+
+          {/* Prompt Templates */}
+          <PromptTemplates onTemplateSelect={handleTemplateSelect} />
 
           {/* Spacer */}
           <div className="flex-1" />
