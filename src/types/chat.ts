@@ -63,6 +63,76 @@ export interface MemoryFormData {
   category: MemoryCategory;
 }
 
+// Project types
+export interface Project {
+  id: string;
+  userId: string;
+  name: string;
+  description?: string;
+  color: string;
+  chatCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProjectFormData {
+  name: string;
+  description?: string;
+  color?: string;
+}
+
+// Code Snippet types
+export interface CodeSnippet {
+  id: string;
+  userId: string;
+  title: string;
+  code: string;
+  language: string;
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SnippetFormData {
+  title: string;
+  code: string;
+  language: string;
+  tags: string[];
+}
+
+export const PROJECT_COLORS = [
+  { name: 'Rot', value: '#ef4444', bg: 'bg-red-500' },
+  { name: 'Orange', value: '#f97316', bg: 'bg-orange-500' },
+  { name: 'Amber', value: '#f59e0b', bg: 'bg-amber-500' },
+  { name: 'Grün', value: '#22c55e', bg: 'bg-green-500' },
+  { name: 'Cyan', value: '#06b6d4', bg: 'bg-cyan-500' },
+  { name: 'Blau', value: '#3b82f6', bg: 'bg-blue-500' },
+  { name: 'Lila', value: '#8b5cf6', bg: 'bg-violet-500' },
+  { name: 'Pink', value: '#ec4899', bg: 'bg-pink-500' },
+  { name: 'Grau', value: '#6b7280', bg: 'bg-gray-500' },
+];
+
+export const SNIPPET_LANGUAGES = [
+  { id: 'javascript', name: 'JavaScript', icon: '🟨' },
+  { id: 'typescript', name: 'TypeScript', icon: '🔷' },
+  { id: 'python', name: 'Python', icon: '🐍' },
+  { id: 'java', name: 'Java', icon: '☕' },
+  { id: 'cpp', name: 'C++', icon: '⚡' },
+  { id: 'c', name: 'C', icon: '🔧' },
+  { id: 'go', name: 'Go', icon: '🐹' },
+  { id: 'rust', name: 'Rust', icon: '🦀' },
+  { id: 'php', name: 'PHP', icon: '🐘' },
+  { id: 'ruby', name: 'Ruby', icon: '💎' },
+  { id: 'swift', name: 'Swift', icon: '🍎' },
+  { id: 'kotlin', name: 'Kotlin', icon: '🤖' },
+  { id: 'sql', name: 'SQL', icon: '🗃️' },
+  { id: 'html', name: 'HTML', icon: '🌐' },
+  { id: 'css', name: 'CSS', icon: '🎨' },
+  { id: 'bash', name: 'Bash', icon: '🐚' },
+  { id: 'json', name: 'JSON', icon: '📋' },
+  { id: 'other', name: 'Other', icon: '📄' },
+];
+
 // File type configurations
 export const FILE_TYPE_CONFIGS: Record<FileType, {
   extensions: string[];

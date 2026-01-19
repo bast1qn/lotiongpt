@@ -294,3 +294,101 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- =====================================================
 -- Your database is now ready for LotionGPT with Memories!
 -- =====================================================
+
+-- =====================================================
+-- 6. PROJECTS TABLE
+-- =====================================================
+-- Stores user projects for organizing chats
+CREATE TABLE IF NOT EXISTS projects (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  color TEXT DEFAULT '#6366f1',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+
+-- Projects Policies
+CREATE POLICY "Users can view own projects"
+  ON projects FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can create own projects"
+  ON projects FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own projects"
+  ON projects FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own projects"
+  ON projects FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_projects_user_id ON projects(user_id);
+CREATE INDEX IF NOT EXISTS idx_projects_updated_at ON projects(user_id, updated_at DESC);
+
+-- Update updated_at timestamp
+CREATE TRIGGER update_projects_updated_at
+  BEFORE UPDATE ON projects
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Add project_id column to chats
+ALTER TABLE chats ADD COLUMN IF NOT EXISTS project_id UUID REFERENCES projects(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_chats_project ON chats(project_id);
+
+-- =====================================================
+-- 7. CODE SNIPPETS TABLE
+-- =====================================================
+-- Stores reusable code snippets
+CREATE TABLE IF NOT EXISTS snippets (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  title TEXT NOT NULL,
+  code TEXT NOT NULL,
+  language TEXT NOT NULL DEFAULT 'javascript',
+  tags TEXT[] DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE snippets ENABLE ROW LEVEL SECURITY;
+
+-- Snippets Policies
+CREATE POLICY "Users can view own snippets"
+  ON snippets FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can create own snippets"
+  ON snippets FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own snippets"
+  ON snippets FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own snippets"
+  ON snippets FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_snippets_user_id ON snippets(user_id);
+CREATE INDEX IF NOT EXISTS idx_snippets_language ON snippets(user_id, language);
+CREATE INDEX IF NOT EXISTS idx_snippets_tags ON snippets USING GIN(tags);
+
+-- Update updated_at timestamp
+CREATE TRIGGER update_snippets_updated_at
+  BEFORE UPDATE ON snippets
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- =====================================================
+-- SETUP COMPLETE
+-- =====================================================
+-- Your database is now ready for LotionGPT with Memories, Projects, and Snippets!
+-- =====================================================
