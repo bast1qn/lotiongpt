@@ -48,48 +48,57 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   return (
     <div className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center p-4">
-      {/* Backdrop */}
+      {/* Enhanced Backdrop with gradient */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70 backdrop-blur-md animate-fade-in"
         onClick={onClose}
       />
 
-      {/* Modal */}
-      <div className="relative w-full max-w-md bg-[var(--color-bg-secondary)] rounded-xl border border-[var(--color-border-subtle)] shadow-2xl animate-scale-in-spring overflow-hidden">
-        {/* Header with Tabs */}
-        <div className="border-b border-[var(--color-border-subtle)]">
+      {/* Modal with glassmorphism */}
+      <div className="relative w-full max-w-md bg-[var(--color-bg-glass-strong)] backdrop-blur-xl rounded-2xl border border-[var(--glass-border)] shadow-2xl shadow-black/50 animate-scale-in-spring overflow-hidden">
+        {/* Subtle glow effect behind modal */}
+        <div className="absolute -inset-4 bg-[var(--color-primary-500)] opacity-5 blur-3xl -z-10" />
+
+        {/* Header with Tabs - Enhanced */}
+        <div className="border-b border-[var(--glass-border)] bg-gradient-to-b from-[var(--glass-highlight)] to-transparent">
           <div className="flex items-center">
             <button
               onClick={() => setActiveTab('settings')}
               className={cn(
-                'flex-1 px-5 py-4 text-sm font-medium transition-all relative',
+                'flex-1 px-5 py-4 text-sm font-medium transition-all relative group',
                 activeTab === 'settings'
                   ? 'text-[var(--color-text-primary)]'
                   : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
               )}
             >
-              Einstellungen
+              <span className="relative z-10">Einstellungen</span>
               {activeTab === 'settings' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-primary-500)]" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[var(--color-primary-500)] to-transparent shadow-md shadow-[var(--color-primary-glow)]" />
+              )}
+              {activeTab !== 'settings' && (
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--color-primary-500)] opacity-0 group-hover:opacity-50 transition-all duration-300" />
               )}
             </button>
             <button
               onClick={() => setActiveTab('memories')}
               className={cn(
-                'flex-1 px-5 py-4 text-sm font-medium transition-all relative',
+                'flex-1 px-5 py-4 text-sm font-medium transition-all relative group',
                 activeTab === 'memories'
                   ? 'text-[var(--color-text-primary)]'
                   : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
               )}
             >
-              Memories
+              <span className="relative z-10">Memories</span>
               {activeTab === 'memories' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-primary-500)]" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[var(--color-primary-500)] to-transparent shadow-md shadow-[var(--color-primary-glow)]" />
+              )}
+              {activeTab !== 'memories' && (
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--color-primary-500)] opacity-0 group-hover:opacity-50 transition-all duration-300" />
               )}
             </button>
             <button
               onClick={onClose}
-              className="px-4 hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+              className="px-4 hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:shadow-md rounded-xl transition-all duration-300 m-1"
             >
               <Icons.X />
             </button>
@@ -99,24 +108,29 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         {/* Content */}
         {activeTab === 'settings' ? (
           <>
-            <div className="p-5 space-y-5 max-h-[60vh] overflow-y-auto">
+            <div className="p-5 space-y-5 max-h-[60vh] overflow-y-auto sidebar-scroll">
               {/* API Key */}
               <div className="space-y-2">
-                <label className="block text-sm text-[var(--color-text-secondary)]">
+                <label className="block text-sm text-[var(--color-text-secondary)] font-medium">
                   API Key
                 </label>
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="Dein Z.ai API Key"
-                  className="w-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2.5 text-[var(--color-text-primary)] text-sm focus:outline-none focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] transition-all"
-                />
+                <div className="relative">
+                  <input
+                    type="password"
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    placeholder="Dein Z.ai API Key"
+                    className="w-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-3 text-[var(--color-text-primary)] text-sm focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300 placeholder:[var(--color-text-muted)]"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
+                    <Icons.Lock />
+                  </div>
+                </div>
               </div>
 
               {/* Text Model */}
               <div className="space-y-2">
-                <label className="block text-sm text-[var(--color-text-secondary)]">
+                <label className="block text-sm text-[var(--color-text-secondary)] font-medium">
                   Text-Modell
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -125,10 +139,10 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                       key={m}
                       onClick={() => setModel(m)}
                       className={cn(
-                        'p-2.5 rounded-lg text-sm font-medium transition-all',
+                        'p-3 rounded-xl text-sm font-medium transition-all duration-300 relative overflow-hidden',
                         model === m
-                          ? 'bg-[var(--color-primary-500)] text-white shadow-md shadow-[var(--color-primary-glow)]'
-                          : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-default)]'
+                          ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-[1.02]'
+                          : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-default)] hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
                       )}
                     >
                       {m.toUpperCase()}
@@ -139,7 +153,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
               {/* Vision Model */}
               <div className="space-y-2">
-                <label className="block text-sm text-[var(--color-text-secondary)]">
+                <label className="block text-sm text-[var(--color-text-secondary)] font-medium">
                   Vision-Modell (für Bilder)
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -152,13 +166,13 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                       key={m.id}
                       onClick={() => setVisionModel(m.id)}
                       className={cn(
-                        'p-2.5 rounded-lg text-sm font-medium transition-all flex flex-col items-center',
+                        'p-2.5 rounded-xl text-sm font-medium transition-all duration-300 flex flex-col items-center',
                         visionModel === m.id
-                          ? 'bg-[var(--color-primary-500)] text-white shadow-md shadow-[var(--color-primary-glow)]'
-                          : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-default)]'
+                          ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-[1.02]'
+                          : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-default)] hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
                       )}
                     >
-                      <span>{m.label}</span>
+                      <span className="font-medium">{m.label}</span>
                       <span className={cn('text-[10px]', visionModel === m.id ? 'text-white/70' : 'text-[var(--color-text-muted)]')}>
                         {m.desc}
                       </span>
@@ -168,27 +182,30 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               </div>
 
               {/* Temperature */}
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="block text-sm text-[var(--color-text-secondary)]">
+                  <label className="block text-sm text-[var(--color-text-secondary)] font-medium">
                     Temperature
                   </label>
-                  <span className="text-sm text-[var(--color-primary-500)]">{temperature}</span>
+                  <span className="text-sm font-semibold text-[var(--color-primary-500)] px-2 py-1 rounded-lg bg-[var(--color-primary-500)]/10">{temperature}</span>
                 </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value={temperature}
-                  onChange={(e) => setTemperature(parseFloat(e.target.value))}
-                  className="w-full h-1.5 bg-[var(--color-bg-tertiary)] rounded-full appearance-none cursor-pointer accent-[var(--color-primary-500)]"
-                />
+                <div className="relative">
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    value={temperature}
+                    onChange={(e) => setTemperature(parseFloat(e.target.value))}
+                    className="w-full h-2 bg-[var(--color-bg-tertiary)] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gradient-to-br [&::-webkit-slider-thumb]:from-[var(--color-primary-500)] [&::-webkit-slider-thumb]:to-[var(--color-primary-600)] [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:shadow-[var(--color-primary-glow)] [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
+                  />
+                  <div className="absolute inset-0 h-2 bg-gradient-to-r from-[var(--color-primary-500)]/20 to-[var(--color-primary-600)]/20 rounded-full pointer-events-none" style={{ width: `${temperature * 100}%` }} />
+                </div>
               </div>
 
               {/* Max Tokens */}
               <div className="space-y-2">
-                <label className="block text-sm text-[var(--color-text-secondary)]">
+                <label className="block text-sm text-[var(--color-text-secondary)] font-medium">
                   Max Tokens
                 </label>
                 <input
@@ -197,22 +214,22 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   max="32000"
                   value={maxTokens}
                   onChange={(e) => setMaxTokens(parseInt(e.target.value) || 4096)}
-                  className="w-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2.5 text-[var(--color-text-primary)] text-sm focus:outline-none focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] transition-all"
+                  className="w-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-3 text-[var(--color-text-primary)] text-sm focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
                 />
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="px-5 py-4 border-t border-[var(--color-border-subtle)] flex justify-end gap-2 bg-[var(--color-bg-tertiary)]">
+            {/* Enhanced Footer */}
+            <div className="px-5 py-4 border-t border-[var(--glass-border)] flex justify-end gap-3 bg-gradient-to-b from-[var(--glass-highlight)] to-[var(--color-bg-tertiary)]">
               <button
                 onClick={onClose}
-                className="px-4 py-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-lg text-sm font-medium transition-colors"
+                className="px-5 py-2.5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-md"
               >
                 Abbrechen
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg text-sm font-medium shadow-md shadow-[var(--color-primary-glow)] hover:shadow-lg hover:shadow-[var(--color-primary-glow-strong)] transition-all"
+                className="px-5 py-2.5 bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] hover:to-[var(--color-primary-700)] text-white rounded-xl text-sm font-medium shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105 transition-all duration-300"
               >
                 Speichern
               </button>

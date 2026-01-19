@@ -529,3 +529,40 @@
   transition: box-shadow var(--duration-slow) var(--ease-out),
               transform var(--duration-slow) var(--ease-spring);
 }
+
+/* ============================================
+   TOAST ANIMATIONS
+   ============================================ */
+
+@keyframes toastIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  60% {
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+  }
+}
+
+.animate-toast-in {
+  animation: toastIn 0.4s var(--ease-spring);
+}
+
+.animate-toast-out {
+  animation: toastOut 0.3s var(--ease-in);
+}
