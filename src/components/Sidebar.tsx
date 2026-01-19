@@ -1,50 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Chat } from '@/types/chat';
-import { storage } from '@/lib/storage';
-import { truncateTitle, formatDate, isToday, isThisWeek } from '@/lib/utils';
+import { formatDate, isToday, isThisWeek } from '@/lib/utils';
 import { Icons } from './Icons';
 import { SettingsModal } from './SettingsModal';
+import { AuthButton } from './AuthButton';
 import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   currentChatId: string | null;
   onChatSelect: (chatId: string) => void;
   onNewChat: () => void;
+  onDeleteChat: (id: string) => void;
+  chats: Chat[];
+  onRefreshChats: () => void;
   isOpen: boolean;
   onClose: () => void;
 }
 
 type FilterMode = 'all' | 'today' | 'week';
 
-export function Sidebar({ currentChatId, onChatSelect, onNewChat, isOpen, onClose }: SidebarProps) {
-  const [chats, setChats] = useState<Chat[]>([]);
+export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, chats, onRefreshChats, isOpen, onClose }: SidebarProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterMode, setFilterMode] = useState<FilterMode>('all');
-
-  useEffect(() => {
-    loadChats();
-  }, []);
-
-  const loadChats = () => {
-    setChats(storage.getChats());
-  };
-
-  const handleDeleteChat = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    storage.deleteChat(id);
-    loadChats();
-    if (currentChatId === id) {
-      const remaining = storage.getChats();
-      if (remaining.length > 0) {
-        onChatSelect(remaining[0].id);
-      } else {
-        onNewChat();
-      }
-    }
-  };
 
   // Filter chats based on search and filter mode
   const filteredChats = chats
@@ -65,6 +45,11 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, isOpen, onClos
     }
     groupedChats[dateKey].push(chat);
   });
+
+  const handleDeleteChat = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDeleteChat(id);
+  };
 
   return (
     <>
@@ -94,7 +79,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, isOpen, onClos
         <nav className="flex-shrink-0 p-3 border-b border-[var(--color-border-subtle)]">
           <div className="flex flex-col gap-1">
             {/* Primary Nav */}
-            <button className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-strong)] transition-all duration-200 hover-scale">
+            <button
+              onClick={onNewChat}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-strong)] transition-all duration-200 hover-scale"
+            >
               <Icons.Chat />
               <span className="text-sm font-medium">Chats</span>
             </button>
@@ -186,7 +174,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, isOpen, onClos
                 {dateLabel}
               </h3>
               <div className="flex flex-col gap-0.5 mb-4">
-                {dateChats.map((chat, index) => (
+                {dateChats.map((chat) => (
                   <div
                     key={chat.id}
                     className={`
@@ -202,7 +190,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, isOpen, onClos
                     }}
                   >
                     <span className="text-sm truncate flex-1 pr-2">
-                      {truncateTitle(chat.title)}
+                      {chat.title.length > 35 ? chat.title.slice(0, 35) + '...' : chat.title}
                     </span>
                     <button
                       onClick={(e) => {
@@ -237,28 +225,21 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, isOpen, onClos
           )}
         </div>
 
-        {/* BOTTOM SECTION: User Profile */}
-        <div className="flex-shrink-0 border-t border-[var(--color-border-subtle)] p-3">
+        {/* BOTTOM SECTION: User Profile / Auth */}
+        <div className="flex-shrink-0 border-t border-[var(--color-border-subtle)] p-3 space-y-2">
+          {/* Settings Button */}
           <button
             onClick={() => setShowSettings(true)}
-            className="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-[var(--color-bg-elevated)] transition-all duration-200 group"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-[var(--color-bg-elevated)] transition-all duration-200 group"
           >
-            {/* Avatar */}
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] flex items-center justify-center text-white text-sm font-semibold flex-shrink-0 shadow-md shadow-[var(--color-primary-glow)] group-hover:shadow-lg group-hover:shadow-[var(--color-primary-glow-strong)] transition-all duration-200">
-              B
-            </div>
-
-            {/* User Info */}
-            <div className="flex-1 text-left min-w-0">
-              <div className="text-sm text-[var(--color-text-primary)] font-medium truncate">Basti</div>
-              <div className="text-xs text-[var(--color-text-tertiary)] truncate">Pro Plan</div>
-            </div>
-
-            {/* Settings Icon */}
             <div className="flex-shrink-0 text-[var(--color-text-muted)] group-hover:text-[var(--color-primary-500)] transition-colors">
               <Icons.Settings />
             </div>
+            <span className="text-sm text-[var(--color-text-secondary)]">Einstellungen</span>
           </button>
+
+          {/* Auth Button */}
+          <AuthButton />
         </div>
       </aside>
 
