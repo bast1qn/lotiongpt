@@ -26,7 +26,7 @@ const categoryIcons: Record<MemoryCategory, React.ReactNode> = {
 };
 
 export function MemoryList({ onClose }: MemoryListProps) {
-  const { toast } = useToast();
+  const { showToast } = useToast();
   const [memories, setMemories] = useState<Memory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -51,7 +51,7 @@ export function MemoryList({ onClose }: MemoryListProps) {
 
   const handleSubmit = async () => {
     if (!formData.key.trim() || !formData.value.trim()) {
-      toast({ title: 'Fehler', message: 'Bitte fülle alle Felder aus', variant: 'error' });
+      showToast('Bitte fülle alle Felder aus', 'error');
       return;
     }
 
@@ -63,15 +63,11 @@ export function MemoryList({ onClose }: MemoryListProps) {
     }
 
     if (result) {
-      toast({
-        title: editingMemory ? 'Memory aktualisiert' : 'Memory erstellt',
-        message: `"${formData.key}: ${formData.value}"`,
-        variant: 'success',
-      });
+      showToast(editingMemory ? 'Memory aktualisiert' : 'Memory erstellt', 'success');
       await loadMemories();
       resetForm();
     } else {
-      toast({ title: 'Fehler', message: 'Memory konnte nicht gespeichert werden', variant: 'error' });
+      showToast('Memory konnte nicht gespeichert werden', 'error');
     }
   };
 
@@ -88,10 +84,10 @@ export function MemoryList({ onClose }: MemoryListProps) {
   const handleDelete = async (id: string) => {
     const success = await deleteMemory(id);
     if (success) {
-      toast({ title: 'Gelöscht', message: 'Memory wurde entfernt', variant: 'success' });
+      showToast('Memory wurde entfernt', 'success');
       await loadMemories();
     } else {
-      toast({ title: 'Fehler', message: 'Memory konnte nicht gelöscht werden', variant: 'error' });
+      showToast('Memory konnte nicht gelöscht werden', 'error');
     }
   };
 

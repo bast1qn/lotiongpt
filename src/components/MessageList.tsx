@@ -10,14 +10,26 @@ interface MessageListProps {
   messages: Message[];
   isLoading?: boolean;
   onSuggestionClick?: (suggestion: string) => void;
+  onEditMessage?: (messageIndex: number, newContent: string) => void;
+  onRegenerate?: () => void;
+  onDeleteMessage?: (messageIndex: number) => void;
+  editingMessageIndex?: number | null;
 }
 
-export function MessageList({ messages, isLoading, onSuggestionClick }: MessageListProps) {
+export function MessageList({
+  messages,
+  isLoading,
+  onSuggestionClick,
+  onEditMessage,
+  onRegenerate,
+  onDeleteMessage,
+  editingMessageIndex = null
+}: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading]);
+  }, [messages, isLoading, editingMessageIndex]);
 
   // Empty state
   if (messages.length === 0) {
@@ -46,6 +58,13 @@ export function MessageList({ messages, isLoading, onSuggestionClick }: MessageL
               key={`${message.role}-${index}`}
               message={message}
               index={index}
+              isLast={index === messages.length - 1}
+              isEditing={editingMessageIndex === index}
+              onEditComplete={(newContent) => onEditMessage?.(index, newContent)}
+              onCancelEdit={() => onEditMessage?.(-1, '')}
+              onEdit={() => onEditMessage?.(index, '')}
+              onRegenerate={index === messages.length - 1 && message.role === 'assistant' && !isLoading ? onRegenerate : undefined}
+              onDelete={onDeleteMessage ? () => onDeleteMessage(index) : undefined}
             />
           ))}
           {isLoading && <TypingIndicator />}

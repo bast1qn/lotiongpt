@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Chat, Message, ImageAttachment } from '@/types/chat';
 import { truncateTitle } from '@/lib/utils';
 import { Sidebar } from '@/components/Sidebar';
 import { MessageList } from '@/components/MessageList';
-import { ChatInput } from '@/components/ChatInput';
+import { ChatInput, ChatModel } from '@/components/ChatInput';
 import { Icons } from '@/components/Icons';
 import { AuthGuard } from '@/components/AuthGuard';
 import { fetchChats, createChat, updateChat, deleteChat, fetchChat } from '@/lib/db/chats';
@@ -19,7 +19,12 @@ function HomeContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingChats, setIsLoadingChats] = useState(true);
 
-  // Chats von Supabase laden
+  // New states for enhanced features
+  const [selectedModel, setSelectedModel] = useState<ChatModel>('glm-4.7');
+  const [thinkingEnabled, setThinkingEnabled] = useState(true);
+  const [editingMessageIndex, setEditingMessageIndex] = useState<number | null>(null);
+
+  // Load chats from Supabase
   const loadChats = async () => {
     setIsLoadingChats(true);
     try {
@@ -28,12 +33,10 @@ function HomeContent() {
       if (loadedChats.length > 0 && !currentChat) {
         setCurrentChat(loadedChats[0]);
       } else if (loadedChats.length === 0 && !currentChat) {
-        // Neuen Chat erstellen wenn keiner da ist
         handleNewChat();
       }
     } catch (error) {
       console.error('Error loading chats:', error);
-      // Fallback auf localStorage wenn Supabase fehlschlägt
       const localChats = storage.getChats();
       setChats(localChats);
       if (localChats.length > 0) {
@@ -52,7 +55,6 @@ function HomeContent() {
     try {
       const newChat = await createChat('Neuer Chat');
 
-      // Inject memories as system message for new chats
       const memoriesContext = await getMemoriesForContext();
       if (memoriesContext) {
         const systemMessage: Message = { role: 'system', content: memoriesContext };
@@ -65,7 +67,6 @@ function HomeContent() {
       setSidebarOpen(false);
     } catch (error) {
       console.error('Error creating chat:', error);
-      // Fallback auf localStorage
       const localNewChat = storage.createChat();
       setChats((prev) => [localNewChat, ...prev]);
       setCurrentChat(localNewChat);
@@ -77,7 +78,6 @@ function HomeContent() {
     if (existingChat) {
       setCurrentChat(existingChat);
     } else {
-      // Chat von Supabase laden
       try {
         const loadedChat = await fetchChat(chatId);
         if (loadedChat) {
@@ -103,11 +103,38 @@ function HomeContent() {
       }
     } catch (error) {
       console.error('Error deleting chat:', error);
-      // Fallback auf localStorage
       storage.deleteChat(chatId);
       const localChats = storage.getChats();
       setChats(localChats);
     }
+  };
+
+  const sendMessageToAPI = async (messages: Message[]): Promise<string> => {
+    const settings = storage.getSettings();
+
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': settings.apiKey,
+      },
+      body: JSON.stringify({
+        messages,
+        model: selectedModel,
+        visionModel: settings.visionModel,
+        temperature: settings.temperature,
+        maxTokens: settings.maxTokens,
+        thinking: thinkingEnabled,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to send message');
+    }
+
+    const data = await response.json();
+    return data.content;
   };
 
   const handleSendMessage = async (content: string, images?: ImageAttachment[]) => {
@@ -120,7 +147,7 @@ function HomeContent() {
       updatedAt: new Date().toISOString(),
     };
 
-    if (updatedChat.messages.length === 1) {
+    if (updatedChat.messages.filter(m => m.role === 'user').length === 1) {
       updatedChat.title = truncateTitle(content);
     }
 
@@ -128,47 +155,22 @@ function HomeContent() {
     setIsLoading(true);
 
     try {
-      const settings = storage.getSettings();
-
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': settings.apiKey,
-        },
-        body: JSON.stringify({
-          messages: updatedChat.messages,
-          model: settings.model,
-          visionModel: settings.visionModel,
-          temperature: settings.temperature,
-          maxTokens: settings.maxTokens,
-          thinking: settings.thinking,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to send message');
-      }
-
-      const data = await response.json();
+      const aiResponse = await sendMessageToAPI(updatedChat.messages);
 
       const finalChat: Chat = {
         ...updatedChat,
         messages: [
           ...updatedChat.messages,
-          { role: 'assistant', content: data.content },
+          { role: 'assistant', content: aiResponse },
         ],
         updatedAt: new Date().toISOString(),
       };
 
-      // Extract memories from the conversation
-      const extractedMemories = await extractMemoriesFromMessage(content, data.content);
+      const extractedMemories = await extractMemoriesFromMessage(content, aiResponse);
       for (const memory of extractedMemories) {
         await createMemory(memory);
       }
 
-      // In Supabase speichern
       await updateChat(finalChat.id, finalChat.messages, finalChat.title);
 
       setCurrentChat(finalChat);
@@ -190,6 +192,146 @@ function HomeContent() {
       setIsLoading(false);
     }
   };
+
+  const handleRegenerate = useCallback(async () => {
+    if (!currentChat || currentChat.messages.length === 0 || isLoading) return;
+
+    // Get messages up to and including the last user message
+    const messages = [...currentChat.messages];
+    const lastMessage = messages[messages.length - 1];
+
+    // Only regenerate if last message is from assistant
+    if (lastMessage.role !== 'assistant') return;
+
+    // Remove the last assistant message to regenerate
+    const messagesForRegeneration = messages.slice(0, -1);
+
+    setCurrentChat({
+      ...currentChat,
+      messages: messagesForRegeneration,
+    });
+
+    setIsLoading(true);
+
+    try {
+      const aiResponse = await sendMessageToAPI(messagesForRegeneration);
+
+      const finalChat: Chat = {
+        ...currentChat,
+        messages: [
+          ...messagesForRegeneration,
+          { role: 'assistant', content: aiResponse },
+        ],
+        updatedAt: new Date().toISOString(),
+      };
+
+      await updateChat(finalChat.id, finalChat.messages, finalChat.title);
+
+      setCurrentChat(finalChat);
+      setChats((prev) =>
+        prev.map((c) => (c.id === finalChat.id ? finalChat : c))
+      );
+    } catch (error) {
+      console.error('Error regenerating response:', error);
+      setCurrentChat(currentChat); // Restore original
+    } finally {
+      setIsLoading(false);
+    }
+  }, [currentChat, isLoading, selectedModel, thinkingEnabled]);
+
+  const handleEditMessage = useCallback(async (messageIndex: number, newContent: string) => {
+    if (!currentChat) return;
+
+    // Start editing
+    if (newContent === '' && messageIndex >= 0) {
+      setEditingMessageIndex(messageIndex);
+      return;
+    }
+
+    // Cancel editing
+    if (messageIndex === -1) {
+      setEditingMessageIndex(null);
+      return;
+    }
+
+    // Save edit
+    const message = currentChat.messages[messageIndex];
+    if (!message) return;
+
+    const updatedMessages = [...currentChat.messages];
+    updatedMessages[messageIndex] = { ...message, content: newContent };
+
+    // If editing a user message, we need to regenerate responses after it
+    if (message.role === 'user') {
+      // Remove all messages after the edited one
+      const messagesToKeep = updatedMessages.slice(0, messageIndex + 1);
+      setCurrentChat({ ...currentChat, messages: messagesToKeep });
+      setEditingMessageIndex(null);
+
+      // Regenerate response
+      setIsLoading(true);
+      try {
+        const aiResponse = await sendMessageToAPI(messagesToKeep);
+
+        const finalChat: Chat = {
+          ...currentChat,
+          messages: [
+            ...messagesToKeep,
+            { role: 'assistant', content: aiResponse },
+          ],
+          updatedAt: new Date().toISOString(),
+        };
+
+        await updateChat(finalChat.id, finalChat.messages, finalChat.title);
+        setCurrentChat(finalChat);
+        setChats((prev) =>
+          prev.map((c) => (c.id === finalChat.id ? finalChat : c))
+        );
+      } catch (error) {
+        console.error('Error regenerating after edit:', error);
+        setCurrentChat({ ...currentChat, messages: updatedMessages });
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      // Just update the message content (for assistant messages)
+      const updatedChat = { ...currentChat, messages: updatedMessages };
+      setCurrentChat(updatedChat);
+      await updateChat(updatedChat.id, updatedMessages, updatedChat.title);
+      setEditingMessageIndex(null);
+    }
+  }, [currentChat, selectedModel, thinkingEnabled]);
+
+  const handleDeleteMessage = useCallback(async (messageIndex: number) => {
+    if (!currentChat) return;
+
+    const updatedMessages = currentChat.messages.filter((_, i) => i !== messageIndex);
+
+    // If no messages left, just clear
+    if (updatedMessages.length === 0) {
+      const updatedChat = { ...currentChat, messages: updatedMessages };
+      setCurrentChat(updatedChat);
+      await updateChat(updatedChat.id, updatedMessages, updatedChat.title);
+      return;
+    }
+
+    // If deleting a user message, also remove all messages after it
+    const messageToDelete = currentChat.messages[messageIndex];
+    if (messageToDelete.role === 'user') {
+      const messagesToKeep = updatedMessages.slice(0, messageIndex);
+      const updatedChat = { ...currentChat, messages: messagesToKeep };
+      setCurrentChat(updatedChat);
+      await updateChat(updatedChat.id, messagesToKeep, updatedChat.title);
+    } else {
+      const updatedChat = { ...currentChat, messages: updatedMessages };
+      setCurrentChat(updatedChat);
+      await updateChat(updatedChat.id, updatedMessages, updatedChat.title);
+    }
+
+    setChats((prev) =>
+      prev.map((c) => (c.id === currentChat.id ? { ...currentChat, messages: updatedMessages } : c))
+    );
+  }, [currentChat]);
 
   const handleSuggestionClick = (suggestion: string) => {
     handleSendMessage(suggestion);
@@ -245,9 +387,20 @@ function HomeContent() {
           messages={currentChat?.messages || []}
           isLoading={isLoading}
           onSuggestionClick={handleSuggestionClick}
+          onEditMessage={handleEditMessage}
+          onRegenerate={handleRegenerate}
+          onDeleteMessage={handleDeleteMessage}
+          editingMessageIndex={editingMessageIndex}
         />
 
-        <ChatInput onSend={handleSendMessage} isLoading={isLoading} />
+        <ChatInput
+          onSend={handleSendMessage}
+          isLoading={isLoading}
+          selectedModel={selectedModel}
+          onModelChange={setSelectedModel}
+          thinkingEnabled={thinkingEnabled}
+          onThinkingChange={setThinkingEnabled}
+        />
       </main>
     </div>
   );

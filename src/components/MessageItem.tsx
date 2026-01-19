@@ -10,21 +10,72 @@ import { cn } from '@/lib/utils';
 interface MessageItemProps {
   message: Message;
   index?: number;
+  onEdit?: () => void;
+  onRegenerate?: () => void;
+  onDelete?: () => void;
+  isLast?: boolean;
+  isEditing?: boolean;
+  onEditComplete?: (newContent: string) => void;
+  onCancelEdit?: () => void;
 }
 
-export function MessageItem({ message, index = 0 }: MessageItemProps) {
+export function MessageItem({
+  message,
+  index = 0,
+  onEdit,
+  onRegenerate,
+  onDelete,
+  isLast = false,
+  isEditing = false,
+  onEditComplete,
+  onCancelEdit
+}: MessageItemProps) {
   const isUser = message.role === 'user';
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  const [editContent, setEditContent] = useState(message.content);
   const { showToast } = useToast();
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const handleCopy = async () => {
     const success = await copyToClipboard(message.content);
     if (success) {
       showToast('In Zwischenablage kopiert', 'success');
+      setCopiedCode('all');
+      setTimeout(() => setCopiedCode(null), 2000);
     } else {
       showToast('Fehler beim Kopieren', 'error');
     }
   };
+
+  const handleCopyCodeBlock = async (code: string) => {
+    const success = await copyToClipboard(code);
+    if (success) {
+      showToast('Code kopiert', 'success');
+      setCopiedCode(code.slice(0, 20));
+      setTimeout(() => setCopiedCode(null), 2000);
+    }
+  };
+
+  const handleEditSave = () => {
+    if (onEditComplete && editContent.trim() !== message.content) {
+      onEditComplete(editContent.trim());
+    } else if (onCancelEdit) {
+      onCancelEdit();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleEditSave();
+    } else if (e.key === 'Escape') {
+      onCancelEdit?.();
+    }
+  };
+
+  // Extract code blocks from message
+  const codeBlocks = message.content.match(/```[\s\S]*?```/g) || [];
+  const hasCodeBlocks = codeBlocks.length > 0;
 
   return (
     <>
@@ -70,28 +121,97 @@ export function MessageItem({ message, index = 0 }: MessageItemProps) {
         {/* Content Container */}
         <div className={cn('flex-1 min-w-0 space-y-3', isUser ? 'text-right' : '')}>
           {/* Message Header with Actions */}
-          <div className="flex items-center gap-2 mb-1">
+          <div className={cn('flex items-center gap-2 mb-1', isUser && 'flex-row-reverse')}>
             <span className="text-xs text-[var(--color-text-muted)] font-medium">
               {isUser ? 'Du' : 'LotionGPT'}
             </span>
             {/* Message Actions - Visible on hover */}
-            <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity">
-              <button
-                onClick={handleCopy}
-                className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
-                title="Kopieren"
-              >
-                <Icons.Copy />
-              </button>
-              {!isUser && (
+            {!isEditing && (
+              <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity">
+                {/* Copy Button */}
                 <button
-                  className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
-                  title="Neu generieren"
+                  onClick={handleCopy}
+                  className={cn(
+                    'p-1.5 rounded-lg transition-colors',
+                    copiedCode === 'all'
+                      ? 'text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10'
+                      : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
+                  )}
+                  title={copiedCode === 'all' ? 'Kopiert!' : 'Kopieren'}
                 >
-                  <Icons.Refresh />
+                  <Icons.Copy />
                 </button>
-              )}
-            </div>
+
+                {/* Edit Button (for user messages) */}
+                {isUser && onEdit && (
+                  <button
+                    onClick={onEdit}
+                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+                    title="Bearbeiten"
+                  >
+                    <Icons.Edit />
+                  </button>
+                )}
+
+                {/* Delete Button */}
+                {onDelete && (
+                  <button
+                    onClick={onDelete}
+                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-colors"
+                    title="Löschen"
+                  >
+                    <Icons.Trash />
+                  </button>
+                )}
+
+                {/* Regenerate Button (for assistant) */}
+                {!isUser && isLast && onRegenerate && (
+                  <button
+                    onClick={onRegenerate}
+                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-colors"
+                    title="Neu generieren"
+                  >
+                    <Icons.Refresh />
+                  </button>
+                )}
+
+                {/* Copy Code Buttons (if code blocks exist) */}
+                {!isUser && hasCodeBlocks && (
+                  <div className="relative group/code">
+                    <button
+                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+                      title="Code kopieren"
+                    >
+                      <Icons.Code />
+                    </button>
+                    {/* Dropdown for code blocks */}
+                    <div className="absolute right-0 top-full mt-1 bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg shadow-xl opacity-0 invisible group-hover/code:opacity-100 group-hover/code:visible transition-all z-10 min-w-[150px]">
+                      <button
+                        onClick={() => handleCopyCodeBlock(message.content)}
+                        className="w-full px-3 py-2 text-left text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors rounded-t-lg"
+                      >
+                        Alles kopieren
+                      </button>
+                      {codeBlocks.map((block, i) => {
+                        const lang = block.match(/```(\w*)/)?.[1] || 'code';
+                        return (
+                          <button
+                            key={i}
+                            onClick={() => handleCopyCodeBlock(block.replace(/```\w*\n?/g, '').replace(/```/g, ''))}
+                            className={cn(
+                              'w-full px-3 py-2 text-left text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors',
+                              i < codeBlocks.length - 1 || 'rounded-b-lg'
+                            )}
+                          >
+                            {lang} Code
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Images */}
@@ -109,7 +229,6 @@ export function MessageItem({ message, index = 0 }: MessageItemProps) {
                     className="max-h-64 max-w-xs object-cover transition-transform duration-200 group-hover/img:scale-[1.02]"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors" />
-                  {/* Zoom hint */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
                     <div className="p-2 rounded-lg bg-black/50 backdrop-blur-sm">
                       <Icons.Maximize />
@@ -121,7 +240,33 @@ export function MessageItem({ message, index = 0 }: MessageItemProps) {
           )}
 
           {/* Text content */}
-          {message.content && (
+          {isEditing ? (
+            // Edit Mode
+            <div className="bg-[var(--color-bg-tertiary)] border border-[var(--color-primary-500)] rounded-2xl p-3">
+              <textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="w-full bg-transparent text-[var(--color-text-primary)] text-[15px] leading-relaxed resize-none focus:outline-none min-h-[60px] max-h-[300px]"
+                autoFocus
+              />
+              <div className="flex gap-2 mt-2 justify-end">
+                <button
+                  onClick={onCancelEdit}
+                  className="px-3 py-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-lg transition-colors"
+                >
+                  Abbrechen
+                </button>
+                <button
+                  onClick={handleEditSave}
+                  className="px-3 py-1.5 text-sm bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg transition-colors"
+                >
+                  Speichern
+                </button>
+              </div>
+            </div>
+          ) : message.content ? (
+            // Normal Display
             <div
               className={cn(
                 'inline-block rounded-2xl px-4 py-3 max-w-full',
@@ -134,7 +279,7 @@ export function MessageItem({ message, index = 0 }: MessageItemProps) {
                 {formatMessage(message.content)}
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
 

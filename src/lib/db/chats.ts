@@ -20,7 +20,7 @@ export async function fetchChats(): Promise<Chat[]> {
 
   const { data } = await supabase
     .from('chats')
-    .select('id, title, created_at, updated_at')
+    .select('id, user_id, title, created_at, updated_at')
     .eq('user_id', user.id)
     .order('updated_at', { ascending: false })
 
@@ -123,7 +123,7 @@ export async function updateChat(chatId: string, messages: Message[], title?: st
     .eq('chat_id', chatId)
     .order('created_at', { ascending: true })
 
-  const messages: Message[] = (messagesData || []).map((msg: any) => ({
+  const fetchedMessages: Message[] = (messagesData || []).map((msg: any) => ({
     role: msg.role,
     content: msg.content,
     images: msg.images,
@@ -132,7 +132,7 @@ export async function updateChat(chatId: string, messages: Message[], title?: st
   return {
     id: chatData.id,
     title: chatData.title,
-    messages,
+    messages: fetchedMessages,
     createdAt: chatData.created_at,
     updatedAt: chatData.updated_at,
   }

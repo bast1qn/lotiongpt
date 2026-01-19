@@ -1,21 +1,73 @@
 'use client';
 
-import { useState, useRef, useEffect, KeyboardEvent, ChangeEvent } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { Icons } from './Icons';
 import { ImageAttachment } from '@/types/chat';
 import { cn } from '@/lib/utils';
+import { storage } from '@/lib/storage';
+
+export type ChatModel = 'glm-4.6' | 'glm-4.7' | 'gemini-2.5-pro' | 'gemini-2.5-flash' | 'gpt-4.1' | 'claude-4.5-sonnet';
 
 interface ChatInputProps {
   onSend: (message: string, images?: ImageAttachment[]) => void;
   isLoading?: boolean;
+  selectedModel?: ChatModel;
+  onModelChange?: (model: ChatModel) => void;
+  thinkingEnabled?: boolean;
+  onThinkingChange?: (enabled: boolean) => void;
 }
 
-export function ChatInput({ onSend, isLoading = false }: ChatInputProps) {
+const MODEL_INFO: Record<ChatModel, { name: string; provider: string; icon: string }> = {
+  'glm-4.6': { name: 'GLM-4.6', provider: 'Zhipu AI', icon: '🇨🇳' },
+  'glm-4.7': { name: 'GLM-4.7', provider: 'Zhipu AI', icon: '🇨🇳' },
+  'gemini-2.5-pro': { name: 'Gemini 2.5 Pro', provider: 'Google', icon: '🌐' },
+  'gemini-2.5-flash': { name: 'Gemini 2.5 Flash', provider: 'Google', icon: '⚡' },
+  'gpt-4.1': { name: 'GPT-4.1', provider: 'OpenAI', icon: '🤖' },
+  'claude-4.5-sonnet': { name: 'Claude 4.5', provider: 'Anthropic', icon: '🧠' },
+};
+
+export function ChatInput({
+  onSend,
+  isLoading = false,
+  selectedModel = 'glm-4.7',
+  onModelChange,
+  thinkingEnabled = true,
+  onThinkingChange
+}: ChatInputProps) {
   const [input, setInput] = useState('');
   const [images, setImages] = useState<ImageAttachment[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [showModelPicker, setShowModelPicker] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const modelPickerRef = useRef<HTMLDivElement>(null);
+
+  // Get initial settings from storage
+  useEffect(() => {
+    const settings = storage.getSettings();
+    if (onModelChange) {
+      // Map old model setting to new ChatModel
+      const modelMap: Record<string, ChatModel> = {
+        'glm-4.6': 'glm-4.6',
+        'glm-4.7': 'glm-4.7',
+      };
+      onModelChange(modelMap[settings.model] || 'glm-4.7');
+    }
+    if (onThinkingChange) {
+      onThinkingChange(settings.thinking ?? true);
+    }
+  }, [onModelChange, onThinkingChange]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modelPickerRef.current && !modelPickerRef.current.contains(event.target as Node)) {
+        setShowModelPicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -123,6 +175,137 @@ export function ChatInput({ onSend, isLoading = false }: ChatInputProps) {
   return (
     <div className="flex-shrink-0 p-4 sm:p-6">
       <div className="max-w-3xl mx-auto">
+        {/* Controls Bar */}
+        <div className="flex items-center gap-2 mb-2">
+          {/* Model Selector */}
+          <div className="relative" ref={modelPickerRef}>
+            <button
+              onClick={() => setShowModelPicker(!showModelPicker)}
+              className={cn(
+                'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all',
+                'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
+                'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
+                'hover:border-[var(--color-border-default)]'
+              )}
+            >
+              <span>{MODEL_INFO[selectedModel].icon}</span>
+              <span className="hidden sm:inline">{MODEL_INFO[selectedModel].name}</span>
+              <Icons.ChevronDown />
+            </button>
+
+            {/* Model Dropdown */}
+            {showModelPicker && (
+              <div className="absolute bottom-full left-0 mb-2 w-56 bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl shadow-xl animate-fade-in-up z-20">
+                <div className="p-2 space-y-1">
+                  <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider">
+                    Zhipu AI
+                  </div>
+                  {(['glm-4.6', 'glm-4.7'] as ChatModel[]).map((model) => (
+                    <button
+                      key={model}
+                      onClick={() => {
+                        onModelChange?.(model);
+                        setShowModelPicker(false);
+                      }}
+                      className={cn(
+                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        selectedModel === model
+                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                          : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
+                      )}
+                    >
+                      <span>{MODEL_INFO[model].icon}</span>
+                      <div className="flex-1 text-left">
+                        <div className="font-medium">{MODEL_INFO[model].name}</div>
+                        <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
+                      </div>
+                      {selectedModel === model && <Icons.Check />}
+                    </button>
+                  ))}
+
+                  <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider mt-2">
+                    Google
+                  </div>
+                  {(['gemini-2.5-pro', 'gemini-2.5-flash'] as ChatModel[]).map((model) => (
+                    <button
+                      key={model}
+                      onClick={() => {
+                        onModelChange?.(model);
+                        setShowModelPicker(false);
+                      }}
+                      className={cn(
+                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        selectedModel === model
+                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                          : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
+                      )}
+                    >
+                      <span>{MODEL_INFO[model].icon}</span>
+                      <div className="flex-1 text-left">
+                        <div className="font-medium">{MODEL_INFO[model].name}</div>
+                        <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
+                      </div>
+                      {selectedModel === model && <Icons.Check />}
+                    </button>
+                  ))}
+
+                  <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider mt-2">
+                    Other
+                  </div>
+                  {(['gpt-4.1', 'claude-4.5-sonnet'] as ChatModel[]).map((model) => (
+                    <button
+                      key={model}
+                      onClick={() => {
+                        onModelChange?.(model);
+                        setShowModelPicker(false);
+                      }}
+                      className={cn(
+                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        selectedModel === model
+                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                          : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
+                      )}
+                    >
+                      <span>{MODEL_INFO[model].icon}</span>
+                      <div className="flex-1 text-left">
+                        <div className="font-medium">{MODEL_INFO[model].name}</div>
+                        <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
+                      </div>
+                      {selectedModel === model && <Icons.Check />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Thinking Toggle */}
+          <button
+            onClick={() => onThinkingChange?.(!thinkingEnabled)}
+            className={cn(
+              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all',
+              'border',
+              thinkingEnabled
+                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)]'
+                : 'bg-[var(--color-bg-tertiary)] border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+            )}
+            title={thinkingEnabled ? 'Thinking ist aktiv' : 'Thinking ist deaktiviert'}
+          >
+            <Icons.Zap />
+            <span className="hidden sm:inline">Thinking: {thinkingEnabled ? 'ON' : 'OFF'}</span>
+          </button>
+
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* Token Estimate (optional feedback) */}
+          {input.length > 0 && (
+            <span className="text-xs text-[var(--color-text-muted)]">
+              ~{Math.ceil(input.length / 4)} tokens
+            </span>
+          )}
+        </div>
+
         <div
           className={cn(
             'relative rounded-2xl transition-all duration-200',
@@ -140,10 +323,7 @@ export function ChatInput({ onSend, isLoading = false }: ChatInputProps) {
           {images.length > 0 && (
             <div className="flex flex-wrap gap-2 p-3 pb-0">
               {images.map((img, index) => (
-                <div
-                  key={index}
-                  className="relative group animate-fade-in-up"
-                >
+                <div key={index} className="relative group animate-fade-in-up">
                   <img
                     src={`data:${img.mimeType};base64,${img.data}`}
                     alt={img.name || 'Uploaded image'}
