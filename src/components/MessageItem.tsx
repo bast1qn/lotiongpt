@@ -157,14 +157,14 @@ export function MessageItem({
             </span>
             {/* Message Actions - Visible on hover */}
             {!isEditing && (
-              <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity">
+              <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity duration-300">
                 {/* Copy Button */}
                 <button
                   onClick={handleCopy}
                   className={cn(
-                    'p-1.5 rounded-lg transition-colors',
+                    'p-1.5 rounded-lg transition-all duration-300 hover:scale-110',
                     copiedCode === 'all'
-                      ? 'text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10'
+                      ? 'text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10 shadow-md shadow-[var(--color-primary-glow)]'
                       : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                   )}
                   title={copiedCode === 'all' ? 'Kopiert!' : 'Kopieren'}
@@ -177,9 +177,9 @@ export function MessageItem({
                   <button
                     onClick={onToggleStar}
                     className={cn(
-                      'p-1.5 rounded-lg transition-colors',
+                      'p-1.5 rounded-lg transition-all duration-300 hover:scale-110',
                       isStarred
-                        ? 'text-yellow-400 bg-yellow-400/10'
+                        ? 'text-yellow-400 bg-yellow-400/10 shadow-md shadow-yellow-400/20'
                         : 'text-[var(--color-text-muted)] hover:text-yellow-400 hover:bg-yellow-400/10'
                     )}
                     title={isStarred ? 'Markierung aufheben' : 'Markieren'}
@@ -194,7 +194,7 @@ export function MessageItem({
                 {isUser && onEdit && (
                   <button
                     onClick={onEdit}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300 hover:scale-110"
                     title="Bearbeiten"
                   >
                     <Icons.Edit />
@@ -205,7 +205,7 @@ export function MessageItem({
                 {onDelete && (
                   <button
                     onClick={onDelete}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-colors"
+                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-300 hover:scale-110"
                     title="Löschen"
                   >
                     <Icons.Trash />
@@ -216,7 +216,7 @@ export function MessageItem({
                 {onBranch && !isUser && (
                   <button
                     onClick={onBranch}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-colors"
+                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 hover:scale-110"
                     title="Verzweigen (Branch)"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -232,7 +232,7 @@ export function MessageItem({
                 {!isUser && isLast && onRegenerate && (
                   <button
                     onClick={onRegenerate}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-colors"
+                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 hover:scale-110 hover:shadow-md hover:shadow-[var(--color-primary-glow)]"
                     title="Neu generieren"
                   >
                     <Icons.Refresh />
@@ -243,7 +243,7 @@ export function MessageItem({
                 {!isUser && hasCodeBlocks && (
                   <div className="relative group/code">
                     <button
-                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300 hover:scale-110"
                       title="Code kopieren"
                     >
                       <Icons.Code />
@@ -375,10 +375,10 @@ export function MessageItem({
             // Normal Display
             <div
               className={cn(
-                'inline-block rounded-2xl px-4 py-3 max-w-full',
+                'inline-block rounded-2xl px-4 py-3 max-w-full transition-all duration-300',
                 isUser
-                  ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white rounded-tr-sm'
-                  : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)] rounded-tl-sm',
+                  ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white rounded-tr-sm shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-[1.01]'
+                  : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-default)] rounded-tl-sm shadow-md hover:border-[var(--color-border-medium)] hover:shadow-lg hover:bg-[var(--color-bg-elevated)]',
                 isSearchMatch && 'ring-2 ring-[var(--color-primary-500)]'
               )}
             >
@@ -396,8 +396,8 @@ export function MessageItem({
                 <button
                   key={i}
                   onClick={() => onSuggestionClick?.(suggestion)}
-                  className="px-3 py-1.5 text-xs bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-primary-500)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-500)] rounded-lg transition-all duration-200 animate-fade-in"
-                  style={{ animationDelay: `${i * 50}ms` }}
+                  className="px-3 py-1.5 text-xs bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-primary-500)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-500)] rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-md animate-bounce-in"
+                  style={{ animationDelay: `${i * 60}ms` }}
                 >
                   {suggestion}
                 </button>

@@ -86,7 +86,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             {/* Primary Nav */}
             <button
               onClick={onNewChat}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-strong)] transition-all duration-200 hover-scale"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] transition-all duration-300 hover:scale-105"
             >
               <Icons.Chat />
               <span className="text-sm font-medium">Chats</span>
@@ -94,10 +94,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             <button
               onClick={() => setPanelMode(panelMode === 'projects' ? 'none' : 'projects')}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200",
+                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300",
                 panelMode === 'projects'
-                  ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
-                  : 'text-[var(--color-text-tertiary)] hover:text-white hover:bg-[var(--color-bg-elevated)]'
+                  ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
+                  : 'text-[var(--color-text-tertiary)] hover:text-white hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
               )}
             >
               <Icons.Folder />
@@ -106,10 +106,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             <button
               onClick={() => setPanelMode(panelMode === 'snippets' ? 'none' : 'snippets')}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200",
+                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300",
                 panelMode === 'snippets'
-                  ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
-                  : 'text-[var(--color-text-tertiary)] hover:text-white hover:bg-[var(--color-bg-elevated)]'
+                  ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
+                  : 'text-[var(--color-text-tertiary)] hover:text-white hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
               )}
             >
               <Icons.Code />
@@ -118,10 +118,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             <button
               onClick={() => setPanelMode(panelMode === 'artifacts' ? 'none' : 'artifacts')}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200",
+                "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300",
                 panelMode === 'artifacts'
-                  ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
-                  : 'text-[var(--color-text-tertiary)] hover:text-white hover:bg-[var(--color-bg-elevated)]'
+                  ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
+                  : 'text-[var(--color-text-tertiary)] hover:text-white hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
               )}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -195,7 +195,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Chats durchsuchen..."
-                className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] transition-all"
+                className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] focus:shadow-md focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
               />
               <div className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -206,7 +206,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 rounded-lg p-1 transition-all duration-300"
                 >
                   <Icons.Close />
                 </button>
@@ -218,10 +218,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               <button
                 onClick={() => setFilterMode('all')}
                 className={cn(
-                  'flex-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all',
+                  'flex-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-300',
                   filterMode === 'all'
-                    ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
-                    : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]'
+                    ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] shadow-sm'
+                    : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)]'
                 )}
               >
                 Alle
@@ -229,10 +229,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               <button
                 onClick={() => setFilterMode('today')}
                 className={cn(
-                  'flex-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all',
+                  'flex-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-300',
                   filterMode === 'today'
-                    ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
-                    : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]'
+                    ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] shadow-sm'
+                    : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)]'
                 )}
               >
                 Heute
@@ -240,10 +240,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               <button
                 onClick={() => setFilterMode('week')}
                 className={cn(
-                  'flex-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all',
+                  'flex-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-300',
                   filterMode === 'week'
-                    ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
-                    : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]'
+                    ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] shadow-sm'
+                    : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)]'
                 )}
               >
                 Woche
@@ -260,15 +260,15 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 <h3 className="text-[11px] font-semibold text-[var(--color-text-muted)] px-2 mb-2 uppercase tracking-wider">
                   {dateLabel}
                 </h3>
-                <div className="flex flex-col gap-0.5 mb-4">
+                <div className="flex flex-col gap-1 mb-4">
                   {dateChats.map((chat) => (
                     <div
                       key={chat.id}
                       className={`
-                        relative flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer group transition-all duration-200
+                        relative flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer group transition-all duration-300
                         ${currentChatId === chat.id
-                          ? 'bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-md shadow-[var(--color-primary-glow)]'
-                          : 'text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-bg-elevated)]'
+                          ? 'bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)]'
+                          : 'text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
                         }
                       `}
                       onClick={() => {
@@ -276,7 +276,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                         onClose();
                       }}
                     >
-                      <span className="text-sm truncate flex-1 pr-2">
+                      <span className="text-sm truncate flex-1 pr-2 font-medium">
                         {chat.title.length > 35 ? chat.title.slice(0, 35) + '...' : chat.title}
                       </span>
                       <button
@@ -285,10 +285,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                           handleDeleteChat(chat.id, e);
                         }}
                         className={cn(
-                          'opacity-0 group-hover:opacity-100 p-1.5 rounded-lg transition-all duration-200 flex-shrink-0',
+                          'opacity-0 group-hover:opacity-100 p-1.5 rounded-lg transition-all duration-300 hover:scale-110 flex-shrink-0',
                           currentChatId === chat.id
                             ? 'hover:bg-white/20 text-white'
-                            : 'hover:bg-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'
+                            : 'hover:bg-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] hover:text-[var(--color-error)]'
                         )}
                         aria-label="Chat löschen"
                       >

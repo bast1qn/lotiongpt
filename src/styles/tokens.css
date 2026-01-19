@@ -24,11 +24,11 @@
   --color-border-strong: rgba(255, 255, 255, 0.2);
   --color-border-accent: rgba(255, 107, 53, 0.3);
 
-  /* Text Colors */
-  --color-text-primary: #fafafa;     /* Primary text */
-  --color-text-secondary: #a1a1aa;   /* Secondary text */
-  --color-text-tertiary: #71717a;    /* Tertiary text */
-  --color-text-muted: #52525b;       /* Muted/disabled text */
+  /* Text Colors - Enhanced for better contrast */
+  --color-text-primary: #ffffff;     /* Pure white - primary text */
+  --color-text-secondary: #d4d4d8;   /* Lighter secondary - better readability */
+  --color-text-tertiary: #a1a1aa;    /* Tertiary text */
+  --color-text-muted: #71717a;       /* Muted/disabled text */
   --color-text-inverse: #0a0a0b;     /* Text on primary */
 
   /* Primary Accent - Orange Gradient */
@@ -37,13 +37,14 @@
   --color-primary-200: #fed7aa;
   --color-primary-300: #fdba74;
   --color-primary-400: #fb923c;
-  --color-primary-500: #FF6B35;      /* Main brand color */
+  --color-primary-500: #ff7a47;      /* Enhanced - More vibrant orange */
   --color-primary-600: #ea580c;
   --color-primary-700: #c2410c;
-  --color-primary-gradient: linear-gradient(135deg, #FF6B35 0%, #ff8555 100%);
-  --color-primary-gradient-subtle: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 133, 85, 0.1) 100%);
-  --color-primary-glow: rgba(255, 107, 53, 0.15);
-  --color-primary-glow-strong: rgba(255, 107, 53, 0.3);
+  --color-primary-gradient: linear-gradient(135deg, #ff7a47 0%, #ff8a57 100%);
+  --color-primary-gradient-subtle: linear-gradient(135deg, rgba(255, 122, 71, 0.1) 0%, rgba(255, 138, 87, 0.1) 100%);
+  --color-primary-glow: rgba(255, 122, 71, 0.2);
+  --color-primary-glow-strong: rgba(255, 122, 71, 0.35);
+  --color-primary-glow-intense: rgba(255, 122, 71, 0.5);
 
   /* Semantic Colors */
   --color-success: #22c55e;
@@ -196,6 +197,16 @@
   --btn-sm-height: 32px;
   --btn-md-height: 40px;
   --btn-lg-height: 48px;
+
+  /* ============================================
+     COMPONENT SPACING (Consistent spacing scale)
+     ============================================ */
+  --spacing-xs: var(--space-1);      /* 4px */
+  --spacing-sm: var(--space-2);      /* 8px */
+  --spacing-md: var(--space-3);      /* 12px */
+  --spacing-lg: var(--space-4);      /* 16px */
+  --spacing-xl: var(--space-6);      /* 24px */
+  --spacing-2xl: var(--space-8);     /* 32px */
 
   /* ============================================
      GLASSMORPHISM

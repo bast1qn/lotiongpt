@@ -226,10 +226,10 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             <button
               onClick={() => setShowModelPicker(!showModelPicker)}
               className={cn(
-                'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all',
+                'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300',
                 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
-                'hover:border-[var(--color-border-default)]'
+                'hover:border-[var(--color-border-medium)] hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
               )}
             >
               <span>{MODEL_INFO[selectedModel].icon}</span>
@@ -239,7 +239,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
             {/* Model Dropdown */}
             {showModelPicker && (
-              <div className="absolute bottom-full left-0 mb-2 w-56 bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl shadow-xl animate-fade-in-up z-20">
+              <div className="absolute bottom-full left-0 mb-2 w-56 bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl shadow-xl animate-slide-in-bottom z-20">
                 <div className="p-2 space-y-1">
                   <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider">
                     Zhipu AI
@@ -252,9 +252,9 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200',
                         selectedModel === model
-                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
@@ -278,9 +278,9 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200',
                         selectedModel === model
-                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
@@ -327,11 +327,11 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           <button
             onClick={() => onThinkingChange?.(!thinkingEnabled)}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all',
+              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300',
               'border',
               thinkingEnabled
-                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)]'
-                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
+                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border-medium)] hover:shadow-md'
             )}
             title={thinkingEnabled ? 'Thinking ist aktiv' : 'Thinking ist deaktiviert'}
           >
@@ -343,11 +343,11 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           <button
             onClick={onToggleFileUpload}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all',
+              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300',
               'border',
               showFileUpload
-                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)]'
-                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
+                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border-medium)] hover:shadow-md'
             )}
             title="Dateien anhängen"
           >
@@ -378,7 +378,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
         {/* File Upload Panel */}
         {showFileUpload && (
-          <div className="mb-3 animate-fade-in-down">
+          <div className="mb-3 animate-slide-in-bottom">
             <FileUpload
               files={files}
               onFilesAdd={handleFilesAdd}
@@ -390,12 +390,12 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
         <div
           className={cn(
-            'relative rounded-2xl transition-all duration-200',
+            'relative rounded-2xl transition-all duration-300',
             'bg-[var(--color-bg-tertiary)]',
             'border border-[var(--color-border-subtle)]',
-            isDragging && 'border-[var(--color-primary-500)] bg-[var(--color-primary-500)]/5 scale-[1.01]',
+            isDragging && 'border-[var(--color-primary-500)] bg-[var(--color-primary-500)]/5 scale-[1.01] shadow-lg shadow-[var(--color-primary-glow)]',
             isLoading && 'opacity-70',
-            'shadow-lg shadow-black/20'
+            'shadow-lg shadow-black/30'
           )}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
@@ -405,15 +405,15 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           {images.length > 0 && (
             <div className="flex flex-wrap gap-2 p-3 pb-0">
               {images.map((img, index) => (
-                <div key={index} className="relative group animate-fade-in-up">
+                <div key={index} className="relative group animate-scale-in">
                   <img
                     src={`data:${img.mimeType};base64,${img.data}`}
                     alt={img.name || 'Uploaded image'}
-                    className="h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-lg border border-[var(--color-border-subtle)]"
+                    className="h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-lg border border-[var(--color-border-subtle)] shadow-md hover:shadow-lg transition-shadow"
                   />
                   <button
                     onClick={() => removeImage(index)}
-                    className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
+                    className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-md"
                   >
                     <span className="text-xs font-bold">×</span>
                   </button>
@@ -424,8 +424,8 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
           {/* Drag overlay */}
           {isDragging && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-primary-500)]/10 rounded-2xl z-10 backdrop-blur-sm">
-              <div className="flex flex-col items-center gap-2 text-[var(--color-primary-500)]">
+            <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-primary-500)]/10 rounded-2xl z-10 backdrop-blur-sm animate-fade-in">
+              <div className="flex flex-col items-center gap-2 text-[var(--color-primary-500)] animate-scale-in">
                 <Icons.Image />
                 <span className="text-sm font-medium">Bild hier ablegen</span>
               </div>
@@ -446,10 +446,10 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
               className={cn(
-                'p-2.5 rounded-xl transition-all duration-200 flex-shrink-0',
+                'p-2.5 rounded-xl transition-all duration-300 flex-shrink-0',
                 'text-[var(--color-text-muted)]',
-                'hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10',
-                'disabled:opacity-50 disabled:cursor-not-allowed'
+                'hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 hover:scale-110',
+                'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100'
               )}
               title="Bild hinzufügen"
             >
@@ -478,9 +478,9 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={handleSend}
               disabled={!canSend}
               className={cn(
-                'p-2.5 rounded-xl transition-all duration-200 flex-shrink-0',
+                'p-2.5 rounded-xl transition-all duration-300 flex-shrink-0',
                 canSend
-                  ? 'bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)] shadow-md shadow-[var(--color-primary-glow)] hover:shadow-lg hover:shadow-[var(--color-primary-glow-strong)] hover:scale-105'
+                  ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white hover:to-[var(--color-primary-700)] shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105'
                   : 'text-[var(--color-text-muted)] cursor-not-allowed bg-[var(--color-bg-elevated)]'
               )}
               title={canSend ? 'Senden' : 'Nachricht eingeben...'}
