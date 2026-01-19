@@ -21,7 +21,7 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] transition-all duration-200"
+        className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:shadow-md transition-all duration-300 hover:scale-105"
         title="Vorlagen"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -39,7 +39,7 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
     <div className="relative">
       <button
         onClick={() => setIsOpen(false)}
-        className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10 transition-all duration-200"
+        className="p-2.5 hover:bg-[var(--color-primary-500)]/20 rounded-xl text-[var(--color-primary-500)] bg-gradient-to-br from-[var(--color-primary-500)]/10 to-[var(--color-primary-600)]/10 shadow-md shadow-[var(--color-primary-glow)] transition-all duration-300 hover:scale-105 border border-[var(--color-primary-500)]/20"
         title="Vorlagen"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -51,56 +51,75 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
         </svg>
       </button>
 
-      {/* Templates Dropdown */}
-      <div className="absolute bottom-full left-0 mb-2 w-72 bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl shadow-xl animate-fade-in-up z-20 max-h-[400px] flex flex-col">
-        {/* Categories */}
-        <div className="p-2 border-b border-[var(--color-border-subtle)]">
-          <div className="flex gap-1 overflow-x-auto pb-1">
+      {/* Enhanced Templates Dropdown */}
+      <div className="absolute bottom-full left-0 mb-3 w-80 bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl shadow-2xl shadow-black/50 animate-slide-in-bottom z-20 max-h-[450px] flex flex-col overflow-hidden">
+        {/* Glow effect */}
+        <div className="absolute -inset-4 bg-[var(--color-primary-500)] opacity-5 blur-3xl -z-10" />
+
+        {/* Enhanced Categories */}
+        <div className="p-3 border-b border-[var(--glass-border)] bg-gradient-to-b from-[var(--glass-highlight)] to-transparent">
+          <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
             {TEMPLATE_CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={cn(
-                  'flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all',
+                  'flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300',
                   selectedCategory === cat.id
-                    ? 'bg-[var(--color-primary-500)] text-white'
-                    : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
+                    ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)]'
+                    : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] border border-transparent hover:border-[var(--color-border-subtle)]'
                 )}
               >
-                <span>{cat.icon}</span>
+                <span className="text-sm">{cat.icon}</span>
                 <span>{cat.name}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Templates List */}
-        <div className="flex-1 overflow-y-auto p-2 space-y-1">
-          {filteredTemplates.map((template) => (
+        {/* Enhanced Templates List */}
+        <div className="flex-1 overflow-y-auto p-2 space-y-1 sidebar-scroll">
+          {filteredTemplates.map((template, index) => (
             <button
               key={template.id}
               onClick={() => {
                 onTemplateSelect(template.prompt);
                 setIsOpen(false);
               }}
-              className="w-full text-left p-3 rounded-xl hover:bg-[var(--color-bg-elevated)] transition-colors group"
+              className="w-full text-left p-3 rounded-xl hover:bg-gradient-to-r hover:from-[var(--color-bg-elevated)] hover:to-transparent border border-transparent hover:border-[var(--color-border-subtle)] transition-all duration-300 group animate-bounce-in"
+              style={{ animationDelay: `${index * 30}ms` }}
             >
               <div className="flex items-start gap-3">
-                <span className="text-xl">{template.icon}</span>
+                <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                  {template.icon}
+                </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[var(--color-text-primary)]">
+                  <p className="text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary-500)] transition-colors">
                     {template.name}
                   </p>
-                  <p className="text-xs text-[var(--color-text-muted)] line-clamp-1">
+                  <p className="text-xs text-[var(--color-text-muted)] line-clamp-1 mt-0.5">
                     {template.description}
                   </p>
                 </div>
-                <span className="w-4 h-4 text-[var(--color-text-muted)] rotate-[-90deg] group-hover:text-[var(--color-primary-500)] transition-colors flex items-center justify-center">
-                <Icons.ChevronDown />
-              </span>
+                <span className="w-5 h-5 text-[var(--color-text-muted)] rotate-[-90deg] group-hover:text-[var(--color-primary-500)] group-hover:translate-x-0.5 transition-all duration-300 flex items-center justify-center flex-shrink-0 mt-1">
+                  <Icons.ChevronDown />
+                </span>
               </div>
             </button>
           ))}
+
+          {filteredTemplates.length === 0 && (
+            <div className="py-8 text-center text-[var(--color-text-muted)] text-sm">
+              Keine Vorlagen in dieser Kategorie
+            </div>
+          )}
+        </div>
+
+        {/* Footer hint */}
+        <div className="p-2 border-t border-[var(--glass-border)] bg-gradient-to-b from-transparent to-[var(--glass-highlight)]">
+          <p className="text-[10px] text-center text-[var(--color-text-muted)]">
+            Klicken zum Auswählen
+          </p>
         </div>
       </div>
     </div>

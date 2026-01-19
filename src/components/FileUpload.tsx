@@ -14,7 +14,6 @@ interface FileUploadProps {
 
 export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fileToBase64 = (file: File): Promise<string> => {
@@ -74,7 +73,6 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
 
     const { addedCount, errors } = await processFiles(e.dataTransfer.files);
 
-    // Show errors via console for now, could be toast notifications
     if (errors.length > 0) {
       console.warn('File upload errors:', errors);
     }
@@ -101,15 +99,14 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
       console.warn('File upload errors:', errors);
     }
 
-    // Reset input
     e.target.value = '';
   }, [disabled, processFiles]);
 
   const totalSize = files.reduce((sum, f) => sum + f.size, 0);
 
   return (
-    <div className="space-y-2">
-      {/* File Previews */}
+    <div className="space-y-3">
+      {/* Enhanced File Previews */}
       {files.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {files.map((file, index) => {
@@ -120,43 +117,51 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
               <div
                 key={index}
                 className={cn(
-                  'relative group animate-fade-in-up',
-                  'flex items-center gap-2 px-3 py-2 rounded-lg border',
-                  'bg-[var(--color-bg-tertiary)] border-[var(--color-border-subtle)]',
-                  'hover:border-[var(--color-border-default)] transition-all'
+                  'relative group animate-bounce-in',
+                  'flex items-center gap-2.5 px-3 py-2.5 rounded-xl border',
+                  'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)]',
+                  'border-[var(--color-border-subtle)]',
+                  'hover:border-[var(--color-border-default)] hover:shadow-lg',
+                  'transition-all duration-300'
                 )}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                {/* Icon/Thumbnail */}
-                {isImage && file.data ? (
-                  <img
-                    src={`data:${file.mimeType};base64,${file.data}`}
-                    alt={file.name}
-                    className="w-10 h-10 object-cover rounded"
-                  />
-                ) : (
-                  <div className={cn('w-10 h-10 rounded flex items-center justify-center text-lg', config.color)}>
-                    {config.icon}
-                  </div>
-                )}
+                {/* Icon/Thumbnail with glow */}
+                <div className={cn(
+                  'w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0',
+                  'transition-all duration-300 group-hover:scale-110',
+                  isImage ? 'p-0.5 shadow-md' : config.color
+                )}>
+                  {isImage && file.data ? (
+                    <img
+                      src={`data:${file.mimeType};base64,${file.data}`}
+                      alt={file.name}
+                      className="w-full h-full object-cover rounded-md"
+                    />
+                  ) : (
+                    <span className="text-xl">{config.icon}</span>
+                  )}
+                </div>
 
                 {/* File Info */}
-                <div className="min-w-0 max-w-[150px]">
-                  <p className="text-xs font-medium text-[var(--color-text-primary)] truncate">
+                <div className="min-w-0 max-w-[140px]">
+                  <p className="text-xs font-semibold text-[var(--color-text-primary)] truncate">
                     {file.name}
                   </p>
-                  <p className="text-[10px] text-[var(--color-text-muted)]">
+                  <p className="text-[10px] text-[var(--color-text-muted)] flex items-center gap-1">
+                    <Icons.Info />
                     {formatFileSize(file.size)}
                   </p>
                 </div>
 
-                {/* Remove Button */}
+                {/* Enhanced Remove Button */}
                 <button
                   onClick={() => onFileRemove(index)}
                   disabled={disabled}
                   className={cn(
-                    'p-1 rounded-md transition-colors',
+                    'flex-shrink-0 p-1.5 rounded-lg transition-all duration-300',
                     'text-[var(--color-text-muted)] hover:text-[var(--color-error)]',
-                    'hover:bg-[var(--color-error-bg)]',
+                    'hover:bg-[var(--color-error-bg)] hover:scale-110',
                     'disabled:opacity-50 disabled:cursor-not-allowed'
                   )}
                 >
@@ -166,28 +171,33 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
             );
           })}
 
-          {/* Total Size Badge */}
-          <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-[var(--color-bg-elevated)] text-[10px] text-[var(--color-text-muted)]">
-            <Icons.Info />
+          {/* Enhanced Total Size Badge */}
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-br from-[var(--color-primary-500)]/10 to-[var(--color-primary-600)]/5 border border-[var(--color-primary-500)]/20 text-[10px] text-[var(--color-primary-500)] font-medium">
+            <Icons.Paperclip />
             {formatFileSize(totalSize)}
           </div>
         </div>
       )}
 
-      {/* Upload Area */}
+      {/* Enhanced Upload Area */}
       <div
         className={cn(
-          'relative rounded-xl border-2 border-dashed transition-all duration-200',
-          'min-h-[80px] flex flex-col items-center justify-center p-4',
+          'relative rounded-2xl border-2 border-dashed transition-all duration-300',
+          'min-h-[100px] flex flex-col items-center justify-center p-5 overflow-hidden',
           isDragging
-            ? 'border-[var(--color-primary-500)] bg-[var(--color-primary-500)]/5 scale-[1.01]'
-            : 'border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] bg-[var(--color-bg-tertiary)]',
+            ? 'border-[var(--color-primary-500)] bg-gradient-to-br from-[var(--color-primary-500)]/10 to-[var(--color-primary-600)]/5 scale-[1.01] shadow-lg shadow-[var(--color-primary-glow)]'
+            : 'border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] hover:shadow-md',
           disabled && 'opacity-50 cursor-not-allowed'
         )}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >
+        {/* Animated gradient border on drag */}
+        {isDragging && (
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary-500)]/20 via-[var(--color-primary-600)]/20 to-[var(--color-primary-500)]/20 animate-shimmer -z-10" />
+        )}
+
         <input
           ref={fileInputRef}
           type="file"
@@ -198,16 +208,18 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
           accept=".png,.jpg,.jpeg,.webp,.gif,.pdf,.doc,.docx,.txt,.md,.py,.js,.ts,.json,.xml,.csv,.mp3,.wav"
         />
 
-        <div className="flex flex-col items-center gap-2 text-center">
+        <div className="flex flex-col items-center gap-3 text-center">
           <div className={cn(
-            'w-10 h-10 rounded-full flex items-center justify-center transition-colors',
-            isDragging ? 'bg-[var(--color-primary-500)] text-white' : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]'
+            'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300',
+            isDragging
+              ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)] scale-110'
+              : 'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] border border-[var(--color-border-subtle)]'
           )}>
             <Icons.Paperclip />
           </div>
 
           <div>
-            <p className="text-sm text-[var(--color-text-secondary)]">
+            <p className="text-sm font-medium text-[var(--color-text-secondary)]">
               {isDragging ? 'Datei loslassen' : 'Dateien hierher ziehen'}
             </p>
             <p className="text-xs text-[var(--color-text-muted)] mt-1">
@@ -215,30 +227,32 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-1 justify-center mt-2">
-            <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
-              📄 PDF, DOC
-            </span>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
-              💻 Code
-            </span>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
-              🖼️ Bilder
-            </span>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
-              📊 CSV, JSON
-            </span>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
-              🎵 Audio
-            </span>
+          <div className="flex flex-wrap gap-1.5 justify-center mt-1">
+            {[
+              { icon: '📄', label: 'Dokumente' },
+              { icon: '💻', label: 'Code' },
+              { icon: '🖼️', label: 'Bilder' },
+              { icon: '📊', label: 'Daten' },
+              { icon: '🎵', label: 'Audio' },
+            ].map((item) => (
+              <span
+                key={item.label}
+                className="text-[10px] px-2.5 py-1 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border-default)] transition-all"
+              >
+                {item.icon} {item.label}
+              </span>
+            ))}
           </div>
         </div>
       </div>
 
       {/* File Limits Info */}
       <div className="flex items-center justify-between text-[10px] text-[var(--color-text-muted)] px-1">
-        <span>Max: 25MB pro Datei</span>
-        <span>Unterstützte Formate: PDF, DOC, TXT, MD, Code, Bilder, Audio</span>
+        <span className="flex items-center gap-1">
+          <Icons.Info />
+          Max: 25MB pro Datei
+        </span>
+        <span>PDF, DOC, TXT, MD, Code, Bilder, Audio</span>
       </div>
     </div>
   );

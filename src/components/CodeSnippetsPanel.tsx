@@ -100,20 +100,20 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
 
   return (
     <div className="p-3 space-y-3">
-      {/* Header */}
+      {/* Enhanced Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
+        <h3 className="text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
           Code Snippets
         </h3>
         <button
           onClick={() => setIsCreating(true)}
-          className="p-1 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+          className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:shadow-md transition-all duration-300 hover:scale-105"
         >
           <Icons.Plus />
         </button>
       </div>
 
-      {/* Search */}
+      {/* Enhanced Search */}
       <div className="relative">
         <input
           type="text"
@@ -121,22 +121,22 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           placeholder="Snippets durchsuchen..."
-          className="w-full pl-8 pr-3 py-2 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] transition-all"
+          className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
         />
-        <div className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
           <Icons.Search />
         </div>
       </div>
 
-      {/* Create/Edit Form */}
+      {/* Enhanced Create/Edit Form */}
       {(isCreating || isEditing) && (
-        <div className="space-y-2 p-3 bg-[var(--color-bg-tertiary)] rounded-xl animate-fade-in-down">
+        <div className="space-y-3 p-4 bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] rounded-2xl border border-[var(--color-border-subtle)] shadow-lg animate-slide-in-bottom">
           <input
             type="text"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             placeholder="Titel (z.B. API Fetch)"
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
             autoFocus
           />
 
@@ -145,13 +145,13 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
             onChange={(e) => setFormData({ ...formData, code: e.target.value })}
             placeholder="Code..."
             rows={4}
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all font-mono text-[12px]"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300 font-mono text-[12px]"
           />
 
           <select
             value={formData.language}
             onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
           >
             {SNIPPET_LANGUAGES.map((lang) => (
               <option key={lang.id} value={lang.id}>
@@ -160,16 +160,16 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
             ))}
           </select>
 
-          <div className="flex gap-2 justify-end">
+          <div className="flex gap-2 justify-end pt-1">
             <button
               onClick={resetForm}
-              className="px-3 py-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-lg transition-colors"
+              className="px-4 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-300 hover:shadow-md"
             >
               Abbrechen
             </button>
             <button
               onClick={handleSubmit}
-              className="px-3 py-1.5 text-sm bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg transition-colors"
+              className="px-4 py-2 text-sm bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] hover:to-[var(--color-primary-700)] text-white rounded-xl transition-all duration-300 shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105"
             >
               {isEditing ? 'Speichern' : 'Erstellen'}
             </button>
@@ -177,17 +177,17 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
         </div>
       )}
 
-      {/* Snippets List */}
+      {/* Enhanced Snippets List */}
       {isLoading ? (
         <div className="flex items-center justify-center py-8">
           <div className="w-8 h-8 rounded-lg bg-[var(--color-bg-tertiary)] animate-pulse" />
         </div>
       ) : filteredSnippets.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-8 text-center">
-          <div className="w-12 h-12 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] flex items-center justify-center mb-3">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] flex items-center justify-center mb-3 shadow-md">
             <Icons.Code />
           </div>
-          <p className="text-sm text-[var(--color-text-secondary)]">
+          <p className="text-sm font-medium text-[var(--color-text-secondary)]">
             {searchQuery ? 'Keine Snippets gefunden' : 'Noch keine Snippets'}
           </p>
           <p className="text-xs text-[var(--color-text-muted)] mt-1">
@@ -195,30 +195,31 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
           </p>
         </div>
       ) : (
-        <div className="space-y-1">
-          {filteredSnippets.map((snippet) => {
+        <div className="space-y-2">
+          {filteredSnippets.map((snippet, index) => {
             const langInfo = SNIPPET_LANGUAGES.find(l => l.id === snippet.language);
             return (
               <div
                 key={snippet.id}
-                className="group relative p-3 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] transition-all"
+                className="group relative p-3 rounded-xl bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] hover:shadow-md transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: `${index * 30}ms` }}
               >
-                {/* Header */}
+                {/* Enhanced Header */}
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-[var(--color-text-primary)]">
+                    <span className="text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary-500)] transition-colors">
                       {snippet.title}
                     </span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
+                    <span className="text-[10px] px-2 py-0.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)]">
                       {langInfo?.icon} {langInfo?.name}
                     </span>
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  {/* Enhanced Actions */}
+                  <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={() => handleInsert(snippet.code)}
-                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all"
+                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 hover:scale-110"
                       title="In Chat einfügen"
                     >
                       <Icons.Plus />
@@ -233,21 +234,21 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
                           tags: snippet.tags,
                         });
                       }}
-                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all"
+                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300 hover:scale-110"
                     >
                       <Icons.Edit />
                     </button>
                     <button
                       onClick={() => handleDelete(snippet.id)}
-                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all"
+                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-300 hover:scale-110"
                     >
                       <Icons.Trash />
                     </button>
                   </div>
                 </div>
 
-                {/* Code Preview */}
-                <pre className="text-xs text-[var(--color-text-secondary)] font-mono overflow-x-auto whitespace-pre-wrap bg-[var(--color-bg-secondary)] rounded-lg p-2 max-h-20">
+                {/* Enhanced Code Preview */}
+                <pre className="text-xs text-[var(--color-text-secondary)] font-mono overflow-x-auto whitespace-pre-wrap bg-[var(--color-bg-secondary)] rounded-xl p-3 max-h-24 border border-[var(--color-border-subtle)]">
                   {snippet.code.slice(0, 150)}
                   {snippet.code.length > 150 && '...'}
                 </pre>
@@ -258,7 +259,7 @@ export function CodeSnippetsPanel({ onInsertSnippet }: CodeSnippetsPanelProps) {
                     {snippet.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]"
+                        className="text-[10px] px-2 py-0.5 rounded-lg bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)]"
                       >
                         {tag}
                       </span>
