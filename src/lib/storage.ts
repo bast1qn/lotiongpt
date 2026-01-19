@@ -1,7 +1,7 @@
 import { Chat, Message } from '@/types/chat';
 
-const CHATS_KEY = 'lotiongpt_chats';
-const SETTINGS_KEY = 'lotiongpt_settings';
+const CHATS_KEY = 'lotion_chats';
+const SETTINGS_KEY = 'lotion_settings';
 
 export interface Settings {
   apiKey: string;
@@ -13,9 +13,9 @@ export interface Settings {
 }
 
 const DEFAULT_SETTINGS: Settings = {
-  apiKey: 'b6f5c430caa24818a04ad788a0f2f479.1CdsacXynCYJEhx6',
-  model: 'glm-4.6',
-  visionModel: 'glm-4.6v-flashx',
+  apiKey: '',
+  model: 'glm-4-flash',
+  visionModel: 'glm-4v-flash',
   temperature: 0.7,
   maxTokens: 4096,
   thinking: true,

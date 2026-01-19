@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LotionGPT - Z.ai Chat",
-  description: "Modern Chat UI powered by Z.ai GLM-4.6 with multimodal support.",
+  title: "Lotion - Smart Chat",
+  description: "Modern chat interface with multimodal support for text, images, and documents.",
 };
 
 export default function RootLayout({

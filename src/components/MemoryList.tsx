@@ -203,7 +203,7 @@ export function MemoryList({ onClose }: MemoryListProps) {
               {filterCategory === 'all' ? 'Noch keine Memories' : 'Keine Memories in dieser Kategorie'}
             </p>
             <p className="text-xs text-[var(--color-text-muted)] mt-1">
-              Die KI wird Dinge lernen, die du ihr sagst
+              Der Chat wird sich an Dinge merken, die du ihm sagst
             </p>
           </div>
         ) : (
@@ -257,7 +257,7 @@ export function MemoryList({ onClose }: MemoryListProps) {
       {/* Info Footer */}
       <div className="p-3 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-tertiary)]">
         <p className="text-xs text-[var(--color-text-muted)] text-center">
-          Sag "Merk dir..." damit die KI Dinge lernt
+          Sag "Merk dir..." damit der Chat Dinge lernt
         </p>
       </div>
     </div>
