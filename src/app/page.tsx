@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Chat, Message, ImageAttachment } from '@/types/chat';
+import { Chat, Message, ImageAttachment, FileAttachment } from '@/types/chat';
 import { truncateTitle } from '@/lib/utils';
 import { Sidebar } from '@/components/Sidebar';
 import { MessageList } from '@/components/MessageList';
@@ -23,6 +23,7 @@ function HomeContent() {
   const [selectedModel, setSelectedModel] = useState<ChatModel>('glm-4.7');
   const [thinkingEnabled, setThinkingEnabled] = useState(true);
   const [editingMessageIndex, setEditingMessageIndex] = useState<number | null>(null);
+  const [showFileUpload, setShowFileUpload] = useState(false);
 
   // Load chats from Supabase
   const loadChats = async () => {
@@ -137,10 +138,10 @@ function HomeContent() {
     return data.content;
   };
 
-  const handleSendMessage = async (content: string, images?: ImageAttachment[]) => {
+  const handleSendMessage = async (content: string, images?: ImageAttachment[], files?: FileAttachment[]) => {
     if (!currentChat || isLoading) return;
 
-    const userMessage: Message = { role: 'user', content, images };
+    const userMessage: Message = { role: 'user', content, images, files };
     const updatedChat: Chat = {
       ...currentChat,
       messages: [...currentChat.messages, userMessage],
@@ -400,6 +401,8 @@ function HomeContent() {
           onModelChange={setSelectedModel}
           thinkingEnabled={thinkingEnabled}
           onThinkingChange={setThinkingEnabled}
+          showFileUpload={showFileUpload}
+          onToggleFileUpload={() => setShowFileUpload(!showFileUpload)}
         />
       </main>
     </div>

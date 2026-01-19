@@ -339,6 +339,10 @@
   animation: fadeInScale 0.2s var(--ease-out);
 }
 
+.animate-fade-in-down {
+  animation: fadeInDown 0.3s var(--ease-out);
+}
+
 .animate-shimmer {
   background: linear-gradient(
     90deg,

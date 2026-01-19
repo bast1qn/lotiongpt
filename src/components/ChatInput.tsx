@@ -2,19 +2,22 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { Icons } from './Icons';
-import { ImageAttachment } from '@/types/chat';
+import { ImageAttachment, FileAttachment } from '@/types/chat';
 import { cn } from '@/lib/utils';
 import { storage } from '@/lib/storage';
+import { FileUpload } from './FileUpload';
 
 export type ChatModel = 'glm-4.6' | 'glm-4.7' | 'gemini-2.5-pro' | 'gemini-2.5-flash' | 'gpt-4.1' | 'claude-4.5-sonnet';
 
 interface ChatInputProps {
-  onSend: (message: string, images?: ImageAttachment[]) => void;
+  onSend: (message: string, images?: ImageAttachment[], files?: FileAttachment[]) => void;
   isLoading?: boolean;
   selectedModel?: ChatModel;
   onModelChange?: (model: ChatModel) => void;
   thinkingEnabled?: boolean;
   onThinkingChange?: (enabled: boolean) => void;
+  showFileUpload?: boolean;
+  onToggleFileUpload?: () => void;
 }
 
 const MODEL_INFO: Record<ChatModel, { name: string; provider: string; icon: string }> = {
@@ -32,10 +35,13 @@ export function ChatInput({
   selectedModel = 'glm-4.7',
   onModelChange,
   thinkingEnabled = true,
-  onThinkingChange
+  onThinkingChange,
+  showFileUpload = false,
+  onToggleFileUpload
 }: ChatInputProps) {
   const [input, setInput] = useState('');
   const [images, setImages] = useState<ImageAttachment[]>([]);
+  const [files, setFiles] = useState<FileAttachment[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [showModelPicker, setShowModelPicker] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -46,7 +52,6 @@ export function ChatInput({
   useEffect(() => {
     const settings = storage.getSettings();
     if (onModelChange) {
-      // Map old model setting to new ChatModel
       const modelMap: Record<string, ChatModel> = {
         'glm-4.6': 'glm-4.6',
         'glm-4.7': 'glm-4.7',
@@ -77,13 +82,11 @@ export function ChatInput({
     }
   }, [input]);
 
-  const handleFileSelect = async (files: FileList | null) => {
-    if (!files) return;
-
+  const handleFileSelect = async (fileList: FileList) => {
     const newImages: ImageAttachment[] = [];
 
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
       if (file.type.startsWith('image/')) {
         const base64 = await fileToBase64(file);
         newImages.push({
@@ -114,7 +117,17 @@ export function ChatInput({
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    handleFileSelect(e.dataTransfer.files);
+
+    // Check if files are being dragged
+    if (e.dataTransfer.files.length > 0) {
+      // If we have image files, add them to images
+      const imageFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+      if (imageFiles.length > 0) {
+        const dataTransfer = new DataTransfer();
+        imageFiles.forEach(f => dataTransfer.items.add(f));
+        handleFileSelect(dataTransfer.files);
+      }
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -131,12 +144,21 @@ export function ChatInput({
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const handleFilesAdd = (newFiles: FileAttachment[]) => {
+    setFiles((prev) => [...prev, ...newFiles]);
+  };
+
+  const handleFileRemove = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSend = () => {
     const trimmed = input.trim();
-    if ((trimmed || images.length > 0) && !isLoading) {
-      onSend(trimmed, images.length > 0 ? images : undefined);
+    if ((trimmed || images.length > 0 || files.length > 0) && !isLoading) {
+      onSend(trimmed, images.length > 0 ? images : undefined, files.length > 0 ? files : undefined);
       setInput('');
       setImages([]);
+      setFiles([]);
       if (textareaRef.current) {
         textareaRef.current.style.height = 'auto';
       }
@@ -170,7 +192,8 @@ export function ChatInput({
     }
   };
 
-  const canSend = (input.trim() || images.length > 0) && !isLoading;
+  const hasAttachments = images.length > 0 || files.length > 0;
+  const canSend = (input.trim() || hasAttachments) && !isLoading;
 
   return (
     <div className="flex-shrink-0 p-4 sm:p-6">
@@ -287,7 +310,7 @@ export function ChatInput({
               'border',
               thinkingEnabled
                 ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)]'
-                : 'bg-[var(--color-bg-tertiary)] border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
             )}
             title={thinkingEnabled ? 'Thinking ist aktiv' : 'Thinking ist deaktiviert'}
           >
@@ -295,16 +318,51 @@ export function ChatInput({
             <span className="hidden sm:inline">Thinking: {thinkingEnabled ? 'ON' : 'OFF'}</span>
           </button>
 
+          {/* File Upload Toggle */}
+          <button
+            onClick={onToggleFileUpload}
+            className={cn(
+              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all',
+              'border',
+              showFileUpload
+                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)]'
+                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+            )}
+            title="Dateien anhängen"
+          >
+            <Icons.Paperclip />
+            <span className="hidden sm:inline">Dateien</span>
+          </button>
+
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Token Estimate (optional feedback) */}
-          {input.length > 0 && (
-            <span className="text-xs text-[var(--color-text-muted)]">
-              ~{Math.ceil(input.length / 4)} tokens
-            </span>
-          )}
+          {/* Token Estimate & Attachment Count */}
+          <div className="flex items-center gap-3">
+            {hasAttachments && (
+              <span className="text-xs text-[var(--color-text-muted)]">
+                {images.length + files.length} {images.length + files.length === 1 ? 'Anhang' : 'Anhänge'}
+              </span>
+            )}
+            {input.length > 0 && (
+              <span className="text-xs text-[var(--color-text-muted)]">
+                ~{Math.ceil(input.length / 4)} tokens
+              </span>
+            )}
+          </div>
         </div>
+
+        {/* File Upload Panel */}
+        {showFileUpload && (
+          <div className="mb-3 animate-fade-in-down">
+            <FileUpload
+              files={files}
+              onFilesAdd={handleFilesAdd}
+              onFileRemove={handleFileRemove}
+              disabled={isLoading}
+            />
+          </div>
+        )}
 
         <div
           className={cn(
@@ -319,7 +377,7 @@ export function ChatInput({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          {/* Image Previews */}
+          {/* Image Previews (legacy, kept for quick image paste) */}
           {images.length > 0 && (
             <div className="flex flex-wrap gap-2 p-3 pb-0">
               {images.map((img, index) => (
@@ -357,7 +415,7 @@ export function ChatInput({
               type="file"
               accept="image/*"
               multiple
-              onChange={(e) => handleFileSelect(e.target.files)}
+              onChange={(e) => e.target.files && handleFileSelect(e.target.files)}
               className="hidden"
             />
             <button

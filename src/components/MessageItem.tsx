@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Message } from '@/types/chat';
+import { Message, FileAttachment, FILE_TYPE_CONFIGS, formatFileSize } from '@/types/chat';
 import { formatMessage, copyToClipboard } from '@/lib/utils';
 import { Icons } from './Icons';
 import { useToast } from '@/lib/hooks/useToast';
@@ -236,6 +236,48 @@ export function MessageItem({
                   </div>
                 </button>
               ))}
+            </div>
+          )}
+
+          {/* File Attachments */}
+          {message.files && message.files.length > 0 && (
+            <div className={cn('flex flex-wrap gap-2', isUser ? 'justify-end' : '')}>
+              {message.files.map((file, fileIndex) => {
+                const config = FILE_TYPE_CONFIGS[file.type];
+                const isImage = file.type === 'image' && file.data;
+
+                return (
+                  <div
+                    key={fileIndex}
+                    className={cn(
+                      'flex items-center gap-2 px-3 py-2 rounded-xl border',
+                      'bg-[var(--color-bg-tertiary)] border-[var(--color-border-subtle)]',
+                      'hover:border-[var(--color-border-default)] transition-all',
+                      isImage && 'overflow-hidden p-0'
+                    )}
+                  >
+                    {isImage ? (
+                      <img
+                        src={`data:${file.mimeType};base64,${file.data}`}
+                        alt={file.name}
+                        className="w-12 h-12 object-cover rounded-l-xl"
+                      />
+                    ) : (
+                      <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center text-lg', config.color)}>
+                        {config.icon}
+                      </div>
+                    )}
+                    <div className="min-w-0 max-w-[150px]">
+                      <p className="text-xs font-medium text-[var(--color-text-primary)] truncate">
+                        {file.name}
+                      </p>
+                      <p className="text-[10px] text-[var(--color-text-muted)]">
+                        {formatFileSize(file.size)}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 
