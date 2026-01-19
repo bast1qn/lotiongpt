@@ -26,11 +26,11 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getSession()
 
   // Protected routes
-  const protectedPaths = ['/']
-  const isProtectedPath = protectedPaths.some(path => req.nextUrl.pathname.startsWith(path))
   const isAuthPath = req.nextUrl.pathname.startsWith('/auth')
+  const isProtectedPath = req.nextUrl.pathname === '/'
 
-  if (!session && isProtectedPath) {
+  // Redirect to login if not authenticated on protected routes
+  if (!session && isProtectedPath && !isAuthPath) {
     const url = req.nextUrl.clone()
     url.pathname = '/auth/login'
     return NextResponse.redirect(url)
