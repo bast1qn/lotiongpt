@@ -1,0 +1,164 @@
+'use client';
+
+import { useState } from 'react';
+import { Message } from '@/types/chat';
+import { formatMessage, copyToClipboard } from '@/lib/utils';
+import { Icons } from './Icons';
+import { useToast } from '@/lib/hooks/useToast';
+import { cn } from '@/lib/utils';
+
+interface MessageItemProps {
+  message: Message;
+  index?: number;
+}
+
+export function MessageItem({ message, index = 0 }: MessageItemProps) {
+  const isUser = message.role === 'user';
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  const { showToast } = useToast();
+
+  const handleCopy = async () => {
+    const success = await copyToClipboard(message.content);
+    if (success) {
+      showToast('In Zwischenablage kopiert', 'success');
+    } else {
+      showToast('Fehler beim Kopieren', 'error');
+    }
+  };
+
+  return (
+    <>
+      <div
+        className={cn(
+          'flex gap-3 sm:gap-4 group animate-message-in',
+          isUser ? 'flex-row-reverse' : ''
+        )}
+        style={{ animationDelay: `${Math.min(index * 30, 200)}ms` }}
+      >
+        {/* Avatar */}
+        <div
+          className={cn(
+            'flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center',
+            'transition-transform duration-200 group-hover:scale-105',
+            isUser
+              ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] shadow-md shadow-[var(--color-primary-glow)]'
+              : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)]'
+          )}
+        >
+          {isUser ? (
+            <span className="text-white text-sm font-semibold">B</span>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-[var(--color-primary-500)]"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+          )}
+        </div>
+
+        {/* Content Container */}
+        <div className={cn('flex-1 min-w-0 space-y-3', isUser ? 'text-right' : '')}>
+          {/* Message Header with Actions */}
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-xs text-[var(--color-text-muted)] font-medium">
+              {isUser ? 'Du' : 'LotionGPT'}
+            </span>
+            {/* Message Actions - Visible on hover */}
+            <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity">
+              <button
+                onClick={handleCopy}
+                className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+                title="Kopieren"
+              >
+                <Icons.Copy />
+              </button>
+              {!isUser && (
+                <button
+                  className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+                  title="Neu generieren"
+                >
+                  <Icons.Refresh />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Images */}
+          {message.images && message.images.length > 0 && (
+            <div className={cn('flex flex-wrap gap-2', isUser ? 'justify-end' : '')}>
+              {message.images.map((img, imgIndex) => (
+                <button
+                  key={imgIndex}
+                  onClick={() => setExpandedImage(`data:${img.mimeType};base64,${img.data}`)}
+                  className="relative group/img overflow-hidden rounded-xl border border-[var(--color-border-subtle)] hover:border-[var(--color-primary-500)] transition-all duration-200 hover:shadow-lg hover:shadow-[var(--color-primary-glow)]"
+                >
+                  <img
+                    src={`data:${img.mimeType};base64,${img.data}`}
+                    alt={img.name || 'Attached image'}
+                    className="max-h-64 max-w-xs object-cover transition-transform duration-200 group-hover/img:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors" />
+                  {/* Zoom hint */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                    <div className="p-2 rounded-lg bg-black/50 backdrop-blur-sm">
+                      <Icons.Maximize />
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Text content */}
+          {message.content && (
+            <div
+              className={cn(
+                'inline-block rounded-2xl px-4 py-3 max-w-full',
+                isUser
+                  ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white rounded-tr-sm'
+                  : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)] rounded-tl-sm'
+              )}
+            >
+              <div className="text-[15px] leading-relaxed prose prose-invert prose-p:last:mb-0 max-w-none">
+                {formatMessage(message.content)}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Lightbox for expanded images */}
+      {expandedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in"
+          onClick={() => setExpandedImage(null)}
+        >
+          <div className="relative max-w-[90vw] max-h-[90vh] animate-scale-in-spring">
+            <img
+              src={expandedImage}
+              alt="Expanded view"
+              className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl"
+            />
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="absolute -top-3 -right-3 w-9 h-9 bg-[var(--color-bg-elevated)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] rounded-full flex items-center justify-center text-white shadow-lg transition-colors"
+            >
+              <Icons.Close />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
