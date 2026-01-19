@@ -13,9 +13,11 @@ interface MessageListProps {
   onEditMessage?: (messageIndex: number, newContent: string) => void;
   onRegenerate?: () => void;
   onDeleteMessage?: (messageIndex: number) => void;
+  onToggleStar?: (messageIndex: number) => void;
   editingMessageIndex?: number | null;
   searchQuery?: string;
   highlightedMessageIndex?: number | null;
+  starredIndices?: number[];
 }
 
 export function MessageList({
@@ -25,9 +27,11 @@ export function MessageList({
   onEditMessage,
   onRegenerate,
   onDeleteMessage,
+  onToggleStar,
   editingMessageIndex = null,
   searchQuery = '',
-  highlightedMessageIndex = null
+  highlightedMessageIndex = null,
+  starredIndices = []
 }: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -80,11 +84,13 @@ export function MessageList({
                 isEditing={editingMessageIndex === index}
                 searchQuery={searchQuery}
                 isSearchMatch={matchingMessageIndices.includes(index)}
+                isStarred={starredIndices.includes(index)}
                 onEditComplete={(newContent) => onEditMessage?.(index, newContent)}
                 onCancelEdit={() => onEditMessage?.(-1, '')}
                 onEdit={() => onEditMessage?.(index, '')}
                 onRegenerate={index === messages.length - 1 && message.role === 'assistant' && !isLoading ? onRegenerate : undefined}
                 onDelete={onDeleteMessage ? () => onDeleteMessage(index) : undefined}
+                onToggleStar={onToggleStar ? () => onToggleStar(index) : undefined}
               />
             </div>
           ))}

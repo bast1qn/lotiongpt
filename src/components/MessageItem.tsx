@@ -13,12 +13,14 @@ interface MessageItemProps {
   onEdit?: () => void;
   onRegenerate?: () => void;
   onDelete?: () => void;
+  onToggleStar?: () => void;
   isLast?: boolean;
   isEditing?: boolean;
   onEditComplete?: (newContent: string) => void;
   onCancelEdit?: () => void;
   searchQuery?: string;
   isSearchMatch?: boolean;
+  isStarred?: boolean;
 }
 
 export function MessageItem({
@@ -27,12 +29,14 @@ export function MessageItem({
   onEdit,
   onRegenerate,
   onDelete,
+  onToggleStar,
   isLast = false,
   isEditing = false,
   onEditComplete,
   onCancelEdit,
   searchQuery = '',
-  isSearchMatch = false
+  isSearchMatch = false,
+  isStarred = false
 }: MessageItemProps) {
   const isUser = message.role === 'user';
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
@@ -161,6 +165,24 @@ export function MessageItem({
                 >
                   <Icons.Copy />
                 </button>
+
+                {/* Star Button */}
+                {onToggleStar && (
+                  <button
+                    onClick={onToggleStar}
+                    className={cn(
+                      'p-1.5 rounded-lg transition-colors',
+                      isStarred
+                        ? 'text-yellow-400 bg-yellow-400/10'
+                        : 'text-[var(--color-text-muted)] hover:text-yellow-400 hover:bg-yellow-400/10'
+                    )}
+                    title={isStarred ? 'Markierung aufheben' : 'Markieren'}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill={isStarred ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  </button>
+                )}
 
                 {/* Edit Button (for user messages) */}
                 {isUser && onEdit && (

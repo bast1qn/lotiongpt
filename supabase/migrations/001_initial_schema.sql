@@ -388,7 +388,44 @@ CREATE TRIGGER update_snippets_updated_at
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- =====================================================
+-- 8. STARRED MESSAGES TABLE
+-- =====================================================
+-- Stores user-starred messages for quick access
+CREATE TABLE IF NOT EXISTS starred_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  chat_id UUID NOT NULL,
+  message_index INTEGER NOT NULL,
+  note TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE starred_messages ENABLE ROW LEVEL SECURITY;
+
+-- Starred Messages Policies
+CREATE POLICY "Users can view own starred messages"
+  ON starred_messages FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can create own starred messages"
+  ON starred_messages FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own starred messages"
+  ON starred_messages FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_starred_messages_user_id ON starred_messages(user_id);
+CREATE INDEX IF NOT EXISTS idx_starred_messages_chat_id ON starred_messages(user_id, chat_id);
+
+-- Unique constraint to prevent duplicate stars
+CREATE UNIQUE INDEX IF NOT EXISTS idx_starred_messages_unique
+  ON starred_messages(user_id, chat_id, message_index);
+
+-- =====================================================
 -- SETUP COMPLETE
 -- =====================================================
--- Your database is now ready for LotionGPT with Memories, Projects, and Snippets!
+-- Your database is now ready for LotionGPT with Memories, Projects, Snippets, and Starred Messages!
 -- =====================================================

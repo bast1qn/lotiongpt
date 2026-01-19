@@ -13,6 +13,7 @@ import { ChatSearchBar } from '@/components/ChatSearchBar';
 import { ExportModal } from '@/components/ExportModal';
 import { fetchChats, createChat, updateChat, deleteChat, fetchChat } from '@/lib/db/chats';
 import { getMemoriesForContext, extractMemoriesFromMessage, createMemory } from '@/lib/db/memories';
+import { toggleMessageStar, getStarredIndicesForChat } from '@/lib/db/starred';
 import { storage } from '@/lib/storage';
 import { useKeyboardShortcuts } from '@/lib/hooks/useKeyboardShortcuts';
 
@@ -38,6 +39,9 @@ function HomeContent() {
 
   // Export states
   const [showExportModal, setShowExportModal] = useState(false);
+
+  // Starred states
+  const [starredIndices, setStarredIndices] = useState<number[]>([]);
 
   // Ref for ChatInput send function
   const chatInputRef = useRef<ChatInputRef>(null);
@@ -95,16 +99,23 @@ function HomeContent() {
     const existingChat = chats.find(c => c.id === chatId);
     if (existingChat) {
       setCurrentChat(existingChat);
+      loadStarredIndices(chatId);
     } else {
       try {
         const loadedChat = await fetchChat(chatId);
         if (loadedChat) {
           setCurrentChat(loadedChat);
+          loadStarredIndices(chatId);
         }
       } catch (error) {
         console.error('Error loading chat:', error);
       }
     }
+  };
+
+  const loadStarredIndices = async (chatId: string) => {
+    const indices = await getStarredIndicesForChat(chatId);
+    setStarredIndices(indices);
   };
 
   const handleDeleteChat = async (chatId: string) => {
@@ -355,6 +366,15 @@ function HomeContent() {
     handleSendMessage(suggestion);
   };
 
+  const handleToggleStar = async (messageIndex: number) => {
+    if (!currentChat) return;
+
+    const success = await toggleMessageStar(currentChat.id, messageIndex);
+    if (success) {
+      await loadStarredIndices(currentChat.id);
+    }
+  };
+
   // Keyboard shortcuts (defined after all handlers)
   useKeyboardShortcuts({
     newChat: {
@@ -569,9 +589,11 @@ function HomeContent() {
           onEditMessage={handleEditMessage}
           onRegenerate={handleRegenerate}
           onDeleteMessage={handleDeleteMessage}
+          onToggleStar={handleToggleStar}
           editingMessageIndex={editingMessageIndex}
           searchQuery={searchQuery}
           highlightedMessageIndex={matchingMessageIndices[currentMatchIndex]}
+          starredIndices={starredIndices}
         />
 
         <ChatInput
