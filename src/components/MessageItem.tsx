@@ -119,11 +119,11 @@ export function MessageItem({
         {/* Avatar */}
         <div
           className={cn(
-            'flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center',
-            'transition-transform duration-200 group-hover:scale-105',
+            'flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center',
+            'transition-all',
             isUser
-              ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] shadow-md shadow-[var(--color-primary-glow)]'
-              : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)]'
+              ? 'bg-[var(--color-primary-500)]'
+              : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)]'
           )}
         >
           {isUser ? (
@@ -162,9 +162,9 @@ export function MessageItem({
                 <button
                   onClick={handleCopy}
                   className={cn(
-                    'p-1.5 rounded-lg transition-all duration-300 hover:scale-110',
+                    'p-1.5 rounded-md transition-all',
                     copiedCode === 'all'
-                      ? 'text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10 shadow-md shadow-[var(--color-primary-glow)]'
+                      ? 'text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10'
                       : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                   )}
                   title={copiedCode === 'all' ? 'Kopiert!' : 'Kopieren'}
@@ -177,9 +177,9 @@ export function MessageItem({
                   <button
                     onClick={onToggleStar}
                     className={cn(
-                      'p-1.5 rounded-lg transition-all duration-300 hover:scale-110',
+                      'p-1.5 rounded-md transition-all',
                       isStarred
-                        ? 'text-yellow-400 bg-yellow-400/10 shadow-md shadow-yellow-400/20'
+                        ? 'text-yellow-400 bg-yellow-400/10'
                         : 'text-[var(--color-text-muted)] hover:text-yellow-400 hover:bg-yellow-400/10'
                     )}
                     title={isStarred ? 'Markierung aufheben' : 'Markieren'}
@@ -194,7 +194,7 @@ export function MessageItem({
                 {isUser && onEdit && (
                   <button
                     onClick={onEdit}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300 hover:scale-110"
+                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all"
                     title="Bearbeiten"
                   >
                     <Icons.Edit />
@@ -205,7 +205,7 @@ export function MessageItem({
                 {onDelete && (
                   <button
                     onClick={onDelete}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-300 hover:scale-110"
+                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all"
                     title="Löschen"
                   >
                     <Icons.Trash />
@@ -216,7 +216,7 @@ export function MessageItem({
                 {onBranch && !isUser && (
                   <button
                     onClick={onBranch}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 hover:scale-110"
+                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all"
                     title="Verzweigen (Branch)"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -232,7 +232,7 @@ export function MessageItem({
                 {!isUser && isLast && onRegenerate && (
                   <button
                     onClick={onRegenerate}
-                    className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 hover:scale-110 hover:shadow-md hover:shadow-[var(--color-primary-glow)]"
+                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all"
                     title="Neu generieren"
                   >
                     <Icons.Refresh />
@@ -285,7 +285,7 @@ export function MessageItem({
                 <button
                   key={imgIndex}
                   onClick={() => setExpandedImage(`data:${img.mimeType};base64,${img.data}`)}
-                  className="relative group/img overflow-hidden rounded-xl border border-[var(--color-border-subtle)] hover:border-[var(--color-primary-500)] transition-all duration-200 hover:shadow-lg hover:shadow-[var(--color-primary-glow)]"
+                  className="relative group/img overflow-hidden rounded-lg border border-[var(--color-border-default)] hover:border-[var(--color-primary-500)] transition-all"
                 >
                   <img
                     src={`data:${img.mimeType};base64,${img.data}`}
@@ -314,9 +314,9 @@ export function MessageItem({
                   <div
                     key={fileIndex}
                     className={cn(
-                      'flex items-center gap-2 px-3 py-2 rounded-xl border',
-                      'bg-[var(--color-bg-tertiary)] border-[var(--color-border-subtle)]',
-                      'hover:border-[var(--color-border-default)] transition-all',
+                      'flex items-center gap-2 px-3 py-2 rounded-lg border',
+                      'bg-[var(--color-bg-tertiary)] border-[var(--color-border-default)]',
+                      'hover:border-[var(--color-primary-500)] transition-all',
                       isImage && 'overflow-hidden p-0'
                     )}
                   >

@@ -92,15 +92,14 @@ function ToastItem({ toast, onClose, index }: ToastItemProps) {
     <div
       className={cn(
         'pointer-events-auto relative overflow-hidden',
-        'flex items-center gap-3 px-4 py-3.5 rounded-2xl min-w-[320px] max-w-md',
-        'bg-gradient-to-br', config.gradient,
-        'backdrop-blur-xl',
+        'flex items-center gap-3 px-4 py-3.5 rounded-lg min-w-[320px] max-w-md',
+        'bg-[var(--color-bg-secondary)]',
+        'backdrop-blur-md',
         'border', config.borderColor,
-        'shadow-xl shadow-black/40', config.glowColor,
+        'shadow-lg',
         'group',
         'animate-toast-in',
-        'hover:scale-[1.01] hover:shadow-2xl hover:shadow-black/50',
-        'transition-all duration-300 ease-out'
+        'transition-all'
       )}
       style={{ animationDelay: `${index * 50}ms` }}
     >
@@ -120,12 +119,10 @@ function ToastItem({ toast, onClose, index }: ToastItemProps) {
         </div>
       )}
 
-      {/* Icon with glow */}
+      {/* Icon */}
       <span className={cn(
-        'flex-shrink-0 p-1.5 rounded-xl bg-black/20',
-        config.iconColor,
-        'shadow-md',
-        'animate-pulse-subtle'
+        'flex-shrink-0 p-1.5 rounded-lg bg-[var(--color-bg-tertiary)]',
+        config.iconColor
       )}>
         {config.icon}
       </span>
@@ -138,7 +135,7 @@ function ToastItem({ toast, onClose, index }: ToastItemProps) {
       {/* Close button */}
       <button
         onClick={onClose}
-        className="flex-shrink-0 p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-black/20 transition-all duration-200 hover:scale-110"
+        className="flex-shrink-0 p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-tertiary)] transition-all"
       >
         <Icons.Close />
       </button>
