@@ -1,59 +1,58 @@
 /**
- * LotionGPT Design Tokens - v2.0
- * Modern Minimalist Design System
- * Cozy Lavender Theme
+ * LotionGPT Design Tokens - v3.0
+ * Professional Modern Design System
+ * Sophisticated Dark Theme with Subtle Accents
  */
 
 :root {
   /* ============================================
-     COLORS - Modern Minimalist Dark Theme
+     COLORS - Professional Dark Theme
      ============================================ */
 
-  /* Background Colors - Warmer dark tones with subtle purple tint */
-  --color-bg-primary: #0a0a0f;      /* Deep purple-black - main background */
-  --color-bg-secondary: #12121a;    /* Slightly elevated */
-  --color-bg-tertiary: #1a1a24;     /* Cards, panels */
-  --color-bg-elevated: #22222e;     /* Hover states, elevated surfaces */
-  --color-bg-overlay: rgba(10, 10, 15, 0.95);
-  --color-bg-modal: rgba(18, 18, 26, 0.98);
+  /* Background Colors - Clean, neutral dark tones */
+  --color-bg-primary: #09090b;      /* Deep neutral black */
+  --color-bg-secondary: #0c0c0e;    /* Sidebar, panels */
+  --color-bg-tertiary: #121214;     /* Cards, inputs */
+  --color-bg-elevated: #1a1a1d;     /* Hover states */
+  --color-bg-overlay: rgba(9, 9, 11, 0.95);
+  --color-bg-modal: rgba(18, 18, 20, 0.98);
 
-  /* Border Colors - Subtle and minimal */
-  --color-border-subtle: rgba(167, 139, 250, 0.06);
-  --color-border-default: rgba(167, 139, 250, 0.12);
-  --color-border-medium: rgba(167, 139, 250, 0.18);
-  --color-border-strong: rgba(167, 139, 250, 0.25);
+  /* Border Colors - Ultra subtle */
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-border-default: rgba(255, 255, 255, 0.08);
+  --color-border-medium: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
 
-  /* Text Colors - High contrast for readability */
-  --color-text-primary: #fafafa;     /* Almost white - primary text */
-  --color-text-secondary: #d1d5db;   /* Light gray - secondary text */
-  --color-text-tertiary: #9ca3af;    /* Medium gray - tertiary text */
-  --color-text-muted: #6b7280;       /* Muted - disabled/placeholder */
-  --color-text-inverse: #0a0a0f;     /* Text on primary backgrounds */
+  /* Text Colors - Optimized for readability */
+  --color-text-primary: #f4f4f5;     /* Primary text */
+  --color-text-secondary: #a1a1aa;   /* Secondary text */
+  --color-text-tertiary: #71717a;    /* Tertiary text */
+  --color-text-muted: #52525b;       /* Muted, disabled */
+  --color-text-inverse: #09090b;     /* Text on primary */
 
-  /* Primary Accent - Cozy Lavender Purple */
-  --color-primary-50: #faf5ff;
-  --color-primary-100: #f3e8ff;
-  --color-primary-200: #e9d5ff;
-  --color-primary-300: #d8b4fe;
-  --color-primary-400: #c4b5fd;
-  --color-primary-500: #a78bfa;      /* Main lavender - cozy and calm */
-  --color-primary-600: #9333ea;      /* Darker for hover states */
-  --color-primary-700: #7e22ce;
-  --color-primary-800: #6b21a8;
+  /* Primary Accent - Sophisticated Indigo */
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;      /* Main indigo */
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
 
-  /* Primary gradients */
-  --color-primary-gradient: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
-  --color-primary-gradient-reverse: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%);
-  --color-primary-gradient-subtle: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(196, 181, 253, 0.05) 100%);
+  /* Gradients */
+  --color-primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --color-primary-gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);
 
-  /* Primary glows - soft and cozy */
-  --color-primary-glow: rgba(167, 139, 250, 0.15);
-  --color-primary-glow-medium: rgba(167, 139, 250, 0.25);
-  --color-primary-glow-strong: rgba(167, 139, 250, 0.35);
+  /* Glows - Professional, not kitschy */
+  --color-primary-glow: rgba(99, 102, 241, 0.08);
+  --color-primary-glow-medium: rgba(99, 102, 241, 0.15);
+  --color-primary-glow-strong: rgba(99, 102, 241, 0.25);
 
-  /* Semantic Colors */
-  --color-success: #10b981;
-  --color-success-bg: rgba(16, 185, 129, 0.1);
+  /* Semantic Colors - Professional palette */
+  --color-success: #22c55e;
+  --color-success-bg: rgba(34, 197, 94, 0.1);
   --color-error: #ef4444;
   --color-error-bg: rgba(239, 68, 68, 0.1);
   --color-warning: #f59e0b;
@@ -62,170 +61,84 @@
   --color-info-bg: rgba(59, 130, 246, 0.1);
 
   /* ============================================
-     SPACING - 4px Grid System
+     SPACING - Consistent 4px grid
      ============================================ */
-  --space-0: 0;
-  --space-0_5: 2px;
   --space-1: 4px;
-  --space-1_5: 6px;
   --space-2: 8px;
-  --space-2_5: 10px;
   --space-3: 12px;
-  --space-3_5: 14px;
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
-  --space-7: 28px;
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
-  --space-14: 56px;
   --space-16: 64px;
   --space-20: 80px;
-  --space-24: 96px;
-  --space-32: 128px;
 
   /* ============================================
-     BORDER RADIUS - Soft and modern
+     BORDER RADIUS - Consistent scale
      ============================================ */
-  --radius-none: 0;
-  --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
-  --radius-3xl: 24px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
   --radius-full: 9999px;
 
   /* ============================================
-     SHADOWS - Subtle and minimal
+     SHADOWS - Subtle, professional
      ============================================ */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.15);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.35);
-  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.4);
-
-  /* Glow shadows */
-  --shadow-glow-sm: 0 0 10px var(--color-primary-glow);
-  --shadow-glow: 0 0 20px var(--color-primary-glow), 0 0 40px var(--color-primary-glow);
-  --shadow-glow-strong: 0 0 30px var(--color-primary-glow-strong), 0 0 60px var(--color-primary-glow);
-
-  /* Inner shadows */
-  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 
   /* ============================================
-     TYPOGRAPHY - System fonts for performance
+     TYPOGRAPHY - Professional stack
      ============================================ */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Source Code Pro', 'Fira Code', 'Consolas', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
 
-  /* Font Sizes */
-  --text-xs: 0.75rem;      /* 12px */
-  --text-sm: 0.875rem;     /* 14px */
-  --text-base: 1rem;       /* 16px */
-  --text-lg: 1.125rem;     /* 18px */
-  --text-xl: 1.25rem;      /* 20px */
-  --text-2xl: 1.5rem;      /* 24px */
-  --text-3xl: 1.875rem;    /* 30px */
-  --text-4xl: 2.25rem;     /* 36px */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
 
-  /* Font Weights */
-  --font-normal: 400;
   --font-medium: 500;
   --font-semibold: 600;
   --font-bold: 700;
 
-  /* Line Heights */
   --leading-tight: 1.25;
-  --leading-snug: 1.375;
   --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
-  --leading-loose: 2;
-
-  /* Letter Spacing */
-  --tracking-tight: -0.025em;
-  --tracking-normal: 0;
-  --tracking-wide: 0.025em;
+  --leading-relaxed: 1.75;
 
   /* ============================================
-     TRANSITIONS - Smooth and natural
+     TRANSITIONS - Professional feel
      ============================================ */
-  --duration-instant: 50ms;
   --duration-fast: 150ms;
   --duration-normal: 200ms;
   --duration-slow: 300ms;
-  --duration-slower: 400ms;
-
-  /* Easing Functions */
-  --ease-linear: linear;
-  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* ============================================
-     Z-INDEX SCALE
+     Z-INDEX
      ============================================ */
-  --z-base: 0;
   --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-fixed: 300;
-  --z-modal-backdrop: 400;
   --z-modal: 500;
-  --z-popover: 600;
-  --z-tooltip: 700;
-  --z-toast: 800;
+  --z-toast: 600;
 
   /* ============================================
-     LAYOUT - Collapsible sidebar
+     LAYOUT
      ============================================ */
-  --header-height: 64px;
+  --header-height: 56px;
   --sidebar-width: 280px;
-  --sidebar-width-collapsed: 64px;      /* Icon-only sidebar */
-  --sidebar-transition: 250ms var(--ease-out);
-  --chat-max-width: 896px;              /* Wider for better readability */
-  --message-max-width: 768px;
-
-  /* ============================================
-     COMPONENT SPECIFIC
-     ============================================ */
-
-  /* Avatar Sizes */
-  --avatar-xs: 24px;
-  --avatar-sm: 28px;
-  --avatar-md: 32px;
-  --avatar-lg: 36px;
-  --avatar-xl: 40px;
-
-  /* Icon Sizes */
-  --icon-xs: 14px;
-  --icon-sm: 16px;
-  --icon-md: 18px;
-  --icon-lg: 20px;
-  --icon-xl: 24px;
-  --icon-2xl: 28px;
-
-  /* Button Heights */
-  --btn-sm-height: 32px;
-  --btn-md-height: 40px;
-  --btn-lg-height: 48px;
-
-  /* Input Heights */
-  --input-sm-height: 36px;
-  --input-md-height: 42px;
-  --input-lg-height: 48px;
-
-  /* ============================================
-     BACKDROP BLUR - Minimal use
-     ============================================ */
-  --blur-sm: blur(4px);
-  --blur-md: blur(8px);
-  --blur-lg: blur(12px);
-  --blur-xl: blur(16px);
+  --sidebar-width-collapsed: 64px;
 }
 

@@ -217,19 +217,19 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
   const canSend = (input.trim() || hasAttachments) && !isLoading;
 
   return (
-    <div className="flex-shrink-0 p-4 sm:p-6">
+    <div className="flex-shrink-0 p-4 sm:p-5">
       <div className="max-w-3xl mx-auto">
         {/* Controls Bar */}
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-2 mb-3">
           {/* Model Selector */}
           <div className="relative" ref={modelPickerRef}>
             <button
               onClick={() => setShowModelPicker(!showModelPicker)}
               className={cn(
-                'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                'flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-150',
                 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
-                'hover:border-[var(--color-primary-500)] hover:bg-[var(--color-bg-elevated)]'
+                'hover:border-[var(--color-border-medium)]'
               )}
             >
               <span>{MODEL_INFO[selectedModel].icon}</span>
@@ -390,7 +390,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
         <div
           className={cn(
-            'relative rounded-xl transition-all',
+            'relative rounded-lg transition-all duration-150',
             'bg-[var(--color-bg-tertiary)]',
             'border border-[var(--color-border-default)]',
             isDragging && 'border-[var(--color-primary-500)] bg-[var(--color-primary-500)]/5',
@@ -477,7 +477,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={handleSend}
               disabled={!canSend}
               className={cn(
-                'p-2.5 rounded-lg transition-all flex-shrink-0',
+                'p-2 rounded-md transition-colors flex-shrink-0',
                 canSend
                   ? 'bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)]'
                   : 'text-[var(--color-text-muted)] cursor-not-allowed bg-[var(--color-bg-elevated)]'
@@ -490,8 +490,8 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
         </div>
 
         {/* Footer hint */}
-        <p className="text-center text-xs text-[var(--color-text-muted)] mt-3">
-          Enter zum Senden, Shift + Enter für neue Zeile · Drücke ? für Tastaturkürzel
+        <p className="text-center text-xs text-[var(--color-text-muted)] mt-2">
+          Enter zum Senden, Shift + Enter für neue Zeile
         </p>
       </div>
     </div>

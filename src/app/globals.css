@@ -1,6 +1,6 @@
 /**
- * LotionGPT Global Styles - v2.0
- * Modern Minimalist Design
+ * LotionGPT Global Styles - v3.0
+ * Professional Modern Design
  */
 
 @import "../styles/tokens.css";
@@ -40,13 +40,13 @@ body {
 }
 
 /* ============================================
-   SCROLLBAR - Minimal and subtle
+   SCROLLBAR - Professional, minimal
    ============================================ */
 
 /* Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -54,19 +54,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(167, 139, 250, 0.2);
-  border-radius: var(--radius-full);
-  transition: background var(--duration-normal) var(--ease-out);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  transition: background 150ms ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(167, 139, 250, 0.35);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(167, 139, 250, 0.2) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
 }
 
 /* ============================================

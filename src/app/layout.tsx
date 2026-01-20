@@ -17,12 +17,6 @@ export default function RootLayout({
     <html lang="de" className="dark">
       <body className="antialiased">
         <ToastProvider>
-          {/* Minimal ambient background */}
-          <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-            {/* Subtle gradient vignette */}
-            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/20" />
-          </div>
-
           {children}
           <Toaster />
         </ToastProvider>

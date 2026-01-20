@@ -111,15 +111,14 @@ export function MessageItem({
     <>
       <div
         className={cn(
-          'flex gap-3 sm:gap-4 group animate-message-in',
+          'flex gap-3 sm:gap-4 group',
           isUser ? 'flex-row-reverse' : ''
         )}
-        style={{ animationDelay: `${Math.min(index * 30, 200)}ms` }}
       >
         {/* Avatar */}
         <div
           className={cn(
-            'flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center',
+            'flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center',
             'transition-all',
             isUser
               ? 'bg-[var(--color-primary-500)]'
@@ -375,10 +374,10 @@ export function MessageItem({
             // Normal Display
             <div
               className={cn(
-                'inline-block rounded-2xl px-4 py-3 max-w-full transition-all duration-300',
+                'inline-block rounded-xl px-4 py-2.5 max-w-full transition-all duration-200',
                 isUser
-                  ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white rounded-tr-sm shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-[1.01]'
-                  : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-default)] rounded-tl-sm shadow-md hover:border-[var(--color-border-medium)] hover:shadow-lg hover:bg-[var(--color-bg-elevated)]',
+                  ? 'bg-[var(--color-primary-500)] text-white rounded-tr-sm'
+                  : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-default)] rounded-tl-sm',
                 isSearchMatch && 'ring-2 ring-[var(--color-primary-500)]'
               )}
             >
@@ -396,8 +395,7 @@ export function MessageItem({
                 <button
                   key={i}
                   onClick={() => onSuggestionClick?.(suggestion)}
-                  className="px-3 py-1.5 text-xs bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-primary-500)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-500)] rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-md animate-bounce-in"
-                  style={{ animationDelay: `${i * 60}ms` }}
+                  className="px-3 py-1.5 text-xs bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border-default)] hover:border-[var(--color-primary-500)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg transition-colors duration-150"
                 >
                   {suggestion}
                 </button>
