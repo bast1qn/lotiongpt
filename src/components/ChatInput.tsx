@@ -226,10 +226,10 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             <button
               onClick={() => setShowModelPicker(!showModelPicker)}
               className={cn(
-                'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300',
-                'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
+                'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+                'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
-                'hover:border-[var(--color-border-medium)] hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
+                'hover:border-[var(--color-primary-500)] hover:bg-[var(--color-bg-elevated)]'
               )}
             >
               <span>{MODEL_INFO[selectedModel].icon}</span>
@@ -239,7 +239,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
             {/* Model Dropdown */}
             {showModelPicker && (
-              <div className="absolute bottom-full left-0 mb-2 w-56 bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl shadow-xl animate-slide-in-bottom z-20">
+              <div className="absolute bottom-full left-0 mb-2 w-56 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg shadow-xl animate-fade-in-up z-20">
                 <div className="p-2 space-y-1">
                   <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider">
                     Zhipu AI
@@ -252,9 +252,9 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200',
+                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
                         selectedModel === model
-                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
+                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
@@ -278,9 +278,9 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200',
+                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
                         selectedModel === model
-                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
+                          ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
@@ -327,11 +327,11 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           <button
             onClick={() => onThinkingChange?.(!thinkingEnabled)}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300',
+              'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all',
               'border',
               thinkingEnabled
-                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
-                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border-medium)] hover:shadow-md'
+                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)]'
+                : 'bg-[var(--color-bg-tertiary)] border-[var(--color-border-default)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-primary-500)]'
             )}
             title={thinkingEnabled ? 'Thinking ist aktiv' : 'Thinking ist deaktiviert'}
           >
@@ -343,11 +343,11 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           <button
             onClick={onToggleFileUpload}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300',
+              'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all',
               'border',
               showFileUpload
-                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)] shadow-sm shadow-[var(--color-primary-glow)]'
-                : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border-medium)] hover:shadow-md'
+                ? 'bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)] text-[var(--color-primary-500)]'
+                : 'bg-[var(--color-bg-tertiary)] border-[var(--color-border-default)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-primary-500)]'
             )}
             title="Dateien anhängen"
           >
@@ -390,12 +390,11 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
         <div
           className={cn(
-            'relative rounded-2xl transition-all duration-300',
+            'relative rounded-xl transition-all',
             'bg-[var(--color-bg-tertiary)]',
-            'border border-[var(--color-border-subtle)]',
-            isDragging && 'border-[var(--color-primary-500)] bg-[var(--color-primary-500)]/5 scale-[1.01] shadow-lg shadow-[var(--color-primary-glow)]',
-            isLoading && 'opacity-70',
-            'shadow-lg shadow-black/30'
+            'border border-[var(--color-border-default)]',
+            isDragging && 'border-[var(--color-primary-500)] bg-[var(--color-primary-500)]/5',
+            isLoading && 'opacity-70'
           )}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
@@ -446,10 +445,10 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
               className={cn(
-                'p-2.5 rounded-xl transition-all duration-300 flex-shrink-0',
+                'p-2.5 rounded-lg transition-all flex-shrink-0',
                 'text-[var(--color-text-muted)]',
-                'hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 hover:scale-110',
-                'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100'
+                'hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10',
+                'disabled:opacity-50 disabled:cursor-not-allowed'
               )}
               title="Bild hinzufügen"
             >
@@ -478,9 +477,9 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={handleSend}
               disabled={!canSend}
               className={cn(
-                'p-2.5 rounded-xl transition-all duration-300 flex-shrink-0',
+                'p-2.5 rounded-lg transition-all flex-shrink-0',
                 canSend
-                  ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white hover:to-[var(--color-primary-700)] shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105'
+                  ? 'bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)]'
                   : 'text-[var(--color-text-muted)] cursor-not-allowed bg-[var(--color-bg-elevated)]'
               )}
               title={canSend ? 'Senden' : 'Nachricht eingeben...'}

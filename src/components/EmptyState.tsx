@@ -28,15 +28,9 @@ export function EmptyState({
       'animate-fade-in-up',
       className
     )}>
-      {/* Animated Logo - Enhanced */}
+      {/* Logo */}
       <div className="relative mb-10">
-        {/* Background glow with animation */}
-        <div className="absolute inset-0 bg-[var(--color-primary-500)] opacity-30 blur-3xl rounded-full animate-pulse-glow" />
-        {/* Secondary glow ring */}
-        <div className="absolute -inset-4 bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] opacity-20 blur-2xl rounded-full animate-pulse-subtle" />
-
-        {/* Main logo container */}
-        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] flex items-center justify-center shadow-xl shadow-[var(--color-primary-glow-strong)] animate-glow hover:scale-105 transition-transform duration-500">
+        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[var(--color-primary-500)] flex items-center justify-center shadow-lg transition-transform">
           <Icons.Logo />
         </div>
       </div>
@@ -61,14 +55,12 @@ export function EmptyState({
               key={index}
               onClick={() => onSuggestionClick?.(suggestion)}
               className={cn(
-                'px-5 py-3 rounded-xl text-sm font-medium',
-                'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
+                'px-5 py-3 rounded-lg text-sm font-medium',
+                'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-primary-500)]',
-                'hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-primary-500)]/30',
-                'hover:shadow-lg hover:shadow-[var(--color-primary-glow)]',
-                'transition-all duration-300',
-                'hover:scale-105',
-                'animate-bounce-in',
+                'hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-primary-500)]',
+                'transition-all',
+                'animate-fade-in-up',
               )}
               style={{ animationDelay: `${150 + index * 80}ms` }}
             >
@@ -81,7 +73,7 @@ export function EmptyState({
       {/* Keyboard hint - Enhanced styling */}
       <div className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-[var(--color-text-muted)]">
         <div className="flex items-center gap-2">
-          <kbd className="px-3 py-1.5 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] font-mono shadow-sm">
+          <kbd className="px-3 py-1.5 rounded-md bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] font-mono">
             Enter
           </kbd>
           <span>senden</span>
@@ -92,7 +84,7 @@ export function EmptyState({
             Shift
           </kbd>
           <span>+</span>
-          <kbd className="px-3 py-1.5 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] font-mono shadow-sm">
+          <kbd className="px-3 py-1.5 rounded-md bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] font-mono">
             Enter
           </kbd>
           <span>neue Zeile</span>
