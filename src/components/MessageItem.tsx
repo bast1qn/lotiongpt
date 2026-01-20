@@ -54,7 +54,7 @@ export function MessageItem({
   const highlightText = (text: string, query: string): string => {
     if (!query.trim()) return text;
     const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark class="bg-[var(--color-primary-500)]/30 text-[var(--color-text-primary)] px-0.5 rounded">$1</mark>');
+    return text.replace(regex, '<mark class="bg-[var(--color-accent-500)]/30 text-[var(--color-text-primary)] px-0.5 rounded">$1</mark>');
   };
 
   // Format message with optional highlighting
@@ -121,7 +121,7 @@ export function MessageItem({
             'flex-shrink-0 w-8 h-8 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center',
             'transition-all',
             isUser
-              ? 'bg-[var(--color-primary-500)]'
+              ? 'bg-[var(--color-accent-500)]'
               : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)]'
           )}
         >
@@ -138,7 +138,7 @@ export function MessageItem({
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-[var(--color-primary-500)]"
+              className="text-[var(--color-accent-500)]"
             >
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
               <path d="M2 17l10 5 10-5" />
@@ -156,14 +156,14 @@ export function MessageItem({
             </span>
             {/* Message Actions - Visible on hover */}
             {!isEditing && (
-              <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity duration-300">
+              <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity duration-120">
                 {/* Copy Button */}
                 <button
                   onClick={handleCopy}
                   className={cn(
                     'p-1.5 rounded-md transition-all',
                     copiedCode === 'all'
-                      ? 'text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10'
+                      ? 'text-[var(--color-accent-500)] bg-[var(--color-accent-500)]/10'
                       : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                   )}
                   title={copiedCode === 'all' ? 'Kopiert!' : 'Kopieren'}
@@ -215,7 +215,7 @@ export function MessageItem({
                 {onBranch && !isUser && (
                   <button
                     onClick={onBranch}
-                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all"
+                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:bg-[var(--color-accent-500)]/10 transition-all"
                     title="Verzweigen (Branch)"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -231,7 +231,7 @@ export function MessageItem({
                 {!isUser && isLast && onRegenerate && (
                   <button
                     onClick={onRegenerate}
-                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all"
+                    className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:bg-[var(--color-accent-500)]/10 transition-all"
                     title="Neu generieren"
                   >
                     <Icons.Refresh />
@@ -242,7 +242,7 @@ export function MessageItem({
                 {!isUser && hasCodeBlocks && (
                   <div className="relative group/code">
                     <button
-                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300 hover:scale-110"
+                      className="p-1.5 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-120 hover:scale-100"
                       title="Code kopieren"
                     >
                       <Icons.Code />
@@ -284,7 +284,7 @@ export function MessageItem({
                 <button
                   key={imgIndex}
                   onClick={() => setExpandedImage(`data:${img.mimeType};base64,${img.data}`)}
-                  className="relative group/img overflow-hidden rounded-lg border border-[var(--color-border-default)] hover:border-[var(--color-primary-500)] transition-all"
+                  className="relative group/img overflow-hidden rounded-lg border border-[var(--color-border-default)] hover:border-[var(--color-accent-500)] transition-all"
                 >
                   <img
                     src={`data:${img.mimeType};base64,${img.data}`}
@@ -315,7 +315,7 @@ export function MessageItem({
                     className={cn(
                       'flex items-center gap-2 px-3 py-2 rounded-lg border',
                       'bg-[var(--color-bg-tertiary)] border-[var(--color-border-default)]',
-                      'hover:border-[var(--color-primary-500)] transition-all',
+                      'hover:border-[var(--color-accent-500)] transition-all',
                       isImage && 'overflow-hidden p-0'
                     )}
                   >
@@ -347,7 +347,7 @@ export function MessageItem({
           {/* Text content */}
           {isEditing ? (
             // Edit Mode
-            <div className="bg-[var(--color-bg-tertiary)] border border-[var(--color-primary-500)] rounded-2xl p-3">
+            <div className="bg-[var(--color-bg-tertiary)] border border-[var(--color-accent-500)] rounded-2xl p-3">
               <textarea
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
@@ -364,7 +364,7 @@ export function MessageItem({
                 </button>
                 <button
                   onClick={handleEditSave}
-                  className="px-3 py-1.5 text-sm bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg transition-colors"
+                  className="px-3 py-1.5 text-sm bg-[var(--color-accent-500)] hover:bg-[var(--color-accent-600)] text-white rounded-lg transition-colors"
                 >
                   Speichern
                 </button>

@@ -15,7 +15,7 @@ export function TypingIndicator() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-[var(--color-primary-500)] animate-pulse-subtle"
+          className="text-[var(--color-accent-500)] animate-pulse-subtle"
         >
           <path d="M12 2L2 7l10 5 10-5-10-5z" />
           <path d="M2 17l10 5 10-5" />
@@ -24,10 +24,10 @@ export function TypingIndicator() {
       </div>
 
       {/* Typing bubbles - Enhanced with glow */}
-      <div className="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl rounded-tl-sm bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] shadow-md shadow-[var(--color-primary-glow)]/50">
-        <span className="w-2 h-2 bg-[var(--color-primary-500)] rounded-full animate-bounce-dot typing-dot-1 shadow-sm shadow-[var(--color-primary-glow)]" />
-        <span className="w-2 h-2 bg-[var(--color-primary-500)] rounded-full animate-bounce-dot typing-dot-2 shadow-sm shadow-[var(--color-primary-glow)]" />
-        <span className="w-2 h-2 bg-[var(--color-primary-500)] rounded-full animate-bounce-dot typing-dot-3 shadow-sm shadow-[var(--color-primary-glow)]" />
+      <div className="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl rounded-tl-sm bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] shadow-md shadow-[var(--color-accent-glow)]/50">
+        <span className="w-2 h-2 bg-[var(--color-accent-500)] rounded-full animate-bounce-dot typing-dot-1 shadow-sm shadow-[var(--color-accent-glow)]" />
+        <span className="w-2 h-2 bg-[var(--color-accent-500)] rounded-full animate-bounce-dot typing-dot-2 shadow-sm shadow-[var(--color-accent-glow)]" />
+        <span className="w-2 h-2 bg-[var(--color-accent-500)] rounded-full animate-bounce-dot typing-dot-3 shadow-sm shadow-[var(--color-accent-glow)]" />
       </div>
     </div>
   );

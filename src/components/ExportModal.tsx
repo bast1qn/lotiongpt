@@ -150,12 +150,12 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div className="bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl shadow-2xl shadow-black/50 w-full max-w-md pointer-events-auto animate-fade-in-down relative">
           {/* Glow effect */}
-          <div className="absolute -inset-4 bg-[var(--color-primary-500)] opacity-5 blur-3xl -z-10" />
+          <div className="absolute -inset-4 bg-[var(--color-accent-500)] opacity-5 blur-3xl -z-10" />
 
           {/* Enhanced Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--glass-border)] bg-gradient-to-b from-[var(--glass-highlight)] to-transparent">
             <div className="flex items-center gap-4">
-              <div className="p-3 rounded-2xl bg-gradient-to-br from-[var(--color-primary-500)]/20 to-[var(--color-primary-600)]/10 text-[var(--color-primary-500)] shadow-md shadow-[var(--color-primary-glow)]">
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)]/20 to-[var(--color-accent-600)]/10 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow)]">
                 <Icons.Download />
               </div>
               <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">
@@ -164,7 +164,7 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
             </div>
             <button
               onClick={onClose}
-              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:shadow-md transition-all duration-300"
+              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:shadow-md transition-all duration-120"
             >
               <Icons.Close />
             </button>
@@ -183,9 +183,9 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
                     key={fmt}
                     onClick={() => setFormat(fmt)}
                     className={cn(
-                      'px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 relative overflow-hidden',
+                      'px-4 py-3 rounded-xl text-sm font-medium transition-all duration-120 relative overflow-hidden',
                       format === fmt
-                        ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-[1.02]'
+                        ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-[1.02]'
                         : 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-default)] hover:shadow-md'
                     )}
                   >
@@ -198,7 +198,7 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
             {/* Enhanced Format Info */}
             <div className="p-4 rounded-xl bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)]">
               <div className="flex items-start gap-3">
-                <div className="p-2 rounded-lg bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)] flex-shrink-0">
+                <div className="p-2 rounded-lg bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)] flex-shrink-0">
                   <Icons.Info />
                 </div>
                 <div className="text-sm text-[var(--color-text-secondary)]">
@@ -215,7 +215,7 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
                 <p className="text-xs text-[var(--color-text-muted)]">
                   Vorschau
                 </p>
-                <span className="text-xs text-[var(--color-primary-500)] bg-[var(--color-primary-500)]/10 px-2 py-0.5 rounded-lg font-medium">
+                <span className="text-xs text-[var(--color-accent-500)] bg-[var(--color-accent-500)]/10 px-2 py-0.5 rounded-lg font-medium">
                   {messages.length} Nachrichten
                 </span>
               </div>
@@ -230,14 +230,14 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
             <button
               onClick={handleCopyToClipboard}
               disabled={isExporting}
-              className="flex-1 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] bg-[var(--color-bg-elevated)] hover:bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md"
+              className="flex-1 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] bg-[var(--color-bg-elevated)] hover:bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl transition-all duration-120 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md"
             >
               {isExporting ? 'Kopiere...' : 'In Zwischenablage'}
             </button>
             <button
               onClick={handleExport}
               disabled={isExporting}
-              className="flex-1 px-4 py-3 text-sm font-medium text-white bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] hover:to-[var(--color-primary-700)] rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105"
+              className="flex-1 px-4 py-3 text-sm font-medium text-white bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] rounded-xl transition-all duration-120 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-100"
             >
               {isExporting ? 'Exportiere...' : 'Herunterladen'}
             </button>

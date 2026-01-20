@@ -64,12 +64,12 @@ export function KeyboardShortcutsModal({ isOpen, onClose }: KeyboardShortcutsMod
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div className="bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl shadow-2xl shadow-black/50 w-full max-w-lg pointer-events-auto animate-fade-in-down relative">
           {/* Glow effect */}
-          <div className="absolute -inset-4 bg-[var(--color-primary-500)] opacity-5 blur-3xl -z-10" />
+          <div className="absolute -inset-4 bg-[var(--color-accent-500)] opacity-5 blur-3xl -z-10" />
 
           {/* Enhanced Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--glass-border)] bg-gradient-to-b from-[var(--glass-highlight)] to-transparent">
             <div className="flex items-center gap-4">
-              <div className="p-3 rounded-2xl bg-gradient-to-br from-[var(--color-primary-500)]/20 to-[var(--color-primary-600)]/10 text-[var(--color-primary-500)] shadow-md shadow-[var(--color-primary-glow)]">
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)]/20 to-[var(--color-accent-600)]/10 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow)]">
                 <Icons.Keyboard className="w-5 h-5" />
               </div>
               <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">
@@ -78,7 +78,7 @@ export function KeyboardShortcutsModal({ isOpen, onClose }: KeyboardShortcutsMod
             </div>
             <button
               onClick={onClose}
-              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:shadow-md transition-all duration-300"
+              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:shadow-md transition-all duration-120"
             >
               <Icons.Close />
             </button>
@@ -95,7 +95,7 @@ export function KeyboardShortcutsModal({ isOpen, onClose }: KeyboardShortcutsMod
                   {category.shortcuts.map((shortcut) => (
                     <div
                       key={shortcut.key}
-                      className="flex items-center justify-between py-3 px-4 rounded-xl bg-[var(--color-bg-tertiary)]/50 border border-[var(--color-border-subtle)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-default)] hover:shadow-md transition-all duration-300 group"
+                      className="flex items-center justify-between py-3 px-4 rounded-xl bg-[var(--color-bg-tertiary)]/50 border border-[var(--color-border-subtle)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-default)] hover:shadow-md transition-all duration-120 group"
                     >
                       <span className="text-sm text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors">
                         {shortcut.description}
@@ -109,8 +109,8 @@ export function KeyboardShortcutsModal({ isOpen, onClose }: KeyboardShortcutsMod
                               'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-tertiary)]',
                               'border border-[var(--color-border-default)] shadow-sm',
                               'text-[var(--color-text-primary)]',
-                              'group-hover:border-[var(--color-primary-500)]/30 group-hover:shadow-md group-hover:shadow-[var(--color-primary-glow)]',
-                              'transition-all duration-300',
+                              'group-hover:border-[var(--color-accent-500)]/30 group-hover:shadow-md group-hover:shadow-[var(--color-accent-glow)]',
+                              'transition-all duration-120',
                               i > 0 && 'ml-1'
                             )}
                           >

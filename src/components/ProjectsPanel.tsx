@@ -95,7 +95,7 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
         </h3>
         <button
           onClick={() => setIsCreating(true)}
-          className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:shadow-md transition-all duration-300 hover:scale-105"
+          className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:shadow-md transition-all duration-120 hover:scale-100"
         >
           <Icons.Plus />
         </button>
@@ -109,7 +109,7 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="Projektname"
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow)] transition-all duration-120"
             autoFocus
           />
           <input
@@ -117,7 +117,7 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
             value={formData.description || ''}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             placeholder="Beschreibung (optional)"
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow)] transition-all duration-120"
           />
 
           {/* Enhanced Color Picker */}
@@ -127,8 +127,8 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
                 key={color}
                 onClick={() => setFormData({ ...formData, color })}
                 className={cn(
-                  'w-7 h-7 rounded-full transition-all duration-300 relative',
-                  formData.color === color ? 'scale-110' : 'hover:scale-105'
+                  'w-7 h-7 rounded-full transition-all duration-120 relative',
+                  formData.color === color ? 'scale-100' : 'hover:scale-100'
                 )}
                 style={{
                   backgroundColor: color,
@@ -141,13 +141,13 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
           <div className="flex gap-2 justify-end pt-1">
             <button
               onClick={resetForm}
-              className="px-4 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-300 hover:shadow-md"
+              className="px-4 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-120 hover:shadow-md"
             >
               Abbrechen
             </button>
             <button
               onClick={handleSubmit}
-              className="px-4 py-2 text-sm bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] hover:to-[var(--color-primary-700)] text-white rounded-xl transition-all duration-300 shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105"
+              className="px-4 py-2 text-sm bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white rounded-xl transition-all duration-120 shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-100"
             >
               {isEditing ? 'Speichern' : 'Erstellen'}
             </button>
@@ -177,7 +177,7 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group relative flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gradient-to-r hover:from-[var(--color-bg-elevated)] hover:to-transparent border border-transparent hover:border-[var(--color-border-subtle)] transition-all duration-300 animate-fade-in"
+              className="group relative flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gradient-to-r hover:from-[var(--color-bg-elevated)] hover:to-transparent border border-transparent hover:border-[var(--color-border-subtle)] transition-all duration-120 animate-fade-in"
               style={{ animationDelay: `${index * 30}ms` }}
             >
               {/* Enhanced Color Indicator with glow */}
@@ -191,7 +191,7 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
 
               {/* Project Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate group-hover:text-[var(--color-primary-500)] transition-colors">
+                <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate group-hover:text-[var(--color-accent-500)] transition-colors">
                   {project.name}
                 </p>
                 <p className="text-xs text-[var(--color-text-muted)] flex items-center gap-1">
@@ -204,7 +204,7 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
               <div className="flex items-center gap-0.5">
                 <button
                   onClick={() => handleAddChat(project.id)}
-                  className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+                  className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-120 opacity-0 group-hover:opacity-100 hover:scale-100"
                   title="Chat hinzufügen"
                 >
                   <Icons.Plus />
@@ -218,13 +218,13 @@ export function ProjectsPanel({ currentChatId, onRefreshChats }: ProjectsPanelPr
                       color: project.color,
                     });
                   }}
-                  className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+                  className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-120 opacity-0 group-hover:opacity-100 hover:scale-100"
                 >
                   <Icons.Edit />
                 </button>
                 <button
                   onClick={() => handleDelete(project.id)}
-                  className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+                  className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-120 opacity-0 group-hover:opacity-100 hover:scale-100"
                 >
                   <Icons.Trash />
                 </button>

@@ -95,7 +95,7 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
         </h3>
         <button
           onClick={() => setIsCreating(true)}
-          className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:shadow-md transition-all duration-300 hover:scale-105"
+          className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:shadow-md transition-all duration-120 hover:scale-100"
         >
           <Icons.Plus />
         </button>
@@ -113,7 +113,7 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
             </div>
             <button
               onClick={() => setPreviewArtifact(null)}
-              className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-300"
+              className="p-2 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-all duration-120"
             >
               <Icons.Close />
             </button>
@@ -125,7 +125,7 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
           <div className="flex gap-2 mt-3">
             <button
               onClick={() => handleDownload(previewArtifact)}
-              className="flex-1 px-4 py-2 text-xs bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] hover:to-[var(--color-primary-700)] text-white rounded-xl transition-all duration-300 shadow-md shadow-[var(--color-primary-glow)] hover:shadow-lg hover:shadow-[var(--color-primary-glow-strong)]"
+              className="flex-1 px-4 py-2 text-xs bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white rounded-xl transition-all duration-120 shadow-md shadow-[var(--color-accent-glow)] hover:shadow-lg hover:shadow-[var(--color-accent-glow-strong)]"
             >
               Download
             </button>
@@ -140,7 +140,7 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
                 });
                 setPreviewArtifact(null);
               }}
-              className="px-4 py-2 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-300 hover:shadow-md"
+              className="px-4 py-2 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-120 hover:shadow-md"
             >
               Bearbeiten
             </button>
@@ -156,14 +156,14 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="Name (z.B. index.html)"
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow)] transition-all duration-120"
             autoFocus
           />
 
           <select
             value={formData.fileType}
             onChange={(e) => setFormData({ ...formData, fileType: e.target.value })}
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow)] transition-all duration-120"
           >
             {ARTIFACT_FILE_TYPES.map((type) => (
               <option key={type.id} value={type.id}>
@@ -177,19 +177,19 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
             placeholder="Inhalt..."
             rows={6}
-            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300 font-mono text-[12px]"
+            className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-xl px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow)] transition-all duration-120 font-mono text-[12px]"
           />
 
           <div className="flex gap-2 justify-end pt-1">
             <button
               onClick={resetForm}
-              className="px-4 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-300 hover:shadow-md"
+              className="px-4 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-120 hover:shadow-md"
             >
               Abbrechen
             </button>
             <button
               onClick={handleSubmit}
-              className="px-4 py-2 text-sm bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] hover:to-[var(--color-primary-700)] text-white rounded-xl transition-all duration-300 shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105"
+              className="px-4 py-2 text-sm bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white rounded-xl transition-all duration-120 shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-100"
             >
               {isEditing ? 'Speichern' : 'Erstellen'}
             </button>
@@ -224,15 +224,15 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
             return (
               <div
                 key={artifact.id}
-                className="group relative p-3 rounded-xl bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] hover:shadow-md transition-all duration-300 animate-fade-in"
+                className="group relative p-3 rounded-xl bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] hover:shadow-md transition-all duration-120 animate-fade-in"
                 style={{ animationDelay: `${index * 30}ms` }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-xl group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-xl group-hover:scale-100 transition-transform duration-120">
                     {typeInfo?.icon}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate group-hover:text-[var(--color-primary-500)] transition-colors">
+                    <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate group-hover:text-[var(--color-accent-500)] transition-colors">
                       {artifact.name}
                     </p>
                     <p className="text-xs text-[var(--color-text-muted)]">
@@ -242,7 +242,7 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
                   <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={() => setPreviewArtifact(artifact)}
-                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 hover:scale-110"
+                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-120 hover:scale-100"
                       title="Vorschau"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -252,7 +252,7 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
                     </button>
                     <button
                       onClick={() => handleDownload(artifact)}
-                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:bg-[var(--color-primary-500)]/10 transition-all duration-300 hover:scale-110"
+                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-120 hover:scale-100"
                       title="Download"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -263,7 +263,7 @@ export function ArtifactsPanel({ currentChatId }: ArtifactsPanelProps) {
                     </button>
                     <button
                       onClick={() => handleDelete(artifact.id)}
-                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-300 hover:scale-110"
+                      className="p-2 rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-120 hover:scale-100"
                     >
                       <Icons.Trash />
                     </button>

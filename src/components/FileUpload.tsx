@@ -122,14 +122,14 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
                   'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)]',
                   'border-[var(--color-border-subtle)]',
                   'hover:border-[var(--color-border-default)] hover:shadow-lg',
-                  'transition-all duration-300'
+                  'transition-all duration-120'
                 )}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {/* Icon/Thumbnail with glow */}
                 <div className={cn(
                   'w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0',
-                  'transition-all duration-300 group-hover:scale-110',
+                  'transition-all duration-120 group-hover:scale-100',
                   isImage ? 'p-0.5 shadow-md' : config.color
                 )}>
                   {isImage && file.data ? (
@@ -159,9 +159,9 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
                   onClick={() => onFileRemove(index)}
                   disabled={disabled}
                   className={cn(
-                    'flex-shrink-0 p-1.5 rounded-lg transition-all duration-300',
+                    'flex-shrink-0 p-1.5 rounded-lg transition-all duration-120',
                     'text-[var(--color-text-muted)] hover:text-[var(--color-error)]',
-                    'hover:bg-[var(--color-error-bg)] hover:scale-110',
+                    'hover:bg-[var(--color-error-bg)] hover:scale-100',
                     'disabled:opacity-50 disabled:cursor-not-allowed'
                   )}
                 >
@@ -172,7 +172,7 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
           })}
 
           {/* Enhanced Total Size Badge */}
-          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-br from-[var(--color-primary-500)]/10 to-[var(--color-primary-600)]/5 border border-[var(--color-primary-500)]/20 text-[10px] text-[var(--color-primary-500)] font-medium">
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-br from-[var(--color-accent-500)]/10 to-[var(--color-accent-600)]/5 border border-[var(--color-accent-500)]/20 text-[10px] text-[var(--color-accent-500)] font-medium">
             <Icons.Paperclip />
             {formatFileSize(totalSize)}
           </div>
@@ -182,10 +182,10 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
       {/* Enhanced Upload Area */}
       <div
         className={cn(
-          'relative rounded-2xl border-2 border-dashed transition-all duration-300',
+          'relative rounded-2xl border-2 border-dashed transition-all duration-120',
           'min-h-[100px] flex flex-col items-center justify-center p-5 overflow-hidden',
           isDragging
-            ? 'border-[var(--color-primary-500)] bg-gradient-to-br from-[var(--color-primary-500)]/10 to-[var(--color-primary-600)]/5 scale-[1.01] shadow-lg shadow-[var(--color-primary-glow)]'
+            ? 'border-[var(--color-accent-500)] bg-gradient-to-br from-[var(--color-accent-500)]/10 to-[var(--color-accent-600)]/5 scale-[1.01] shadow-lg shadow-[var(--color-accent-glow)]'
             : 'border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] hover:shadow-md',
           disabled && 'opacity-50 cursor-not-allowed'
         )}
@@ -195,7 +195,7 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
       >
         {/* Animated gradient border on drag */}
         {isDragging && (
-          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary-500)]/20 via-[var(--color-primary-600)]/20 to-[var(--color-primary-500)]/20 animate-shimmer -z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent-500)]/20 via-[var(--color-accent-600)]/20 to-[var(--color-accent-500)]/20 animate-shimmer -z-10" />
         )}
 
         <input
@@ -210,10 +210,10 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
 
         <div className="flex flex-col items-center gap-3 text-center">
           <div className={cn(
-            'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300',
+            'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-120',
             isDragging
-              ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)] scale-110'
-              : 'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] border border-[var(--color-border-subtle)]'
+              ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow-strong)] scale-100'
+              : 'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] border border-[var(--color-border-subtle)]'
           )}>
             <Icons.Paperclip />
           </div>

@@ -21,7 +21,7 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-primary-500)] hover:shadow-md transition-all duration-300 hover:scale-105"
+        className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-muted)] hover:text-[var(--color-accent-500)] hover:shadow-md transition-all duration-120 hover:scale-100"
         title="Vorlagen"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -39,7 +39,7 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
     <div className="relative">
       <button
         onClick={() => setIsOpen(false)}
-        className="p-2.5 hover:bg-[var(--color-primary-500)]/20 rounded-xl text-[var(--color-primary-500)] bg-gradient-to-br from-[var(--color-primary-500)]/10 to-[var(--color-primary-600)]/10 shadow-md shadow-[var(--color-primary-glow)] transition-all duration-300 hover:scale-105 border border-[var(--color-primary-500)]/20"
+        className="p-2.5 hover:bg-[var(--color-accent-500)]/20 rounded-xl text-[var(--color-accent-500)] bg-gradient-to-br from-[var(--color-accent-500)]/10 to-[var(--color-accent-600)]/10 shadow-md shadow-[var(--color-accent-glow)] transition-all duration-120 hover:scale-100 border border-[var(--color-accent-500)]/20"
         title="Vorlagen"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -54,7 +54,7 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
       {/* Enhanced Templates Dropdown */}
       <div className="absolute bottom-full left-0 mb-3 w-80 bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl shadow-2xl shadow-black/50 animate-slide-in-bottom z-20 max-h-[450px] flex flex-col overflow-hidden">
         {/* Glow effect */}
-        <div className="absolute -inset-4 bg-[var(--color-primary-500)] opacity-5 blur-3xl -z-10" />
+        <div className="absolute -inset-4 bg-[var(--color-accent-500)] opacity-5 blur-3xl -z-10" />
 
         {/* Enhanced Categories */}
         <div className="p-3 border-b border-[var(--glass-border)] bg-gradient-to-b from-[var(--glass-highlight)] to-transparent">
@@ -64,9 +64,9 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300',
+                  'flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-120',
                   selectedCategory === cat.id
-                    ? 'bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)]'
+                    ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow-strong)]'
                     : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] border border-transparent hover:border-[var(--color-border-subtle)]'
                 )}
               >
@@ -86,22 +86,22 @@ export function PromptTemplates({ onTemplateSelect }: PromptTemplatesProps) {
                 onTemplateSelect(template.prompt);
                 setIsOpen(false);
               }}
-              className="w-full text-left p-3 rounded-xl hover:bg-gradient-to-r hover:from-[var(--color-bg-elevated)] hover:to-transparent border border-transparent hover:border-[var(--color-border-subtle)] transition-all duration-300 group animate-bounce-in"
+              className="w-full text-left p-3 rounded-xl hover:bg-gradient-to-r hover:from-[var(--color-bg-elevated)] hover:to-transparent border border-transparent hover:border-[var(--color-border-subtle)] transition-all duration-120 group animate-bounce-in"
               style={{ animationDelay: `${index * 30}ms` }}
             >
               <div className="flex items-start gap-3">
-                <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                <span className="text-2xl group-hover:scale-100 transition-transform duration-120">
                   {template.icon}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary-500)] transition-colors">
+                  <p className="text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-500)] transition-colors">
                     {template.name}
                   </p>
                   <p className="text-xs text-[var(--color-text-muted)] line-clamp-1 mt-0.5">
                     {template.description}
                   </p>
                 </div>
-                <span className="w-5 h-5 text-[var(--color-text-muted)] rotate-[-90deg] group-hover:text-[var(--color-primary-500)] group-hover:translate-x-0.5 transition-all duration-300 flex items-center justify-center flex-shrink-0 mt-1">
+                <span className="w-5 h-5 text-[var(--color-text-muted)] rotate-[-90deg] group-hover:text-[var(--color-accent-500)] group-hover:translate-x-0.5 transition-all duration-120 flex items-center justify-center flex-shrink-0 mt-1">
                   <Icons.ChevronDown />
                 </span>
               </div>

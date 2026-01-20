@@ -66,7 +66,7 @@ export function AuthButton() {
     return (
       <a
         href="/auth/login"
-        className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] hover:shadow-md transition-all duration-300 border border-transparent hover:border-[var(--color-border-subtle)]"
+        className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] hover:shadow-md transition-all duration-120 border border-transparent hover:border-[var(--color-border-subtle)]"
       >
         <Icons.User />
         <span className="hidden sm:inline">Einloggen</span>
@@ -83,14 +83,14 @@ export function AuthButton() {
       <button
         onClick={() => setShowMenu(!showMenu)}
         className={cn(
-          'flex items-center gap-3 p-2 pr-3 rounded-xl transition-all duration-300',
+          'flex items-center gap-3 p-2 pr-3 rounded-xl transition-all duration-120',
           showMenu
             ? 'bg-[var(--color-bg-elevated)] shadow-md'
             : 'hover:bg-[var(--color-bg-elevated)] hover:shadow-md'
         )}
       >
         {/* Enhanced Avatar */}
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-[var(--color-primary-glow-strong)] transition-all duration-300 hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-105">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-[var(--color-accent-glow-strong)] transition-all duration-120 hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-100">
           {initials}
         </div>
         {/* User Info - hidden on mobile */}
@@ -104,7 +104,7 @@ export function AuthButton() {
         </div>
         {/* Enhanced Chevron */}
         <span className={cn(
-          'text-[var(--color-text-muted)] transition-transform duration-300 flex items-center justify-center',
+          'text-[var(--color-text-muted)] transition-transform duration-120 flex items-center justify-center',
           showMenu && 'rotate-180'
         )}>
           <Icons.ChevronDown />
@@ -122,7 +122,7 @@ export function AuthButton() {
             {/* User info header */}
             <div className="p-4 border-b border-[var(--glass-border)] bg-gradient-to-b from-[var(--glass-highlight)] to-transparent">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary-500)]/20 to-[var(--color-primary-600)]/20 flex items-center justify-center text-[var(--color-primary-500)] font-bold">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-accent-500)]/20 to-[var(--color-accent-600)]/20 flex items-center justify-center text-[var(--color-accent-500)] font-bold">
                   {initials}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -140,12 +140,12 @@ export function AuthButton() {
             <div className="p-2">
               <a
                 href="/account"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300 group"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-120 group"
                 onClick={() => setShowMenu(false)}
               >
                 <div className={cn(
-                  'p-1.5 rounded-lg transition-colors duration-300',
-                  'text-[var(--color-text-muted)] group-hover:text-[var(--color-primary-500)] group-hover:bg-[var(--color-primary-500)]/10'
+                  'p-1.5 rounded-lg transition-colors duration-120',
+                  'text-[var(--color-text-muted)] group-hover:text-[var(--color-accent-500)] group-hover:bg-[var(--color-accent-500)]/10'
                 )}>
                   <Icons.Settings />
                 </div>
@@ -153,10 +153,10 @@ export function AuthButton() {
               </a>
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-300 group"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[var(--color-error)] hover:bg-[var(--color-error-bg)] transition-all duration-120 group"
               >
                 <div className={cn(
-                  'p-1.5 rounded-lg transition-colors duration-300',
+                  'p-1.5 rounded-lg transition-colors duration-120',
                   'text-[var(--color-error)] group-hover:bg-[var(--color-error)]/20'
                 )}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

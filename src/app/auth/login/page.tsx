@@ -43,14 +43,14 @@ export default function LoginPage() {
       <div className="absolute inset-0 noise-overlay" />
 
       {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 -left-20 w-64 h-64 bg-[var(--color-primary-500)] opacity-[0.08] blur-[100px] rounded-full animate-pulse-glow" />
-      <div className="absolute bottom-1/4 -right-20 w-64 h-64 bg-[var(--color-primary-600)] opacity-[0.06] blur-[100px] rounded-full animate-pulse-subtle" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/4 -left-20 w-64 h-64 bg-[var(--color-accent-500)] opacity-[0.08] blur-[100px] rounded-full animate-pulse-glow" />
+      <div className="absolute bottom-1/4 -right-20 w-64 h-64 bg-[var(--color-accent-600)] opacity-[0.06] blur-[100px] rounded-full animate-pulse-subtle" style={{ animationDelay: '1s' }} />
 
       {/* Login Card */}
       <div className="relative w-full max-w-md animate-fade-in-up">
         {/* Enhanced Logo */}
         <div className="flex justify-center mb-8">
-          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] flex items-center justify-center shadow-2xl shadow-[var(--color-primary-glow-strong)] animate-glow hover:scale-105 transition-transform duration-500">
+          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] flex items-center justify-center shadow-2xl shadow-[var(--color-accent-glow-strong)] animate-glow hover:scale-100 transition-transform duration-120">
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
               <path d="M2 17l10 5 10-5" />
@@ -81,7 +81,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="deine@email.com"
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
+                  className="w-full px-4 py-3.5 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow)] transition-all duration-120"
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -104,7 +104,7 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:shadow-lg focus:shadow-[var(--color-primary-glow)] transition-all duration-300"
+                  className="w-full px-4 py-3.5 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow)] transition-all duration-120"
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -134,10 +134,10 @@ export default function LoginPage() {
               type="submit"
               disabled={loading}
               className={cn(
-                'w-full py-3.5 rounded-xl font-semibold transition-all duration-300 relative overflow-hidden',
+                'w-full py-3.5 rounded-xl font-semibold transition-all duration-120 relative overflow-hidden',
                 loading
                   ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] cursor-not-allowed'
-                  : 'bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] hover:to-[var(--color-primary-700)] text-white shadow-lg shadow-[var(--color-primary-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-primary-glow-intense)] hover:scale-[1.02]'
+                  : 'bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-[1.02]'
               )}
             >
               {loading ? (
@@ -154,7 +154,7 @@ export default function LoginPage() {
           {/* Enhanced Signup Link */}
           <p className="text-center text-sm text-[var(--color-text-muted)] mt-8">
             Noch kein Account?{' '}
-            <a href="/auth/signup" className="text-[var(--color-primary-500)] hover:text-[var(--color-primary-400)] font-semibold hover:underline underline-offset-4 transition-all">
+            <a href="/auth/signup" className="text-[var(--color-accent-500)] hover:text-[var(--color-accent-400)] font-semibold hover:underline underline-offset-4 transition-all">
               Registrieren
             </a>
           </p>

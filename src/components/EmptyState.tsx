@@ -30,7 +30,7 @@ export function EmptyState({
     )}>
       {/* Logo */}
       <div className="relative mb-10">
-        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[var(--color-primary-500)] flex items-center justify-center shadow-lg transition-transform">
+        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[var(--color-accent-500)] flex items-center justify-center shadow-lg transition-transform">
           <Icons.Logo />
         </div>
       </div>
@@ -57,8 +57,8 @@ export function EmptyState({
               className={cn(
                 'px-5 py-3 rounded-lg text-sm font-medium',
                 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)]',
-                'text-[var(--color-text-secondary)] hover:text-[var(--color-primary-500)]',
-                'hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-primary-500)]',
+                'text-[var(--color-text-secondary)] hover:text-[var(--color-accent-500)]',
+                'hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-accent-500)]',
                 'transition-all',
                 'animate-fade-in-up',
               )}

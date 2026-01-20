@@ -85,7 +85,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
         <div className="hidden lg:block absolute -right-3 top-6 z-10">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-6 h-6 rounded-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] flex items-center justify-center text-[var(--color-text-tertiary)] hover:text-[var(--color-primary-500)] hover:border-[var(--color-primary-500)] transition-all"
+            className="w-6 h-6 rounded-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] flex items-center justify-center text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-500)] hover:border-[var(--color-accent-500)] transition-all"
             aria-label={isCollapsed ? 'Sidebar erweitern' : 'Sidebar minimieren'}
           >
             <svg
@@ -105,7 +105,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             {/* New Chat Icon */}
             <button
               onClick={onNewChat}
-              className="flex items-center justify-center w-12 h-12 mb-2 rounded-lg bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)] transition-all"
+              className="flex items-center justify-center w-12 h-12 mb-2 rounded-lg bg-[var(--color-accent-500)] text-white hover:bg-[var(--color-accent-600)] transition-all"
               title="Neuer Chat"
             >
               <Icons.Chat />
@@ -120,7 +120,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               className={cn(
                 'flex items-center justify-center w-12 h-12 mb-1 rounded-lg transition-all',
                 panelMode === 'projects'
-                  ? 'bg-[var(--color-primary-500)]/20 text-[var(--color-primary-500)]'
+                  ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-500)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Projekte"
@@ -136,7 +136,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               className={cn(
                 'flex items-center justify-center w-12 h-12 mb-1 rounded-lg transition-all',
                 panelMode === 'snippets'
-                  ? 'bg-[var(--color-primary-500)]/20 text-[var(--color-primary-500)]'
+                  ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-500)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Code Snippets"
@@ -152,7 +152,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               className={cn(
                 'flex items-center justify-center w-12 h-12 mb-1 rounded-lg transition-all',
                 panelMode === 'artifacts'
-                  ? 'bg-[var(--color-primary-500)]/20 text-[var(--color-primary-500)]'
+                  ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-500)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Artefakte"
@@ -169,7 +169,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             {/* Settings Icon */}
             <button
               onClick={() => setShowSettings(true)}
-              className="flex items-center justify-center w-12 h-12 mb-1 rounded-lg text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-primary-500)] transition-all"
+              className="flex items-center justify-center w-12 h-12 mb-1 rounded-lg text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-accent-500)] transition-all"
               title="Einstellungen"
             >
               <Icons.Settings />
@@ -183,7 +183,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               {/* New Chat Button */}
               <button
                 onClick={onNewChat}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)] transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-[var(--color-accent-500)] text-white hover:bg-[var(--color-accent-600)] transition-all"
               >
                 <Icons.Chat />
                 <span className="text-sm font-medium">Neuer Chat</span>
@@ -195,7 +195,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 className={cn(
                   'w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all',
                   panelMode === 'projects'
-                    ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                    ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
@@ -208,7 +208,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 className={cn(
                   'w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all',
                   panelMode === 'snippets'
-                    ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                    ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
@@ -221,7 +221,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 className={cn(
                   'w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all',
                   panelMode === 'artifacts'
-                    ? 'bg-[var(--color-primary-500)]/10 text-[var(--color-primary-500)]'
+                    ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
@@ -295,7 +295,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Chats durchsuchen..."
-                    className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-primary-500)] transition-all"
+                    className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-accent-500)] transition-all"
                   />
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -418,7 +418,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 onClick={() => setShowSettings(true)}
                 className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-all group"
               >
-                <div className="flex-shrink-0 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-primary-500)] transition-colors">
+                <div className="flex-shrink-0 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-accent-500)] transition-colors">
                   <Icons.Settings />
                 </div>
                 <span className="text-sm text-[var(--color-text-secondary)]">Einstellungen</span>

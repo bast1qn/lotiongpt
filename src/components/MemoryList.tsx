@@ -108,7 +108,7 @@ export function MemoryList({ onClose }: MemoryListProps) {
         {!isEditing ? (
           <button
             onClick={() => setIsEditing(true)}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg text-sm font-medium shadow-md shadow-[var(--color-primary-glow)] hover:shadow-lg hover:shadow-[var(--color-primary-glow-strong)] transition-all"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[var(--color-accent-500)] hover:bg-[var(--color-accent-600)] text-white rounded-lg text-sm font-medium shadow-md shadow-[var(--color-accent-glow)] hover:shadow-lg hover:shadow-[var(--color-accent-glow-strong)] transition-all"
           >
             <Icons.Plus />
             Neues Memory
@@ -121,12 +121,12 @@ export function MemoryList({ onClose }: MemoryListProps) {
                 value={formData.key}
                 onChange={(e) => setFormData({ ...formData, key: e.target.value })}
                 placeholder="Key (z.B. name)"
-                className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all"
+                className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] transition-all"
               />
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value as MemoryCategory })}
-                className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all"
+                className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-accent-500)] transition-all"
               >
                 {Object.entries(categoryLabels).map(([key, label]) => (
                   <option key={key} value={key}>{label}</option>
@@ -138,12 +138,12 @@ export function MemoryList({ onClose }: MemoryListProps) {
               value={formData.value}
               onChange={(e) => setFormData({ ...formData, value: e.target.value })}
               placeholder="Value (z.B. Max)"
-              className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] transition-all"
+              className="w-full bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent-500)] transition-all"
             />
             <div className="flex gap-2">
               <button
                 onClick={handleSubmit}
-                className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg text-sm font-medium transition-all"
+                className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-[var(--color-accent-500)] hover:bg-[var(--color-accent-600)] text-white rounded-lg text-sm font-medium transition-all"
               >
                 <Icons.Check />
                 {editingMemory ? 'Speichern' : 'Hinzufügen'}

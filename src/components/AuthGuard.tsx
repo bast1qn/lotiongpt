@@ -52,7 +52,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
     return (
       <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)]">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-600)] flex items-center justify-center animate-pulse">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] flex items-center justify-center animate-pulse">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
               <path d="M2 17l10 5 10-5" />

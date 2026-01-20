@@ -68,7 +68,7 @@ export function ChatSearchBar({
             'w-full pl-10 pr-24 py-2 rounded-lg',
             'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
             'text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)]',
-            'focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)]',
+            'focus:border-[var(--color-accent-500)] focus:ring-1 focus:ring-[var(--color-accent-500)]',
             'transition-all'
           )}
         />
@@ -137,7 +137,7 @@ export function highlightText(text: string, query: string): string {
 
   return parts.map((part, i) => {
     if (regex.test(part)) {
-      return `<mark class="bg-[var(--color-primary-500)]/30 text-[var(--color-text-primary)] px-0.5 rounded">${part}</mark>`;
+      return `<mark class="bg-[var(--color-accent-500)]/30 text-[var(--color-text-primary)] px-0.5 rounded">${part}</mark>`;
     }
     return part;
   }).join('');
