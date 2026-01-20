@@ -11,6 +11,7 @@ import { AuthGuard } from '@/components/AuthGuard';
 import { KeyboardShortcutsModal } from '@/components/KeyboardShortcutsModal';
 import { ChatSearchBar } from '@/components/ChatSearchBar';
 import { ExportModal } from '@/components/ExportModal';
+import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { fetchChats, createChat, updateChat, deleteChat, fetchChat } from '@/lib/db/chats';
 import { getMemoriesForContext, extractMemoriesFromMessage, createMemory } from '@/lib/db/memories';
 import { toggleMessageStar, getStarredIndicesForChat } from '@/lib/db/starred';
@@ -43,6 +44,20 @@ function HomeContent() {
   // Starred states
   const [starredIndices, setStarredIndices] = useState<number[]>([]);
 
+  // Confirm dialog states
+  const [confirmDialog, setConfirmDialog] = useState<{
+    isOpen: boolean;
+    title: string;
+    description: string;
+    onConfirm: () => void;
+    variant?: 'danger' | 'warning' | 'info';
+  }>({
+    isOpen: false,
+    title: '',
+    description: '',
+    onConfirm: () => {},
+  });
+
   // Ref for ChatInput send function
   const chatInputRef = useRef<ChatInputRef>(null);
 
@@ -72,6 +87,18 @@ function HomeContent() {
   useEffect(() => {
     loadChats();
   }, []);
+
+  // Prevent body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen]);
 
   const handleNewChat = async () => {
     try {
@@ -119,23 +146,35 @@ function HomeContent() {
   };
 
   const handleDeleteChat = async (chatId: string) => {
-    try {
-      await deleteChat(chatId);
-      setChats((prev) => prev.filter(c => c.id !== chatId));
-      if (currentChat?.id === chatId) {
-        const remaining = chats.filter(c => c.id !== chatId);
-        if (remaining.length > 0) {
-          setCurrentChat(remaining[0]);
-        } else {
-          await handleNewChat();
+    const chatToDelete = chats.find(c => c.id === chatId);
+    const chatTitle = chatToDelete?.title || 'Dieser Chat';
+
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Chat loschen?',
+      description: `Mochtest du "${chatTitle}" wirklich loschen? Diese Aktion kann nicht ruckgangig gemacht werden.`,
+      variant: 'danger',
+      onConfirm: async () => {
+        try {
+          await deleteChat(chatId);
+          setChats((prev) => prev.filter(c => c.id !== chatId));
+          if (currentChat?.id === chatId) {
+            const remaining = chats.filter(c => c.id !== chatId);
+            if (remaining.length > 0) {
+              setCurrentChat(remaining[0]);
+            } else {
+              await handleNewChat();
+            }
+          }
+        } catch (error) {
+          console.error('Error deleting chat:', error);
+          storage.deleteChat(chatId);
+          const localChats = storage.getChats();
+          setChats(localChats);
         }
-      }
-    } catch (error) {
-      console.error('Error deleting chat:', error);
-      storage.deleteChat(chatId);
-      const localChats = storage.getChats();
-      setChats(localChats);
-    }
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+      },
+    });
   };
 
   const sendMessageToAPI = async (messages: Message[]): Promise<string> => {
@@ -530,16 +569,21 @@ function HomeContent() {
 
   if (isLoadingChats) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)]">
-        <div className="flex flex-col items-center gap-6">
-          <div className="w-9 h-9 rounded-md bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] flex items-center justify-center shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+      <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)] relative">
+        {/* Aurora background effect for loading */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[var(--gradient-aurora)] animate-aurora" />
+        </div>
+
+        <div className="flex flex-col items-center gap-6 relative z-10">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] flex items-center justify-center shadow-2xl shadow-[var(--color-accent-glow-ultra)] animate-float-slow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
               <path d="M2 17l10 5 10-5" />
               <path d="M2 12l10 5 10-5" />
             </svg>
           </div>
-          <p className="text-sm text-[var(--color-text-muted)]">Lade Chats...</p>
+          <p className="text-sm text-[var(--color-text-tertiary)] font-medium">Lade Chats...</p>
         </div>
       </div>
     );
@@ -559,21 +603,21 @@ function HomeContent() {
       />
 
       <main id="main-content" className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)] relative z-10" tabIndex={-1}>
-        {/* Premium Header with Glass Effect */}
-        <header className="flex-shrink-0 flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-secondary)]/50 backdrop-blur-md">
+        {/* Elite Header with Glass Effect */}
+        <header className="flex-shrink-0 flex items-center justify-between px-5 sm:px-7 py-4 border-b border-[var(--color-border-medium)] bg-[var(--color-bg-secondary)]/60 backdrop-blur-xl">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
+              className="lg:hidden p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105"
             >
               <Icons.Menu />
             </button>
             <div className="flex items-center gap-3 group">
               <div className="relative">
-                <div className="w-2 h-2 rounded-full bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] shadow-lg shadow-[var(--color-accent-glow)] animate-pulse-subtle" />
-                <div className="absolute inset-0 w-2 h-2 rounded-full bg-[var(--color-accent-500)] blur-md opacity-50" />
+                <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-xl shadow-[var(--color-accent-glow-strong)] animate-pulse-subtle" />
+                <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-[var(--color-accent-500)] blur-md opacity-60" />
               </div>
-              <h1 className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight group-hover:text-[var(--color-accent-400)] transition-colors duration-200">
+              <h1 className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight group-hover:text-[var(--color-accent-300)] transition-colors duration-180">
                 {currentChat?.title || 'Neuer Chat'}
               </h1>
             </div>
@@ -582,7 +626,7 @@ function HomeContent() {
           <div className="flex items-center gap-1">
             <button
               onClick={handleToggleSearch}
-              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105"
               title="Suche im Chat (Strg+/)"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -592,7 +636,7 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowExportModal(true)}
-              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105"
               title="Chat exportieren"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -603,7 +647,7 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowKeyboardShortcuts(true)}
-              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-400)] transition-all duration-200 hover:scale-105"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-300)] transition-all duration-180 hover:scale-105"
               title="Tastaturkurzel"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -673,6 +717,15 @@ function HomeContent() {
         messages={currentChat?.messages || []}
         chatCreatedAt={currentChat?.createdAt}
         chatUpdatedAt={currentChat?.updatedAt}
+      />
+
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        description={confirmDialog.description}
+        variant={confirmDialog.variant}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
       />
     </div>
   );

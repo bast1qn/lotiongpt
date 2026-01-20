@@ -26,6 +26,7 @@ interface MessageItemProps {
   suggestions?: string[];
   onSuggestionClick?: (suggestion: string) => void;
   onRetry?: () => void;
+  timestamp?: string;
 }
 
 export function MessageItem({
@@ -45,14 +46,41 @@ export function MessageItem({
   isStarred = false,
   suggestions = [],
   onSuggestionClick,
-  onRetry
+  onRetry,
+  timestamp,
 }: MessageItemProps) {
   const isUser = message.role === 'user';
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [editContent, setEditContent] = useState(message.content);
+  const [showTimestamp, setShowTimestamp] = useState(false);
+  const [showActions, setShowActions] = useState(false);
   const { showToast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const isError = message.isError && !isUser;
+
+  // Format timestamp for display
+  const formatTimestamp = (ts?: string) => {
+    if (!ts) return '';
+    const date = new Date(ts);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return 'Gerade eben';
+    if (diffMins < 60) return `Vor ${diffMins} Min${diffMins > 1 ? '.' : 'ute'}`;
+    if (diffHours < 24) return `Vor ${diffHours} Stund${diffHours > 1 ? 'en' : 'e'}`;
+    if (diffDays < 7) return `Vor ${diffDays} Tag${diffDays > 1 ? 'en' : ''}`;
+
+    return date.toLocaleDateString('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined,
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
 
   // Highlight search matches in text with XSS protection
   const highlightText = (text: string, query: string): string => {
@@ -136,36 +164,57 @@ export function MessageItem({
     <>
       <div
         className={cn(
-          'flex gap-3 sm:gap-4 group animate-message-in',
+          'flex gap-4 sm:gap-5 group animate-message-in relative',
           isUser ? 'flex-row-reverse' : ''
         )}
-        style={{ animationDelay: `${index * 50}ms` }}
+        style={{ animationDelay: `${index * 40}ms` }}
+        onMouseEnter={() => {
+          setShowTimestamp(true);
+          setShowActions(true);
+        }}
+        onMouseLeave={() => {
+          setShowTimestamp(false);
+          setShowActions(false);
+        }}
+        onFocus={() => {
+          setShowTimestamp(true);
+          setShowActions(true);
+        }}
+        onBlur={(e) => {
+          // Only hide if focus is leaving the entire message container
+          if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+            setShowTimestamp(false);
+            setShowActions(false);
+          }
+        }}
       >
-        {/* Premium Avatar */}
+        {/* Elite Avatar with multi-layer styling */}
         <div
           className={cn(
-            'flex-shrink-0 w-9 h-9 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shadow-md',
-            'transition-all duration-200',
+            'flex-shrink-0 w-10 h-10 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center relative',
+            'transition-all duration-180 hover:scale-105',
             isUser
-              ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] shadow-[var(--color-accent-glow)]'
-              : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)]'
+              ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-[var(--shadow-message-user)]'
+              : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] border border-[var(--color-border-medium)] shadow-[var(--shadow-message-assistant)]'
           )}
           aria-hidden="true"
         >
+          {/* Inner glow highlight */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-180" />
           {isUser ? (
-            <span className="text-white text-sm font-bold">B</span>
+            <span className="text-white text-sm font-bold relative z-10">B</span>
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="17"
-              height="17"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-[var(--color-accent-500)]"
+              className="text-[var(--color-accent-500)] relative z-10"
             >
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
               <path d="M2 17l10 5 10-5" />
@@ -181,9 +230,30 @@ export function MessageItem({
             <span className="text-xs font-semibold text-[var(--color-text-tertiary)]">
               {isUser ? 'Du' : 'LotionGPT'}
             </span>
+
+            {/* Timestamp - Premium floating */}
+            {timestamp && showTimestamp && (
+              <span
+                className={cn(
+                  'text-[10px] font-medium px-1.5 py-0.5 rounded-md',
+                  'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
+                  'text-[var(--color-text-muted)]',
+                  'animate-fade-in transition-all duration-200',
+                  isUser && 'order-first'
+                )}
+              >
+                {formatTimestamp(timestamp)}
+              </span>
+            )}
+
             {/* Message Actions - Premium */}
             {!isEditing && (
-              <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity duration-200 hover:opacity-100 touch:opacity-100 focus-within:opacity-100">
+              <div
+                className={cn(
+                  'flex items-center gap-1 transition-all duration-200',
+                  showActions ? 'opacity-100' : 'opacity-0'
+                )}
+              >
                 {/* Copy Button */}
                 <button
                   onClick={handleCopy}
@@ -387,74 +457,76 @@ export function MessageItem({
             </div>
           )}
 
-          {/* Text content - Premium bubbles */}
+          {/* Text content - Elite bubbles */}
           {isEditing ? (
-            // Premium Edit Mode
-            <div className="bg-[var(--color-bg-tertiary)]/80 border border-[var(--color-accent-500)] rounded-2xl p-4 shadow-lg shadow-[var(--color-accent-glow-subtle)]">
+            // Elite Edit Mode
+            <div className="bg-[var(--color-bg-tertiary)]/90 border border-[var(--color-accent-500)]/60 rounded-3xl p-5 shadow-lg shadow-[var(--color-accent-glow-strong)] backdrop-blur-sm">
               <textarea
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-transparent text-[var(--color-text-primary)] text-[15px] leading-relaxed resize-none focus:outline-none min-h-[80px] max-h-[300px]"
+                className="w-full bg-transparent text-[var(--color-text-primary)] text-[15px] leading-relaxed resize-none focus:outline-none min-h-[100px] max-h-[300px]"
                 autoFocus
               />
-              <div className="flex gap-2 mt-3 justify-end">
+              <div className="flex gap-3 mt-4 justify-end">
                 <button
                   onClick={onCancelEdit}
-                  className="px-4 py-2 text-sm font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-xl transition-all duration-200"
+                  className="px-5 py-2.5 text-sm font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-2xl transition-all duration-180"
                 >
                   Abbrechen
                 </button>
                 <button
                   onClick={handleEditSave}
-                  className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white rounded-xl transition-all duration-200 shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105"
+                  className="px-5 py-2.5 text-sm font-semibold bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white rounded-2xl transition-all duration-180 shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-105"
                 >
                   Speichern
                 </button>
               </div>
             </div>
           ) : message.content ? (
-            // Premium Normal Display
+            // Elite Normal Display
             <div
               className={cn(
-                'inline-block rounded-2xl px-4 py-3 max-w-full',
-                'transition-all duration-200 shadow-sm',
+                'inline-block rounded-3xl px-5 py-3.5 max-w-full',
+                'transition-all duration-180',
                 isError
-                  ? 'bg-[var(--color-error-soft)] text-[var(--color-error)] border border-[var(--color-error)]/40 rounded-tl-sm shadow-[var(--color-error-glow)]'
+                  ? 'bg-[var(--color-error-soft)] text-[var(--color-error)] border border-[var(--color-error)]/50 rounded-tl-2xl shadow-[var(--color-error-glow)]'
                   : isUser
-                    ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white rounded-tr-sm shadow-[var(--shadow-message-user)]'
-                    : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] border border-[var(--color-border-subtle)] rounded-tl-sm shadow-[var(--shadow-message-assistant)]',
+                    ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white rounded-tr-2xl shadow-[var(--shadow-message-user)]'
+                    : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] border border-[var(--color-border-medium)] rounded-tl-2xl shadow-[var(--shadow-message-assistant)]',
                 isSearchMatch && 'ring-2 ring-[var(--color-accent-500)] ring-offset-2 ring-offset-[var(--color-bg-primary)]'
               )}
             >
               <div
-                className="text-[15px] leading-[1.65] prose prose-invert prose-p:last:mb-0 prose-p:my-1 prose-headings:my-2 prose-headings:font-semibold prose-a:text-[var(--color-accent-400)] prose-a:no-underline hover:prose-a:underline prose-code:bg-[var(--color-bg-elevated)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-pre:bg-[var(--color-bg-primary)] prose-pre:border prose-pre:border-[var(--color-border-subtle)] prose-pre:rounded-xl max-w-none"
+                className="text-[15px] leading-[1.7] prose prose-invert prose-p:last:mb-0 prose-p:my-1.5 prose-headings:my-2.5 prose-headings:font-semibold prose-a:text-[var(--color-accent-300)] prose-a:no-underline prose-a:border-b prose-a:border-[var(--color-accent-500)]/30 hover:prose-a:border-[var(--color-accent-500)]/60 prose-code:bg-[var(--color-bg-primary)] prose-code:px-2 prose-code:py-1 prose-code:rounded-lg prose-code:text-sm prose-code:font-mono prose-code:border prose-code:border-[var(--color-border-subtle)] prose-pre:bg-[var(--color-bg-primary)] prose-pre:border prose-pre:border-[var(--color-border-medium)] prose-pre:rounded-2xl max-w-none"
                 dangerouslySetInnerHTML={{ __html: formatMessageWithHighlight(message.content) }}
               />
             </div>
           ) : null}
 
-          {/* Premium Suggested Follow-ups */}
+          {/* Elite Suggested Follow-ups */}
           {!isUser && !isEditing && suggestions.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
+            <div className="flex flex-wrap gap-2.5 mt-4">
               {suggestions.map((suggestion, i) => (
                 <button
                   key={i}
                   onClick={() => onSuggestionClick?.(suggestion)}
-                  className="px-3 py-1.5 text-xs font-medium bg-[var(--color-bg-tertiary)]/60 hover:bg-[var(--color-accent-500)]/10 border border-[var(--color-border-subtle)] hover:border-[var(--color-accent-500)]/30 text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-400)] rounded-xl transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md"
-                  style={{ animationDelay: `${i * 50}ms` }}
+                  className="group relative px-4 py-2 text-xs font-medium bg-[var(--color-bg-tertiary)]/80 hover:bg-[var(--color-accent-500)]/15 border border-[var(--color-border-medium)] hover:border-[var(--color-accent-500)]/40 text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-400)] rounded-2xl transition-all duration-180 hover:scale-105 shadow-sm hover:shadow-md hover:shadow-[var(--color-accent-glow-subtle)] overflow-hidden"
+                  style={{ animationDelay: `${i * 60}ms` }}
                 >
-                  {suggestion}
+                  {/* Shine effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                  <span className="relative">{suggestion}</span>
                 </button>
               ))}
             </div>
           )}
 
-          {/* Premium Retry button for error messages */}
+          {/* Elite Retry button for error messages */}
           {isError && onRetry && (
             <button
               onClick={onRetry}
-              className="mt-3 px-4 py-2.5 text-sm font-medium bg-[var(--color-error-soft)] hover:bg-[var(--color-error)]/20 border border-[var(--color-error)]/40 text-[var(--color-error)] rounded-xl transition-all duration-200 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-1 hover:scale-105 hover:shadow-[var(--color-error-glow)]"
+              className="mt-4 px-5 py-3 text-sm font-medium bg-[var(--color-error-soft)] hover:bg-[var(--color-error)]/25 border border-[var(--color-error)]/50 text-[var(--color-error)] rounded-2xl transition-all duration-180 flex items-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-2 hover:scale-105 hover:shadow-lg hover:shadow-[var(--color-error-glow)]"
               aria-label="Nachricht erneut senden"
             >
               <Icons.Refresh />
@@ -464,21 +536,21 @@ export function MessageItem({
         </div>
       </div>
 
-      {/* Premium Lightbox for expanded images */}
+      {/* Elite Lightbox for expanded images */}
       {expandedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-xl animate-fade-in"
+          className="fixed inset-0 z-[var(--z-max)] flex items-center justify-center bg-black/90 backdrop-blur-xl animate-fade-in"
           onClick={() => setExpandedImage(null)}
         >
-          <div className="relative max-w-[90vw] max-h-[90vh] animate-scale-in-spring">
+          <div className="relative max-w-[92vw] max-h-[92vh] animate-scale-in-spring">
             <img
               src={expandedImage}
               alt="Expanded view"
-              className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+              className="max-w-full max-h-[92vh] object-contain rounded-3xl shadow-2xl"
             />
             <button
               onClick={() => setExpandedImage(null)}
-              className="absolute -top-4 -right-4 w-10 h-10 bg-[var(--color-bg-elevated)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)] rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-200 hover:scale-110"
+              className="absolute -top-5 -right-5 w-12 h-12 bg-[var(--color-bg-elevated)]/90 hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border-medium)] rounded-2xl flex items-center justify-center text-white shadow-xl transition-all duration-180 hover:scale-110 backdrop-blur-sm"
             >
               <Icons.Close />
             </button>

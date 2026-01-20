@@ -1,11 +1,11 @@
 /**
- * LotionGPT Animations - v3.0 Ultra Premium
- * Spring physics, micro-interactions, smooth motion
- * Inspired by Apple, Linear, and VisionOS
+ * LotionGPT Animations - v4.0 Elite
+ * Fluid motion, micro-interactions, spring physics
+ * Inspired by Apple, Linear, VisionOS, and Framer Motion
  */
 
 /* ============================================
-   FADE ANIMATIONS - Enhanced
+   FADE ANIMATIONS - Elite smoothness
    ============================================ */
 
 @keyframes fadeIn {
@@ -29,7 +29,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.98);
+    transform: translateY(16px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -40,7 +40,7 @@
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-12px) scale(0.98);
+    transform: translateY(-16px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -49,13 +49,13 @@
 }
 
 /* ============================================
-   SLIDE ANIMATIONS - Enhanced with spring
+   SLIDE ANIMATIONS - Enhanced with elite spring
    ============================================ */
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(24px) scale(0.98);
+    transform: translateX(28px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -66,7 +66,7 @@
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-24px) scale(0.98);
+    transform: translateX(-28px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -81,7 +81,7 @@
   }
   to {
     opacity: 0;
-    transform: translateX(24px) scale(0.98);
+    transform: translateX(28px) scale(0.97);
   }
 }
 
@@ -92,14 +92,14 @@
   }
   to {
     opacity: 0;
-    transform: translateX(-24px) scale(0.98);
+    transform: translateX(-28px) scale(0.97);
   }
 }
 
 @keyframes slideInBottom {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -108,13 +108,13 @@
 }
 
 /* ============================================
-   SCALE ANIMATIONS - Premium spring
+   SCALE ANIMATIONS - Elite spring dynamics
    ============================================ */
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.92);
+    transform: scale(0.90);
   }
   to {
     opacity: 1;
@@ -129,17 +129,37 @@
   }
   to {
     opacity: 0;
-    transform: scale(0.92);
+    transform: scale(0.90);
   }
 }
 
 @keyframes scaleInSpring {
   0% {
     opacity: 0;
-    transform: scale(0.85);
+    transform: scale(0.82);
   }
   50% {
-    transform: scale(1.02);
+    transform: scale(1.03);
+  }
+  75% {
+    transform: scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleInBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
   }
   100% {
     opacity: 1;
@@ -148,7 +168,7 @@
 }
 
 /* ============================================
-   LOADING ANIMATIONS - Enhanced
+   LOADING ANIMATIONS - Elite refinement
    ============================================ */
 
 @keyframes spin {
@@ -165,7 +185,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.55;
   }
 }
 
@@ -174,7 +194,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 }
 
@@ -187,33 +207,53 @@
   }
 }
 
+@keyframes shimmerSlow {
+  0% {
+    background-position: -250% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
+}
+
 /* Typing indicator dots - Enhanced */
 @keyframes bounceDot {
   0%, 80%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
   40% {
-    transform: translateY(-8px);
+    transform: translateY(-10px) scale(1.1);
   }
 }
 
 @keyframes glowPulse {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.18);
   }
   50% {
-    box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 0 50px rgba(99, 102, 241, 0.30);
+  }
+}
+
+@keyframes glowPulseSlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
   }
 }
 
 /* ============================================
-   MESSAGE ANIMATIONS - Premium
+   MESSAGE ANIMATIONS - Premium refinement
    ============================================ */
 
 @keyframes messageIn {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    transform: translateY(12px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -235,7 +275,7 @@
 @keyframes messageSlideIn {
   from {
     opacity: 0;
-    transform: translateX(-12px);
+    transform: translateX(-16px);
   }
   to {
     opacity: 1;
@@ -250,11 +290,11 @@
 @keyframes toastIn {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.95);
+    transform: translateY(20px) scale(0.93) rotateX(-8deg);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotateX(0deg);
   }
 }
 
@@ -265,12 +305,150 @@
   }
   to {
     opacity: 0;
-    transform: translateX(100%) scale(0.95);
+    transform: translateX(120%) scale(0.93);
   }
 }
 
 /* ============================================
-   SHAKE ANIMATION (for errors) - Enhanced
+   MODAL ANIMATIONS - Elite
+   ============================================ */
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalBackdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   SPECIAL EFFECTS - Elite micro-interactions
+   ============================================ */
+
+@keyframes ripple {
+  from {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+@keyframes auroraShift {
+  0%, 100% {
+    transform: translateX(0%) translateY(0%) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateX(5%) translateY(-3%) scale(1.02);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(-3%) translateY(5%) scale(0.98);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateX(-5%) translateY(-2%) scale(1.01);
+    opacity: 0.9;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shineSweep {
+  from {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  to {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+  }
+  50% {
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
+  }
+}
+
+@keyframes magneticPull {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blinkCursor {
+  0%, 50% {
+    border-color: transparent;
+  }
+  51%, 100% {
+    border-color: var(--color-accent-500);
+  }
+}
+
+/* ============================================
+   SHAKE ANIMATION - Enhanced
    ============================================ */
 
 @keyframes shake {
@@ -278,10 +456,10 @@
     transform: translateX(0);
   }
   10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-4px);
+    transform: translateX(-5px);
   }
   20%, 40%, 60%, 80% {
-    transform: translateX(4px);
+    transform: translateX(5px);
   }
 }
 
@@ -290,33 +468,12 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.7;
+    opacity: 0.65;
   }
 }
 
 /* ============================================
-   BOUNCE IN ANIMATION
-   ============================================ */
-
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* ============================================
-   UTILITY CLASSES - Enhanced
+   UTILITY CLASSES - Elite
    ============================================ */
 
 .animate-fade-in {
@@ -360,7 +517,11 @@
 }
 
 .animate-scale-in-spring {
-  animation: scaleInSpring 0.5s var(--ease-spring);
+  animation: scaleInSpring 0.6s var(--ease-spring);
+}
+
+.animate-scale-in-bounce {
+  animation: scaleInBounce 0.7s var(--ease-spring-bounce);
 }
 
 .animate-scale-out {
@@ -372,23 +533,27 @@
 }
 
 .animate-pulse {
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 2.2s ease-in-out infinite;
 }
 
 .animate-pulse-subtle {
-  animation: pulseSubtle 2.5s ease-in-out infinite;
+  animation: pulseSubtle 3s ease-in-out infinite;
 }
 
 .animate-shimmer {
-  animation: shimmer 2s infinite;
+  animation: shimmer 2.5s infinite;
+}
+
+.animate-shimmer-slow {
+  animation: shimmerSlow 4s infinite;
 }
 
 .animate-bounce {
-  animation: bounceDot 1.4s ease-in-out infinite;
+  animation: bounceDot 1.5s ease-in-out infinite;
 }
 
 .animate-bounce-dot {
-  animation: bounceDot 1.2s ease-in-out infinite;
+  animation: bounceDot 1.3s ease-in-out infinite;
 }
 
 .animate-message-in {
@@ -411,16 +576,49 @@
   animation: toastOut var(--duration-normal) var(--ease-in);
 }
 
+.animate-modal-in {
+  animation: modalIn 0.4s var(--ease-spring);
+}
+
 .animate-shake {
-  animation: shake 0.5s ease-in-out;
+  animation: shake 0.6s ease-in-out;
 }
 
 .animate-bounce-in {
-  animation: bounceIn 0.6s var(--ease-spring);
+  animation: scaleInBounce 0.7s var(--ease-spring-bounce);
 }
 
 .animate-error-pulse {
-  animation: errorPulse 2s ease-in-out infinite;
+  animation: errorPulse 2.2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-aurora {
+  animation: auroraShift 15s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  animation: gradientShift 8s ease infinite;
+  background-size: 200% 200%;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.animate-glow-pulse-slow {
+  animation: glowPulseSlow 4s ease-in-out infinite;
 }
 
 /* ============================================
@@ -428,18 +626,20 @@
    ============================================ */
 
 .stagger-1 { animation-delay: 0ms; }
-.stagger-2 { animation-delay: 30ms; }
-.stagger-3 { animation-delay: 60ms; }
-.stagger-4 { animation-delay: 90ms; }
-.stagger-5 { animation-delay: 120ms; }
-.stagger-6 { animation-delay: 150ms; }
-.stagger-7 { animation-delay: 180ms; }
-.stagger-8 { animation-delay: 210ms; }
+.stagger-2 { animation-delay: 40ms; }
+.stagger-3 { animation-delay: 80ms; }
+.stagger-4 { animation-delay: 120ms; }
+.stagger-5 { animation-delay: 160ms; }
+.stagger-6 { animation-delay: 200ms; }
+.stagger-7 { animation-delay: 240ms; }
+.stagger-8 { animation-delay: 280ms; }
+.stagger-9 { animation-delay: 320ms; }
+.stagger-10 { animation-delay: 360ms; }
 
 /* Typing indicator dots */
 .typing-dot-1 { animation-delay: 0ms; }
-.typing-dot-2 { animation-delay: 150ms; }
-.typing-dot-3 { animation-delay: 300ms; }
+.typing-dot-2 { animation-delay: 160ms; }
+.typing-dot-3 { animation-delay: 320ms; }
 
 /* ============================================
    HOVER EFFECTS - Premium
@@ -451,8 +651,18 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
+}
+
+.hover-lift-subtle {
+  transition: transform var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.hover-lift-subtle:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .hover-scale {
@@ -463,6 +673,14 @@
   transform: scale(1.02);
 }
 
+.hover-scale-sm {
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.hover-scale-sm:hover {
+  transform: scale(1.01);
+}
+
 .hover-glow {
   transition: box-shadow var(--duration-normal) var(--ease-out),
               border-color var(--duration-normal) var(--ease-out);
@@ -470,10 +688,11 @@
 
 .hover-glow:hover {
   box-shadow: var(--shadow-glow);
+  border-color: var(--color-border-accent);
 }
 
 /* ============================================
-   GLASSMORPHISM UTILITIES
+   GLASSMORPHISM UTILITIES - Enhanced
    ============================================ */
 
 .glass {
@@ -487,25 +706,42 @@
   background: var(--color-bg-glass-strong);
   backdrop-filter: var(--blur-strong);
   -webkit-backdrop-filter: var(--blur-strong);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--glass-border-strong);
 }
 
 .glass-heavy {
   background: var(--color-bg-glass-heavy);
   backdrop-filter: var(--blur-heavy);
   -webkit-backdrop-filter: var(--blur-heavy);
+  border: 1px solid var(--glass-border-strong);
+}
+
+.glass-crystal {
+  background: var(--color-bg-glass-crystal);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
   border: 1px solid var(--glass-border);
 }
 
 /* ============================================
-   GRADIENT TEXT
+   GRADIENT TEXT - Enhanced
    ============================================ */
 
 .gradient-text {
   background: var(--gradient-primary);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.gradient-text-animated {
+  background: var(--gradient-primary);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
 }
 
 .gradient-text-subtle {
@@ -516,29 +752,38 @@
 }
 
 /* ============================================
-   CUSTOM GLOW EFFECTS
+   CUSTOM GLOW EFFECTS - Enhanced
    ============================================ */
 
 .glow-accent {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15),
-              0 0 40px rgba(99, 102, 241, 0.10);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.18),
+              0 0 50px rgba(99, 102, 241, 0.12);
 }
 
 .glow-accent-strong {
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.25),
-              0 0 60px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 35px rgba(99, 102, 241, 0.28),
+              0 0 70px rgba(99, 102, 241, 0.18);
+}
+
+.glow-accent-ultra {
+  box-shadow: 0 0 50px rgba(99, 102, 241, 0.35),
+              0 0 100px rgba(99, 102, 241, 0.22);
 }
 
 .glow-success {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.18);
 }
 
 .glow-error {
-  box-shadow: 0 0 20px rgba(244, 63, 94, 0.15);
+  box-shadow: 0 0 25px rgba(248, 113, 113, 0.18);
+}
+
+.glow-warning {
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.18);
 }
 
 /* ============================================
-   SCROLLBAR STYLES
+   SCROLLBAR STYLES - Enhanced
    ============================================ */
 
 .sidebar-scroll::-webkit-scrollbar {
@@ -550,11 +795,83 @@
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 2px;
   transition: background var(--duration-normal) var(--ease-out);
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   PERSPECTIVE & 3D
+   ============================================ */
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.rotate-3d-x {
+  transform: rotateX(var(--rotate-amount, 5deg));
+}
+
+/* ============================================
+   CELEBRATION ANIMATIONS - Delight factors
+   ============================================ */
+
+@keyframes celebrateParticle {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx, -100px), var(--ty, -200px)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes celebrateBurst {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+@keyframes celebrateText {
+  0% {
+    transform: scale(0.5) translateY(20px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0;
+  }
+}
+
+.animate-celebrate-particle {
+  animation: celebrateParticle 1.5s ease-out forwards;
+}
+
+.animate-celebrate-burst {
+  animation: celebrateBurst 1s ease-out forwards;
+}
+
+.animate-celebrate-text {
+  animation: celebrateText 1.5s ease-out forwards;
 }

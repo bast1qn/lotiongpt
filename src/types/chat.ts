@@ -24,6 +24,7 @@ export interface Message {
   files?: FileAttachment[];
   starred?: boolean;
   isError?: boolean;
+  timestamp?: string; // ISO timestamp when message was created
 }
 
 export interface Chat {

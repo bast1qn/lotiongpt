@@ -59,38 +59,38 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
 
   return (
     <>
-      {/* Premium Mobile Overlay */}
+      {/* Elite Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-md z-40 lg:hidden animate-fade-in"
+          className="fixed inset-0 bg-black/70 backdrop-blur-md z-40 lg:hidden animate-fade-in"
           onClick={onClose}
         />
       )}
 
-      {/* Sidebar Container - Premium Glass Effect */}
+      {/* Sidebar Container - Elite Glass Effect */}
       <aside
         className={cn(
           'fixed lg:relative inset-y-0 left-0 z-50',
           'h-full flex flex-col',
-          'bg-[var(--color-bg-secondary)]/80 backdrop-blur-xl',
+          'bg-[var(--color-bg-secondary)]/90 backdrop-blur-xl',
           'border-r border-[var(--color-border-default)]',
-          'transition-all duration-200 ease-spring',
+          'transition-all duration-180 var(--ease-spring)',
           isCollapsed ? 'w-16' : 'w-[280px]',
           isOpen ? 'translate-x-0' : '-translate-x-full',
           'lg:translate-x-0',
           'flex-shrink-0'
         )}
       >
-        {/* Premium Toggle Button - Desktop only */}
-        <div className="hidden lg:block absolute -right-3 top-6 z-10">
+        {/* Elite Toggle Button - Desktop only */}
+        <div className="hidden lg:block absolute -right-3.5 top-6 z-10">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-7 h-7 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-medium)] flex items-center justify-center text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-500)] hover:border-[var(--color-accent-500)] hover:shadow-lg hover:shadow-[var(--color-accent-glow)] transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]"
+            className="w-8 h-8 rounded-2xl bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md border border-[var(--color-border-medium)] flex items-center justify-center text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-400)] hover:border-[var(--color-accent-500)]/40 hover:shadow-lg hover:shadow-[var(--color-accent-glow-subtle)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]"
             aria-label={isCollapsed ? 'Sidebar erweitern' : 'Sidebar minimieren'}
             aria-expanded={isCollapsed}
           >
             <svg
-              className={cn('w-3.5 h-3.5 transition-transform duration-200', isCollapsed ? 'rotate-180' : '')}
+              className={cn('w-4 h-4 transition-transform duration-180', isCollapsed ? 'rotate-180' : '')}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -100,29 +100,29 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
           </button>
         </div>
 
-        {/* Collapsed View - Premium Icon only */}
+        {/* Collapsed View - Elite Icon only */}
         {isCollapsed ? (
-          <div className="flex flex-col h-full p-2.5">
-            {/* New Chat Icon - Premium */}
+          <div className="flex flex-col h-full p-3">
+            {/* New Chat Icon - Elite */}
             <button
               onClick={onNewChat}
-              className="flex items-center justify-center w-11 h-11 mb-3 rounded-xl bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]"
+              className="flex items-center justify-center w-12 h-12 mb-4 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white shadow-xl shadow-[var(--shadow-message-user)] hover:shadow-2xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-105 transition-all duration-180 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]"
               title="Neuer Chat"
               aria-label="Neuen Chat erstellen"
             >
               <Icons.Chat />
             </button>
 
-            {/* Navigation Icons - Premium */}
+            {/* Navigation Icons - Elite */}
             <button
               onClick={() => {
                 setIsCollapsed(false);
                 setPanelMode(panelMode === 'projects' ? 'none' : 'projects');
               }}
               className={cn(
-                'flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
+                'flex items-center justify-center w-12 h-12 mb-2 rounded-2xl transition-all duration-180 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
                 panelMode === 'projects'
-                  ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
+                  ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Projekte"
@@ -138,9 +138,9 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 setPanelMode(panelMode === 'snippets' ? 'none' : 'snippets');
               }}
               className={cn(
-                'flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
+                'flex items-center justify-center w-12 h-12 mb-2 rounded-2xl transition-all duration-180 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
                 panelMode === 'snippets'
-                  ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
+                  ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Code Snippets"
@@ -156,9 +156,9 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 setPanelMode(panelMode === 'artifacts' ? 'none' : 'artifacts');
               }}
               className={cn(
-                'flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
+                'flex items-center justify-center w-12 h-12 mb-2 rounded-2xl transition-all duration-180 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
                 panelMode === 'artifacts'
-                  ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
+                  ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Artefakte"
@@ -174,37 +174,37 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             {/* Spacer */}
             <div className="flex-1" />
 
-            {/* Settings Icon - Premium */}
+            {/* Settings Icon - Elite */}
             <button
               onClick={() => setShowSettings(true)}
-              className="flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-accent-500)] transition-all duration-200 hover:scale-105"
+              className="flex items-center justify-center w-12 h-12 mb-2 rounded-2xl text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-accent-400)] transition-all duration-180 hover:scale-105"
               title="Einstellungen"
             >
               <Icons.Settings />
             </button>
           </div>
         ) : (
-          /* Expanded View - Premium Full Sidebar */
+          /* Expanded View - Elite Full Sidebar */
           <>
-            {/* TOP SECTION: Premium Navigation */}
-            <nav className="flex-shrink-0 p-4 space-y-1.5">
-              {/* Premium New Chat Button */}
+            {/* TOP SECTION: Elite Navigation */}
+            <nav className="flex-shrink-0 p-5 space-y-2">
+              {/* Elite New Chat Button */}
               <button
                 onClick={onNewChat}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-[1.02] transition-all duration-200 group relative overflow-hidden"
+                className="w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white shadow-xl shadow-[var(--shadow-message-user)] hover:shadow-2xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-[1.02] transition-all duration-180 group relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                 <Icons.Chat />
                 <span className="text-sm font-semibold relative z-10">Neuer Chat</span>
               </button>
 
-              {/* Premium Navigation Buttons */}
+              {/* Elite Navigation Buttons */}
               <button
                 onClick={() => setPanelMode(panelMode === 'projects' ? 'none' : 'projects')}
                 className={cn(
-                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200',
+                  'w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-180',
                   panelMode === 'projects'
-                    ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md'
+                    ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-lg'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
@@ -215,9 +215,9 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               <button
                 onClick={() => setPanelMode(panelMode === 'snippets' ? 'none' : 'snippets')}
                 className={cn(
-                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200',
+                  'w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-180',
                   panelMode === 'snippets'
-                    ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md'
+                    ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-lg'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
@@ -228,9 +228,9 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               <button
                 onClick={() => setPanelMode(panelMode === 'artifacts' ? 'none' : 'artifacts')}
                 className={cn(
-                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200',
+                  'w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-180',
                   panelMode === 'artifacts'
-                    ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md'
+                    ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-lg'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >

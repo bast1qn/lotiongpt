@@ -1,89 +1,100 @@
 /**
- * LotionGPT Design Tokens - v6.0 Ultra Premium
+ * LotionGPT Design Tokens - v8.0 Elite
  * Next-Generation Design System
  * Inspired by Linear, Raycast, Vercel, Arc Browser, Apple VisionOS
+ * Enhanced with aurora effects, multi-layer depth, and micro-interactions
  */
 
 :root {
   /* ============================================
-     COLORS - Ultra premium refinement
+     COLORS - Elite refinement with warmth
      ============================================ */
 
-  /* Backgrounds - Deep blacks with sophisticated warmth */
+  /* Backgrounds - Rich blacks with subtle warmth for premium feel */
   --color-bg-primary: #000000;
-  --color-bg-secondary: #030305;
-  --color-bg-tertiary: #0a0a0f;
-  --color-bg-elevated: #111118;
-  --color-bg-surface: #16161f;
-  --color-bg-hover: #1c1c26;
+  --color-bg-secondary: #020204;
+  --color-bg-tertiary: #08080c;
+  --color-bg-elevated: #0f0f15;
+  --color-bg-surface: #14141c;
+  --color-bg-hover: #1a1a23;
   --color-bg-overlay: rgba(0, 0, 0, 0.92);
-  --color-bg-glass: rgba(10, 10, 15, 0.80);
-  --color-bg-glass-strong: rgba(0, 0, 0, 0.88);
-  --color-bg-glass-heavy: rgba(3, 3, 5, 0.95);
+  --color-bg-glass: rgba(8, 8, 12, 0.85);
+  --color-bg-glass-strong: rgba(0, 0, 0, 0.90);
+  --color-bg-glass-heavy: rgba(2, 2, 4, 0.96);
+  --color-bg-glass-crystal: rgba(8, 8, 12, 0.75);
 
-  /* Borders - Ultra refined with subtle glow */
-  --color-border-subtle: rgba(255, 255, 255, 0.03);
-  --color-border-default: rgba(255, 255, 255, 0.06);
-  --color-border-medium: rgba(255, 255, 255, 0.10);
-  --color-border-strong: rgba(255, 255, 255, 0.15);
-  --color-border-accent: rgba(99, 102, 241, 0.30);
-  --color-border-glow: rgba(99, 102, 241, 0.20);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.03);
+  /* Borders - Multi-layer refinement with glow */
+  --color-border-subtle: rgba(255, 255, 255, 0.035);
+  --color-border-default: rgba(255, 255, 255, 0.07);
+  --color-border-medium: rgba(255, 255, 255, 0.11);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-border-accent: rgba(99, 102, 241, 0.35);
+  --color-border-glow: rgba(99, 102, 241, 0.22);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-border-strong: rgba(255, 255, 255, 0.12);
 
-  /* Text - Premium readability with refined contrast */
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a0a0a8;
-  --color-text-tertiary: #6b6b73;
-  --color-text-muted: #4a4a52;
-  --color-text-faint: #35353a;
+  /* Text - Elite readability with sophisticated contrast */
+  --color-text-primary: #fcfcfc;
+  --color-text-secondary: #a5a5ad;
+  --color-text-tertiary: #707078;
+  --color-text-muted: #4d4d55;
+  --color-text-faint: #38383d;
   --color-text-inverse: #000000;
+  --color-text-glow: rgba(255, 255, 255, 0.08);
 
-  /* Accent - Refined violet-indigo gradient system */
-  --color-accent-50: #f0f2ff;
-  --color-accent-100: #e0e5ff;
-  --color-accent-200: #c7d2fe;
-  --color-accent-300: #a5b4fc;
-  --color-accent-400: #818cf8;
-  --color-accent-450: #7577f6;
+  /* Accent - Elite violet-indigo with enhanced depth */
+  --color-accent-50: #f2f4ff;
+  --color-accent-100: #e4e8ff;
+  --color-accent-200: #cad4fe;
+  --color-accent-300: #a9b6fd;
+  --color-accent-400: #858ff9;
+  --color-accent-450: #787af7;
   --color-accent-500: #6366f1;
-  --color-accent-550: #585cde;
+  --color-accent-550: #585cdf;
   --color-accent-600: #4f46e5;
   --color-accent-700: #4338ca;
-  --color-accent-glow: rgba(99, 102, 241, 0.22);
-  --color-accent-glow-strong: rgba(99, 102, 241, 0.35);
-  --color-accent-glow-subtle: rgba(99, 102, 241, 0.12);
+  --color-accent-glow: rgba(99, 102, 241, 0.25);
+  --color-accent-glow-strong: rgba(99, 102, 241, 0.40);
+  --color-accent-glow-subtle: rgba(99, 102, 241, 0.15);
+  --color-accent-glow-ultra: rgba(99, 102, 241, 0.55);
 
-  /* Semantic colors - Premium palette */
-  --color-success: #10b981;
-  --color-success-soft: rgba(16, 185, 129, 0.15);
-  --color-success-glow: rgba(16, 185, 129, 0.20);
-  --color-error: #f43f5e;
-  --color-error-soft: rgba(244, 63, 94, 0.15);
-  --color-error-glow: rgba(244, 63, 94, 0.20);
-  --color-warning: #f59e0b;
-  --color-warning-soft: rgba(245, 158, 11, 0.15);
-  --color-warning-glow: rgba(245, 158, 11, 0.20);
-  --color-info: #3b82f6;
-  --color-info-soft: rgba(59, 130, 246, 0.15);
-  --color-info-glow: rgba(59, 130, 246, 0.20);
+  /* Semantic colors - Elite palette */
+  --color-success: #22c55e;
+  --color-success-soft: rgba(34, 197, 94, 0.18);
+  --color-success-glow: rgba(34, 197, 94, 0.25);
+  --color-error: #f87171;
+  --color-error-soft: rgba(248, 113, 113, 0.18);
+  --color-error-glow: rgba(248, 113, 113, 0.25);
+  --color-warning: #fbbf24;
+  --color-warning-soft: rgba(251, 191, 36, 0.18);
+  --color-warning-glow: rgba(251, 191, 36, 0.25);
+  --color-info: #60a5fa;
+  --color-info-soft: rgba(96, 165, 250, 0.18);
+  --color-info-glow: rgba(96, 165, 250, 0.25);
 
-  /* Gradients - Ultra premium, sophisticated */
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-  --gradient-accent: linear-gradient(135deg, #6366f1 0%, #a78bfa 100%);
-  --gradient-accent-reverse: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
-  --gradient-accent-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(167, 139, 250, 0.10) 100%);
-  --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, transparent 100%);
-  --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
-  --gradient-mesh: radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-                   radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.06) 0px, transparent 50%),
-                   radial-gradient(at 0% 50%, rgba(99, 102, 241, 0.04) 0px, transparent 50%);
-  --gradient-glow-top: radial-gradient(ellipse 180% 120% at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
-  --gradient-glow-center: radial-gradient(800px circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 100%);
-  --gradient-glow-bottom: radial-gradient(ellipse 180% 120% at 50% 100%, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
+  /* Gradients - Elite sophistication with aurora effects */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #7c3aed 25%, #8b5cf6 50%, #a855f7 75%, #6366f1 100%);
+  --gradient-accent: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+  --gradient-accent-reverse: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #6366f1 100%);
+  --gradient-accent-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(139, 92, 246, 0.12) 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  --gradient-shine-strong: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  --gradient-aurora: radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                     radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.10) 0px, transparent 50%),
+                     radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
+                     radial-gradient(at 100% 80%, rgba(99, 102, 241, 0.06) 0px, transparent 50%);
+  --gradient-mesh: radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.10) 0px, transparent 50%),
+                   radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.08) 0px, transparent 50%),
+                   radial-gradient(at 0% 50%, rgba(99, 102, 241, 0.06) 0px, transparent 50%);
+  --gradient-glow-top: radial-gradient(ellipse 200% 140% at 50% 0%, rgba(99, 102, 241, 0.10) 0%, transparent 65%);
+  --gradient-glow-center: radial-gradient(900px circle at 50% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 100%);
+  --gradient-glow-bottom: radial-gradient(ellipse 200% 140% at 50% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 65%);
+  --gradient-flow: linear-gradient(270deg, #6366f1, #8b5cf6, #a855f7, #6366f1);
 
   /* ============================================
-     SPACING - Ultra precise
+     SPACING - Elite precision
      ============================================ */
   --space-0: 0;
   --space-0_5: 2px;
@@ -99,9 +110,12 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
 
   /* ============================================
-     RADIUS - Refined scale
+     RADIUS - Elite refinement
      ============================================ */
   --radius-xs: 4px;
   --radius-sm: 6px;
@@ -110,30 +124,36 @@
   --radius-xl: 12px;
   --radius-2xl: 16px;
   --radius-3xl: 20px;
+  --radius-4xl: 24px;
   --radius-full: 9999px;
 
   /* ============================================
-     SHADOWS - Premium depth system
+     SHADOWS - Elite depth system with multi-layer
      ============================================ */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.7);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.75);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.8);
-  --shadow-2xl: 0 24px 64px rgba(0, 0, 0, 0.85);
-  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
-  --shadow-glow-strong: 0 0 60px rgba(99, 102, 241, 0.25);
-  --shadow-glow-stronger: 0 0 80px rgba(99, 102, 241, 0.35);
-  --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  --shadow-inner-subtle: inset 0 1px 3px rgba(0, 0, 0, 0.6);
-  --shadow-message-user: 0 2px 8px rgba(99, 102, 241, 0.20);
-  --shadow-message-assistant: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.65);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.72);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.78);
+  --shadow-xl: 0 20px 55px rgba(0, 0, 0, 0.82);
+  --shadow-2xl: 0 30px 75px rgba(0, 0, 0, 0.86);
+  --shadow-glow: 0 0 35px rgba(99, 102, 241, 0.18);
+  --shadow-glow-strong: 0 0 70px rgba(99, 102, 241, 0.28);
+  --shadow-glow-stronger: 0 0 100px rgba(99, 102, 241, 0.38);
+  --shadow-glow-ultra: 0 0 140px rgba(99, 102, 241, 0.45);
+  --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-inner-subtle: inset 0 1px 4px rgba(0, 0, 0, 0.65);
+  --shadow-inner-strong: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-message-user: 0 3px 12px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-message-assistant: 0 3px 12px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-button-hover: 0 4px 16px rgba(99, 102, 241, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
   /* ============================================
-     TYPOGRAPHY - Ultimate refinement
+     TYPOGRAPHY - Elite refinement
      ============================================ */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', ui-monospace, monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Fira Code', ui-monospace, monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -141,6 +161,7 @@
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
 
   --font-regular: 400;
   --font-medium: 500;
@@ -151,44 +172,52 @@
   --leading-snug: 1.35;
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
+  --leading-loose: 1.8;
 
-  --tracking-tight: -0.015em;
+  --tracking-tight: -0.02em;
   --tracking-normal: 0;
   --tracking-wide: 0.01em;
+  --tracking-wider: 0.02em;
 
   /* ============================================
-     TRANSITIONS - Premium feel with spring physics
+     TRANSITIONS - Elite physics with spring dynamics
      ============================================ */
-  --duration-instant: 100ms;
-  --duration-fast: 150ms;
-  --duration-normal: 200ms;
-  --duration-slow: 300ms;
-  --duration-slower: 500ms;
+  --duration-instant: 80ms;
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+  --duration-slow: 280ms;
+  --duration-slower: 450ms;
+  --duration-ultra: 650ms;
+
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-premium: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-elite: cubic-bezier(0.15, 0.85, 0.25, 1);
+  --ease-bounce-subtle: cubic-bezier(0.25, 0.75, 0.5, 1.25);
 
   /* ============================================
-     LAYOUT
+     LAYOUT - Elite spacing
      ============================================ */
   --header-height: 56px;
   --sidebar-width: 280px;
-  --sidebar-width-collapsed: 64px;
+  --sidebar-width-collapsed: 72px;
 
   /* ============================================
-     EFFECTS - VisionOS inspired
+     EFFECTS - VisionOS & Aurora inspired
      ============================================ */
-  --blur-glass: blur(20px);
-  --blur-strong: blur(32px);
-  --blur-heavy: blur(48px);
-  --blur-overlay: blur(8px);
-  --blur-subtle: blur(12px);
+  --blur-glass: blur(24px);
+  --blur-strong: blur(36px);
+  --blur-heavy: blur(52px);
+  --blur-overlay: blur(10px);
+  --blur-subtle: blur(14px);
+  --blur-ultra: blur(80px);
 
-  /* Z-Index scale */
+  /* Z-Index scale - Enhanced */
   --z-base: 1;
   --z-dropdown: 100;
   --z-sticky: 200;
@@ -197,5 +226,6 @@
   --z-popover: 500;
   --z-tooltip: 600;
   --z-toast: 700;
+  --z-max: 9999;
 }
 

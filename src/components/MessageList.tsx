@@ -42,6 +42,18 @@ export function MessageList({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
 
+  // Calculate timestamps for messages (for messages without timestamps)
+  const messageTimestamps = useMemo(() => {
+    const now = Date.now();
+    return messages.map((msg, idx) => {
+      if (msg.timestamp) return msg.timestamp;
+      // Calculate synthetic timestamp based on position
+      // Oldest message is ~30 minutes ago, newest is now
+      const minutesAgo = Math.max(0, (messages.length - 1 - idx) * 2);
+      return new Date(now - minutesAgo * 60 * 1000).toISOString();
+    });
+  }, [messages]);
+
   // Find messages that match the search query
   const matchingMessageIndices = useMemo(() => {
     if (!searchQuery.trim()) return [];
@@ -157,6 +169,7 @@ export function MessageList({
                 onToggleStar={onToggleStar ? () => onToggleStar(index) : undefined}
                 onBranch={onBranch && message.role === 'assistant' ? () => onBranch(index) : undefined}
                 onRetry={message.isError && index === messages.length - 1 ? onRetry : undefined}
+                timestamp={message.timestamp || messageTimestamps[index]}
               />
             </div>
           ))}

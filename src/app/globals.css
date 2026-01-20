@@ -1,6 +1,6 @@
 /**
- * LotionGPT Global Styles - v5.0 Ultimate
- * Premium Design System
+ * LotionGPT Global Styles - v8.0 Elite
+ * Premium Design System with Aurora Effects
  */
 
 @import "../styles/tokens.css";
@@ -37,24 +37,38 @@ body {
   color: var(--color-text-primary);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
+  position: relative;
 }
 
 /* ============================================
-   AMBIENT GLOW EFFECT
+   AMBIENT AURORA EFFECT - Elite
    ============================================ */
 
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: var(--gradient-glow-top);
+  background: var(--gradient-aurora);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.7;
+  animation: auroraShift 20s ease-in-out infinite;
+}
+
+/* Secondary ambient glow for depth */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
 }
 
 /* ============================================
-   SCROLLBAR - Ultimate premium
+   SCROLLBAR - Elite premium
    ============================================ */
 
 ::-webkit-scrollbar {
@@ -67,18 +81,22 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 2.5px;
-  transition: background var(--duration-fast) ease;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  transition: background var(--duration-normal) var(--ease-out);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.04) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
 }
 
 /* ============================================
@@ -112,7 +130,7 @@ code {
 }
 
 /* ============================================
-   PROSE STYLES
+   PROSE STYLES - Elite refinement
    ============================================ */
 
 .prose {
@@ -153,22 +171,24 @@ code {
 }
 
 .prose li {
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .prose li::marker {
   color: var(--color-accent-500);
+  font-weight: 500;
 }
 
 .prose a {
-  color: var(--color-accent-500);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  text-decoration-color: rgba(99, 102, 241, 0.3);
+  color: var(--color-accent-400);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .prose a:hover {
-  text-decoration-color: var(--color-accent-500);
+  color: var(--color-accent-300);
+  border-bottom-color: rgba(99, 102, 241, 0.6);
 }
 
 .prose h1,
@@ -177,9 +197,9 @@ code {
 .prose h4 {
   color: var(--color-text-primary);
   font-weight: var(--font-semibold);
-  margin-top: var(--space-5);
-  margin-bottom: var(--space-2);
-  letter-spacing: -0.01em;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
 }
 
 .prose h1:first-child,
@@ -195,20 +215,20 @@ code {
 
 .prose code {
   font-family: var(--font-mono);
-  font-size: 0.88em;
-  background: var(--color-bg-tertiary);
-  color: var(--color-accent-400);
-  padding: 2px 5px;
-  border-radius: var(--radius-xs);
+  font-size: 0.86em;
+  background: var(--color-bg-elevated);
+  color: var(--color-accent-300);
+  padding: 3px 6px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-border-subtle);
 }
 
 .prose pre {
-  margin: var(--space-4) 0;
-  background: var(--color-bg-tertiary);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-md);
-  padding: var(--space-4);
+  margin: var(--space-5) 0;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
   overflow-x: auto;
   font-size: var(--text-sm);
 }
@@ -224,14 +244,15 @@ code {
 .prose blockquote {
   border-left: 2px solid var(--color-accent-500);
   padding-left: var(--space-4);
-  margin: var(--space-4) 0;
+  margin: var(--space-5) 0;
   color: var(--color-text-tertiary);
+  font-style: italic;
 }
 
 .prose hr {
   border: none;
-  border-top: 1px solid var(--color-border-default);
-  margin: var(--space-6) 0;
+  border-top: 1px solid var(--color-border-medium);
+  margin: var(--space-8) 0;
 }
 
 /* ============================================
@@ -356,10 +377,10 @@ textarea::placeholder {
 }
 
 /* ============================================
-   ADDITIONAL PREMIUM EFFECTS
+   ADDITIONAL ELITE EFFECTS
    ============================================ */
 
-/* Subtle noise texture for depth */
+/* Subtle noise texture for depth - Enhanced */
 .noise-texture {
   position: relative;
 }
@@ -368,13 +389,13 @@ textarea::placeholder {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.015;
+  opacity: 0.025;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   z-index: 1;
 }
 
-/* Premium card hover effect */
+/* Premium card hover effect - Enhanced */
 .card-hover {
   transition: transform var(--duration-normal) var(--ease-spring),
               box-shadow var(--duration-normal) var(--ease-out),
@@ -382,25 +403,78 @@ textarea::placeholder {
 }
 
 .card-hover:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
   border-color: var(--color-border-accent);
 }
 
 /* Smooth inner shadow for inset elements */
 .inset-shadow {
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .inset-shadow-subtle {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-/* Premium focus ring override */
+.inset-shadow-strong {
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Premium focus ring override - Elite */
 .focus-ring-premium:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-bg-primary),
               0 0 0 4px var(--color-accent-500);
+}
+
+/* Aurora border effect */
+.aurora-border {
+  position: relative;
+}
+
+.aurora-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: var(--gradient-primary);
+  background-size: 300% 300%;
+  border-radius: inherit;
+  z-index: -1;
+  animation: gradientShift 8s ease infinite;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.aurora-border:hover::before {
+  opacity: 1;
+}
+
+/* Shine effect on hover */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.7s var(--ease-premium);
+}
+
+.shine-effect:hover::after {
+  left: 150%;
 }
 
 /* ============================================
@@ -417,6 +491,50 @@ textarea::placeholder {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* For making content visible only when focused */
+.sr-only-focusable:focus {
+  clip: auto;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  overflow: visible;
+  white-space: normal;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border-medium: rgba(255, 255, 255, 0.3);
+    --color-border-subtle: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Focus visible enhancement - better visibility */
+.focus-visible-ring:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* Skip link styling improvement */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  padding: 8px 16px;
+  background: var(--color-accent-500);
+  color: white;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  z-index: 9999;
+  transition: top var(--duration-normal) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 16px;
 }
 
 @media (prefers-reduced-motion: reduce) {
