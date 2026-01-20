@@ -217,19 +217,19 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
   const canSend = (input.trim() || hasAttachments) && !isLoading;
 
   return (
-    <div className="flex-shrink-0 p-4">
+    <div className="flex-shrink-0 p-3">
       <div className="max-w-3xl mx-auto">
         {/* Controls Bar */}
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-1.5 mb-2">
           {/* Model Selector */}
           <div className="relative" ref={modelPickerRef}>
             <button
               onClick={() => setShowModelPicker(!showModelPicker)}
               className={cn(
-                'flex items-center gap-2 px-2.5 py-1 rounded-md text-sm font-medium transition-colors duration-150',
+                'flex items-center gap-2 px-2 py-1 rounded text-sm font-medium transition-all duration-120',
                 'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
-                'hover:border-[var(--color-border-medium)]'
+                'hover:border-[var(--color-border-default)]'
               )}
             >
               <span>{MODEL_INFO[selectedModel].icon}</span>
@@ -390,9 +390,10 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
         <div
           className={cn(
-            'relative rounded-md transition-all duration-150',
+            'relative rounded transition-all duration-120',
             'bg-[var(--color-bg-tertiary)]',
             'border border-[var(--color-border-subtle)]',
+            'shadow-inner-subtle',
             isDragging && 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/5',
             isLoading && 'opacity-70'
           )}

@@ -357,7 +357,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               <div className="flex-1 overflow-y-auto px-4 py-3">
                 {Object.entries(groupedChats).map(([dateLabel, dateChats]) => (
                   <div key={dateLabel}>
-                    <h3 className="text-[10px] font-medium text-[var(--color-text-muted)] px-2 mb-1.5 uppercase tracking-wider">
+                    <h3 className="text-[9px] font-medium text-[var(--color-text-muted)] px-2 mb-1 uppercase tracking-wider">
                       {dateLabel}
                     </h3>
                     <div className="flex flex-col gap-0.5 mb-4">
@@ -365,9 +365,9 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                         <div
                           key={chat.id}
                           className={cn(
-                            'relative flex items-center justify-between px-3 py-1.5 rounded-md cursor-pointer group transition-all duration-150',
+                            'relative flex items-center justify-between px-3 py-1.5 rounded cursor-pointer group transition-all duration-120',
                             currentChatId === chat.id
-                              ? 'bg-[var(--color-accent-500)] text-white'
+                              ? 'bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white'
                               : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'
                           )}
                           onClick={() => {
@@ -386,8 +386,8 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                             className={cn(
                               'opacity-0 group-hover:opacity-100 p-0.5 rounded transition-all flex-shrink-0',
                               currentChatId === chat.id
-                                ? 'hover:bg-white/15 text-white/60 hover:text-white'
-                                : 'text-[var(--color-text-muted)] hover:text-[var(--color-error)]'
+                                ? 'hover:bg-white/15 text-white/50 hover:text-white'
+                                : 'text-[var(--color-text-faint)] hover:text-[var(--color-error)]'
                             )}
                             aria-label="Chat löschen"
                           >

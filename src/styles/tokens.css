@@ -1,38 +1,42 @@
 /**
- * LotionGPT Design Tokens - v4.0
- * Ultra-Professional Design System
- * Inspired by Linear, Vercel, Raycast
+ * LotionGPT Design Tokens - v5.0 Ultimate
+ * Premium Design System
+ * Inspired by Linear, Raycast, Vercel, Arc Browser
  */
 
 :root {
   /* ============================================
-     COLORS - Ultra-refined dark palette
+     COLORS - Ultimate refinement
      ============================================ */
 
-  /* Backgrounds - Pure, sophisticated blacks */
+  /* Backgrounds - Pure blacks with subtle warmth */
   --color-bg-primary: #000000;
-  --color-bg-secondary: #030304;
-  --color-bg-tertiary: #0a0a0b;
-  --color-bg-elevated: #111113;
-  --color-bg-surface: #171719;
-  --color-bg-overlay: rgba(0, 0, 0, 0.85);
-  --color-bg-glass: rgba(10, 10, 11, 0.6);
+  --color-bg-secondary: #010101;
+  --color-bg-tertiary: #08080a;
+  --color-bg-elevated: #0f0f12;
+  --color-bg-surface: #141417;
+  --color-bg-hover: #1a1a1e;
+  --color-bg-overlay: rgba(0, 0, 0, 0.90);
+  --color-bg-glass: rgba(8, 8, 10, 0.75);
+  --color-bg-glass-strong: rgba(0, 0, 0, 0.85);
 
-  /* Borders - Ultra subtle for premium feel */
-  --color-border-subtle: rgba(255, 255, 255, 0.03);
-  --color-border-default: rgba(255, 255, 255, 0.06);
-  --color-border-medium: rgba(255, 255, 255, 0.1);
-  --color-border-strong: rgba(255, 255, 255, 0.15);
-  --color-border-accent: rgba(99, 102, 241, 0.3);
+  /* Borders - Ultra refined */
+  --color-border-subtle: rgba(255, 255, 255, 0.02);
+  --color-border-default: rgba(255, 255, 255, 0.05);
+  --color-border-medium: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+  --color-border-accent: rgba(99, 102, 241, 0.25);
+  --color-border-glow: rgba(99, 102, 241, 0.15);
 
-  /* Text - Optimized contrast hierarchy */
-  --color-text-primary: #ededed;
-  --color-text-secondary: #8a8a8e;
-  --color-text-tertiary: #5c5c61;
-  --color-text-muted: #3f3f46;
+  /* Text - Premium readability */
+  --color-text-primary: #fcfcfd;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+  --color-text-muted: #52525b;
+  --color-text-faint: #3f3f46;
   --color-text-inverse: #000000;
 
-  /* Accent - Premium indigo/violet blend */
+  /* Accent - Refined indigo gradient system */
   --color-accent-50: #eef2ff;
   --color-accent-100: #e0e7ff;
   --color-accent-200: #c7d2fe;
@@ -41,62 +45,72 @@
   --color-accent-500: #6366f1;
   --color-accent-600: #4f46e5;
   --color-accent-700: #4338ca;
+  --color-accent-glow: rgba(99, 102, 241, 0.18);
 
-  /* Semantic colors */
-  --color-success: #10b981;
-  --color-success-soft: rgba(16, 185, 129, 0.15);
+  /* Semantic colors - Premium palette */
+  --color-success: #22c55e;
+  --color-success-soft: rgba(34, 197, 94, 0.12);
   --color-error: #ef4444;
-  --color-error-soft: rgba(239, 68, 68, 0.15);
+  --color-error-soft: rgba(239, 68, 68, 0.12);
   --color-warning: #f59e0b;
-  --color-warning-soft: rgba(245, 158, 11, 0.15);
+  --color-warning-soft: rgba(245, 158, 11, 0.12);
 
-  /* Gradients - Subtle, premium */
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.02) 100%);
-  --gradient-glow: radial-gradient(ellipse 100% 100% at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+  /* Gradients - Premium, subtle */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-accent: linear-gradient(135deg, #6366f1 0%, #a78bfa 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+  --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  --gradient-glow-top: radial-gradient(ellipse 150% 100% at 50% 0%, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
+  --gradient-glow-center: radial-gradient(600px circle at 50% 50%, rgba(99, 102, 241, 0.04) 0%, transparent 100%);
 
   /* ============================================
-     SPACING - Precise 4px grid
+     SPACING - Ultra precise
      ============================================ */
   --space-0: 0;
+  --space-0_5: 2px;
   --space-1: 4px;
+  --space-1_5: 6px;
   --space-2: 8px;
+  --space-2_5: 10px;
   --space-3: 12px;
+  --space-3_5: 14px;
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
-  --space-16: 64px;
-  --space-20: 80px;
 
   /* ============================================
-     RADIUS - Modern, refined
+     RADIUS - Refined scale
      ============================================ */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 9px;
+  --radius-xl: 11px;
+  --radius-2xl: 14px;
+  --radius-3xl: 18px;
   --radius-full: 9999px;
 
   /* ============================================
-     SHADOWS - Premium depth
+     SHADOWS - Premium depth system
      ============================================ */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.7);
-  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.8);
-  --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.12);
-  --shadow-glow-sm: 0 0 30px rgba(99, 102, 241, 0.08);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.7);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.75);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.85);
+  --shadow-2xl: 0 32px 64px rgba(0, 0, 0, 0.9);
+  --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.1);
+  --shadow-glow-strong: 0 0 80px rgba(99, 102, 241, 0.15);
+  --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-inner-subtle: inset 0 1px 2px rgba(0, 0, 0, 0.5);
 
   /* ============================================
-     TYPOGRAPHY - Premium font stack
+     TYPOGRAPHY - Ultimate refinement
      ============================================ */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', ui-monospace, monospace;
 
   --text-xs: 0.75rem;
@@ -111,25 +125,40 @@
   --font-semibold: 600;
   --font-bold: 700;
 
-  --leading-tight: 1.2;
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
   --leading-normal: 1.5;
-  --leading-relaxed: 1.7;
+  --leading-relaxed: 1.65;
+
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.01em;
 
   /* ============================================
-     TRANSITIONS - Smooth, premium
+     TRANSITIONS - Premium feel
      ============================================ */
-  --duration-instant: 100ms;
-  --duration-fast: 150ms;
-  --duration-normal: 200ms;
-  --duration-slow: 300ms;
+  --duration-instant: 80ms;
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+  --duration-slow: 280ms;
+  --duration-slower: 400ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* ============================================
      LAYOUT
      ============================================ */
-  --header-height: 52px;
+  --header-height: 50px;
   --sidebar-width: 280px;
-  --sidebar-width-collapsed: 60px;
+  --sidebar-width-collapsed: 56px;
+
+  /* ============================================
+     EFFECTS
+     ============================================ */
+  --blur-glass: blur(12px);
+  --blur-strong: blur(20px);
+  --blur-overlay: blur(4px);
 }
 
