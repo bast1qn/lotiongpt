@@ -1,11 +1,11 @@
 /**
- * LotionGPT Animations - v4.0 Elite
+ * LotionGPT Animations - v9.0 Ultra Premium
  * Fluid motion, micro-interactions, spring physics
  * Inspired by Apple, Linear, VisionOS, and Framer Motion
  */
 
 /* ============================================
-   FADE ANIMATIONS - Elite smoothness
+   FADE ANIMATIONS - Ultra smoothness
    ============================================ */
 
 @keyframes fadeIn {
@@ -29,7 +29,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.97);
+    transform: translateY(20px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -40,7 +40,7 @@
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-16px) scale(0.97);
+    transform: translateY(-20px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -49,13 +49,13 @@
 }
 
 /* ============================================
-   SLIDE ANIMATIONS - Enhanced with elite spring
+   SLIDE ANIMATIONS - Ultra spring dynamics
    ============================================ */
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(28px) scale(0.97);
+    transform: translateX(32px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -66,7 +66,7 @@
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-28px) scale(0.97);
+    transform: translateX(-32px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -81,7 +81,7 @@
   }
   to {
     opacity: 0;
-    transform: translateX(28px) scale(0.97);
+    transform: translateX(32px) scale(0.96);
   }
 }
 
@@ -92,14 +92,14 @@
   }
   to {
     opacity: 0;
-    transform: translateX(-28px) scale(0.97);
+    transform: translateX(-32px) scale(0.96);
   }
 }
 
 @keyframes slideInBottom {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -108,13 +108,13 @@
 }
 
 /* ============================================
-   SCALE ANIMATIONS - Elite spring dynamics
+   SCALE ANIMATIONS - Ultra spring dynamics
    ============================================ */
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.90);
+    transform: scale(0.88);
   }
   to {
     opacity: 1;
@@ -129,20 +129,20 @@
   }
   to {
     opacity: 0;
-    transform: scale(0.90);
+    transform: scale(0.88);
   }
 }
 
 @keyframes scaleInSpring {
   0% {
     opacity: 0;
-    transform: scale(0.82);
+    transform: scale(0.78);
   }
   50% {
-    transform: scale(1.03);
+    transform: scale(1.04);
   }
   75% {
-    transform: scale(0.99);
+    transform: scale(0.98);
   }
   100% {
     opacity: 1;
@@ -153,13 +153,13 @@
 @keyframes scaleInBounce {
   0% {
     opacity: 0;
-    transform: scale(0.3);
+    transform: scale(0.2);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
   70% {
-    transform: scale(0.95);
+    transform: scale(0.94);
   }
   100% {
     opacity: 1;
@@ -168,7 +168,7 @@
 }
 
 /* ============================================
-   LOADING ANIMATIONS - Elite refinement
+   LOADING ANIMATIONS - Ultra refinement
    ============================================ */
 
 @keyframes spin {
@@ -185,7 +185,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.55;
+    opacity: 0.5;
   }
 }
 
@@ -194,7 +194,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.85;
+    opacity: 0.8;
   }
 }
 
@@ -209,10 +209,10 @@
 
 @keyframes shimmerSlow {
   0% {
-    background-position: -250% 0;
+    background-position: -300% 0;
   }
   100% {
-    background-position: 250% 0;
+    background-position: 300% 0;
   }
 }
 
@@ -222,38 +222,38 @@
     transform: translateY(0) scale(1);
   }
   40% {
-    transform: translateY(-10px) scale(1.1);
+    transform: translateY(-12px) scale(1.15);
   }
 }
 
 @keyframes glowPulse {
   0%, 100% {
-    box-shadow: 0 0 25px rgba(99, 102, 241, 0.18);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.22);
   }
   50% {
-    box-shadow: 0 0 50px rgba(99, 102, 241, 0.30);
+    box-shadow: 0 0 60px rgba(99, 102, 241, 0.35);
   }
 }
 
 @keyframes glowPulseSlow {
   0%, 100% {
-    opacity: 0.6;
+    opacity: 0.7;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 }
 
 /* ============================================
-   MESSAGE ANIMATIONS - Premium refinement
+   MESSAGE ANIMATIONS - Ultra premium
    ============================================ */
 
 @keyframes messageIn {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.97);
+    transform: translateY(16px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -268,14 +268,14 @@
   }
   to {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.94);
   }
 }
 
 @keyframes messageSlideIn {
   from {
     opacity: 0;
-    transform: translateX(-16px);
+    transform: translateX(-20px);
   }
   to {
     opacity: 1;
@@ -290,7 +290,7 @@
 @keyframes toastIn {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.93) rotateX(-8deg);
+    transform: translateY(24px) scale(0.92) rotateX(-10deg);
   }
   to {
     opacity: 1;
@@ -305,18 +305,18 @@
   }
   to {
     opacity: 0;
-    transform: translateX(120%) scale(0.93);
+    transform: translateX(140%) scale(0.92);
   }
 }
 
 /* ============================================
-   MODAL ANIMATIONS - Elite
+   MODAL ANIMATIONS - Ultra
    ============================================ */
 
 @keyframes modalIn {
   from {
     opacity: 0;
-    transform: scale(0.92) translateY(10px);
+    transform: scale(0.90) translateY(12px);
   }
   to {
     opacity: 1;
@@ -334,16 +334,16 @@
 }
 
 /* ============================================
-   SPECIAL EFFECTS - Elite micro-interactions
+   SPECIAL EFFECTS - Ultra micro-interactions
    ============================================ */
 
 @keyframes ripple {
   from {
     transform: scale(0);
-    opacity: 0.5;
+    opacity: 0.6;
   }
   to {
-    transform: scale(4);
+    transform: scale(4.5);
     opacity: 0;
   }
 }
@@ -353,7 +353,7 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
   }
 }
 
@@ -362,26 +362,35 @@
     transform: translateY(0) rotate(0deg);
   }
   50% {
-    transform: translateY(-12px) rotate(2deg);
+    transform: translateY(-16px) rotate(3deg);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
   }
 }
 
 @keyframes auroraShift {
   0%, 100% {
     transform: translateX(0%) translateY(0%) scale(1);
-    opacity: 0.6;
-  }
-  25% {
-    transform: translateX(5%) translateY(-3%) scale(1.02);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateX(-3%) translateY(5%) scale(0.98);
     opacity: 0.7;
   }
-  75% {
-    transform: translateX(-5%) translateY(-2%) scale(1.01);
+  25% {
+    transform: translateX(6%) translateY(-4%) scale(1.03);
     opacity: 0.9;
+  }
+  50% {
+    transform: translateX(-4%) translateY(6%) scale(0.97);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(-6%) translateY(-3%) scale(1.02);
+    opacity: 1;
   }
 }
 
@@ -399,21 +408,21 @@
 
 @keyframes shineSweep {
   from {
-    transform: translateX(-100%) skewX(-15deg);
+    transform: translateX(-120%) skewX(-18deg);
   }
   to {
-    transform: translateX(200%) skewX(-15deg);
+    transform: translateX(240%) skewX(-18deg);
   }
 }
 
 @keyframes borderGlow {
   0%, 100% {
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.15);
   }
   50% {
-    border-color: rgba(99, 102, 241, 0.6);
-    box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
+    border-color: rgba(99, 102, 241, 0.65);
+    box-shadow: 0 0 50px rgba(99, 102, 241, 0.30);
   }
 }
 
@@ -422,7 +431,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
   100% {
     transform: scale(1);
@@ -448,6 +457,101 @@
 }
 
 /* ============================================
+   NEW ULTRA ANIMATIONS
+   ============================================ */
+
+/* Subtle breathing effect */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+/* Gentle rotation */
+@keyframes rotateGentle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Elastic pop */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Smooth expand */
+@keyframes expandHeight {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+/* Skeleton loading shimmer */
+@keyframes skeletonShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Ambient drift */
+@keyframes ambientDrift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(2px, -2px) rotate(1deg);
+  }
+  50% {
+    transform: translate(0, -4px) rotate(0deg);
+  }
+  75% {
+    transform: translate(-2px, -2px) rotate(-1deg);
+  }
+}
+
+/* Orb floating effect */
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translate(-20px, -60px) scale(0.9);
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
    SHAKE ANIMATION - Enhanced
    ============================================ */
 
@@ -456,10 +560,10 @@
     transform: translateX(0);
   }
   10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-5px);
+    transform: translateX(-6px);
   }
   20%, 40%, 60%, 80% {
-    transform: translateX(5px);
+    transform: translateX(6px);
   }
 }
 
@@ -468,12 +572,12 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.65;
+    opacity: 0.6;
   }
 }
 
 /* ============================================
-   UTILITY CLASSES - Elite
+   UTILITY CLASSES - Ultra
    ============================================ */
 
 .animate-fade-in {
@@ -597,11 +701,15 @@
 }
 
 .animate-float-slow {
-  animation: floatSlow 6s ease-in-out infinite;
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 5s ease-in-out infinite;
 }
 
 .animate-aurora {
-  animation: auroraShift 15s ease-in-out infinite;
+  animation: auroraShift 18s ease-in-out infinite;
 }
 
 .animate-gradient-shift {
@@ -618,7 +726,38 @@
 }
 
 .animate-glow-pulse-slow {
-  animation: glowPulseSlow 4s ease-in-out infinite;
+  animation: glowPulseSlow 5s ease-in-out infinite;
+}
+
+/* ============================================
+   NEW ULTRA UTILITY CLASSES
+   ============================================ */
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-pop-in {
+  animation: popIn 0.5s var(--ease-spring-bounce);
+}
+
+.animate-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+}
+
+.animate-ambient-drift {
+  animation: ambientDrift 6s ease-in-out infinite;
+}
+
+.animate-orb-float {
+  animation: orbFloat 20s ease-in-out infinite;
 }
 
 /* ============================================
@@ -626,23 +765,23 @@
    ============================================ */
 
 .stagger-1 { animation-delay: 0ms; }
-.stagger-2 { animation-delay: 40ms; }
-.stagger-3 { animation-delay: 80ms; }
-.stagger-4 { animation-delay: 120ms; }
-.stagger-5 { animation-delay: 160ms; }
-.stagger-6 { animation-delay: 200ms; }
-.stagger-7 { animation-delay: 240ms; }
-.stagger-8 { animation-delay: 280ms; }
-.stagger-9 { animation-delay: 320ms; }
-.stagger-10 { animation-delay: 360ms; }
+.stagger-2 { animation-delay: 50ms; }
+.stagger-3 { animation-delay: 100ms; }
+.stagger-4 { animation-delay: 150ms; }
+.stagger-5 { animation-delay: 200ms; }
+.stagger-6 { animation-delay: 250ms; }
+.stagger-7 { animation-delay: 300ms; }
+.stagger-8 { animation-delay: 350ms; }
+.stagger-9 { animation-delay: 400ms; }
+.stagger-10 { animation-delay: 450ms; }
 
 /* Typing indicator dots */
 .typing-dot-1 { animation-delay: 0ms; }
-.typing-dot-2 { animation-delay: 160ms; }
-.typing-dot-3 { animation-delay: 320ms; }
+.typing-dot-2 { animation-delay: 180ms; }
+.typing-dot-3 { animation-delay: 360ms; }
 
 /* ============================================
-   HOVER EFFECTS - Premium
+   HOVER EFFECTS - Ultra Premium
    ============================================ */
 
 .hover-lift {
@@ -651,7 +790,7 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -661,7 +800,7 @@
 }
 
 .hover-lift-subtle:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
@@ -670,7 +809,7 @@
 }
 
 .hover-scale:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .hover-scale-sm {
@@ -678,21 +817,49 @@
 }
 
 .hover-scale-sm:hover {
-  transform: scale(1.01);
+  transform: scale(1.015);
 }
 
 .hover-glow {
   transition: box-shadow var(--duration-normal) var(--ease-out),
-              border-color var(--duration-normal) var(--ease-out);
+              border-color var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-spring);
 }
 
 .hover-glow:hover {
   box-shadow: var(--shadow-glow);
   border-color: var(--color-border-accent);
+  transform: translateY(-1px);
+}
+
+.hover-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition: left 0.8s var(--ease-premium);
+}
+
+.hover-shine:hover::after {
+  left: 160%;
 }
 
 /* ============================================
-   GLASSMORPHISM UTILITIES - Enhanced
+   GLASSMORPHISM UTILITIES - Ultra
    ============================================ */
 
 .glass {
@@ -724,7 +891,7 @@
 }
 
 /* ============================================
-   GRADIENT TEXT - Enhanced
+   GRADIENT TEXT - Ultra
    ============================================ */
 
 .gradient-text {
@@ -752,38 +919,38 @@
 }
 
 /* ============================================
-   CUSTOM GLOW EFFECTS - Enhanced
+   CUSTOM GLOW EFFECTS - Ultra
    ============================================ */
 
 .glow-accent {
-  box-shadow: 0 0 25px rgba(99, 102, 241, 0.18),
-              0 0 50px rgba(99, 102, 241, 0.12);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.22),
+              0 0 60px rgba(99, 102, 241, 0.15);
 }
 
 .glow-accent-strong {
-  box-shadow: 0 0 35px rgba(99, 102, 241, 0.28),
-              0 0 70px rgba(99, 102, 241, 0.18);
+  box-shadow: 0 0 45px rgba(99, 102, 241, 0.32),
+              0 0 90px rgba(99, 102, 241, 0.22);
 }
 
 .glow-accent-ultra {
-  box-shadow: 0 0 50px rgba(99, 102, 241, 0.35),
-              0 0 100px rgba(99, 102, 241, 0.22);
+  box-shadow: 0 0 60px rgba(99, 102, 241, 0.40),
+              0 0 120px rgba(99, 102, 241, 0.25);
 }
 
 .glow-success {
-  box-shadow: 0 0 25px rgba(34, 197, 94, 0.18);
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.22);
 }
 
 .glow-error {
-  box-shadow: 0 0 25px rgba(248, 113, 113, 0.18);
+  box-shadow: 0 0 30px rgba(248, 113, 113, 0.22);
 }
 
 .glow-warning {
-  box-shadow: 0 0 25px rgba(251, 191, 36, 0.18);
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.22);
 }
 
 /* ============================================
-   SCROLLBAR STYLES - Enhanced
+   SCROLLBAR STYLES - Ultra Premium
    ============================================ */
 
 .sidebar-scroll::-webkit-scrollbar {
@@ -795,13 +962,32 @@
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.10);
   border-radius: 2px;
   transition: background var(--duration-normal) var(--ease-out);
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Premium thin scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 2px;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* ============================================
@@ -833,7 +1019,7 @@
     opacity: 1;
   }
   100% {
-    transform: translate(var(--tx, -100px), var(--ty, -200px)) scale(0);
+    transform: translate(var(--tx, -120px), var(--ty, -240px)) scale(0);
     opacity: 0;
   }
 }
@@ -841,21 +1027,21 @@
 @keyframes celebrateBurst {
   0% {
     transform: scale(0);
-    opacity: 0.8;
+    opacity: 0.9;
   }
   100% {
-    transform: scale(3);
+    transform: scale(3.5);
     opacity: 0;
   }
 }
 
 @keyframes celebrateText {
   0% {
-    transform: scale(0.5) translateY(20px);
+    transform: scale(0.4) translateY(24px);
     opacity: 0;
   }
   50% {
-    transform: scale(1.1) translateY(-10px);
+    transform: scale(1.15) translateY(-12px);
     opacity: 1;
   }
   100% {
@@ -865,13 +1051,31 @@
 }
 
 .animate-celebrate-particle {
-  animation: celebrateParticle 1.5s ease-out forwards;
+  animation: celebrateParticle 1.8s ease-out forwards;
 }
 
 .animate-celebrate-burst {
-  animation: celebrateBurst 1s ease-out forwards;
+  animation: celebrateBurst 1.2s ease-out forwards;
 }
 
 .animate-celebrate-text {
-  animation: celebrateText 1.5s ease-out forwards;
+  animation: celebrateText 1.8s ease-out forwards;
+}
+
+/* ============================================
+   NOISE OVERLAY
+   ============================================ */
+
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: var(--noise-opacity);
+  pointer-events: none;
+  background-image: var(--noise-grain);
+  z-index: 1;
 }

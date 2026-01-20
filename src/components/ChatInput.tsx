@@ -56,7 +56,6 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
   const fileInputRef = useRef<HTMLInputElement>(null);
   const modelPickerRef = useRef<HTMLDivElement>(null);
 
-  // Handle send - defined before useImperativeHandle
   const handleSend = useCallback(() => {
     const trimmed = input.trim();
     if ((trimmed || images.length > 0 || files.length > 0) && !isLoading) {
@@ -70,13 +69,11 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
     }
   }, [input, images, files, isLoading, onSend]);
 
-  // Expose methods via ref
   useImperativeHandle(ref, () => ({
     send: handleSend,
     focus: () => textareaRef.current?.focus(),
   }), [handleSend]);
 
-  // Get initial settings from storage
   useEffect(() => {
     const settings = storage.getSettings();
     if (onModelChange) {
@@ -91,7 +88,6 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
     }
   }, [onModelChange, onThinkingChange]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (modelPickerRef.current && !modelPickerRef.current.contains(event.target as Node)) {
@@ -146,9 +142,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
     e.preventDefault();
     setIsDragging(false);
 
-    // Check if files are being dragged
     if (e.dataTransfer.files.length > 0) {
-      // If we have image files, add them to images
       const imageFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
       if (imageFiles.length > 0) {
         const dataTransfer = new DataTransfer();
@@ -219,37 +213,44 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
   return (
     <div className="flex-shrink-0 p-4 sm:p-6">
       <div className="max-w-3xl mx-auto">
-        {/* Elite Controls Bar */}
+        {/* Ultra Premium Controls Bar */}
         <div className="flex items-center gap-2.5 mb-4">
-          {/* Elite Model Selector */}
+          {/* Ultra Premium Model Selector */}
           <div className="relative" ref={modelPickerRef}>
             <button
               onClick={() => setShowModelPicker(!showModelPicker)}
               className={cn(
-                'flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-180',
-                'bg-[var(--color-bg-tertiary)]/90 border border-[var(--color-border-medium)]',
+                'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold',
+                'transition-all duration-180',
+                'bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md',
+                'border border-[var(--color-border-medium)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
-                'hover:border-[var(--color-accent-500)]/50 hover:bg-[var(--color-bg-elevated)] hover:shadow-lg hover:shadow-[var(--color-accent-glow-subtle)]',
-                'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]'
+                'hover:border-[var(--color-accent-500)]/50',
+                'hover:bg-[var(--color-bg-elevated)]',
+                'hover:shadow-lg hover:shadow-[var(--color-accent-glow-subtle)]',
+                'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
+                'overflow-hidden'
               )}
               aria-label="Modell auswahlen"
               aria-haspopup="listbox"
               aria-expanded={showModelPicker}
             >
-              <span>{MODEL_INFO[selectedModel].icon}</span>
-              <span className="hidden sm:inline">{MODEL_INFO[selectedModel].name}</span>
+              {/* Subtle gradient shine on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+              <span className="relative">{MODEL_INFO[selectedModel].icon}</span>
+              <span className="hidden sm:inline relative">{MODEL_INFO[selectedModel].name}</span>
               <Icons.ChevronDown />
             </button>
 
-            {/* Model Dropdown - Enhanced */}
+            {/* Model Dropdown - Ultra Premium */}
             {showModelPicker && (
               <div
-                className="absolute bottom-full left-0 mb-2.5 w-64 bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border-strong)] rounded-2xl shadow-2xl shadow-black/60 animate-fade-in-up z-20"
+                className="absolute bottom-full left-0 mb-3 w-72 bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border-strong)] rounded-2xl shadow-2xl shadow-black/70 animate-fade-in-up z-20 overflow-hidden"
                 role="listbox"
                 aria-label="KI-Modelle"
               >
-                <div className="p-2.5 space-y-1">
-                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider">
+                <div className="p-2 space-y-0.5">
+                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                     Zhipu AI
                   </div>
                   {(['glm-4.6', 'glm-4.7'] as ChatModel[]).map((model) => (
@@ -260,24 +261,28 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-180 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)]',
+                        'relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-180',
+                        'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset',
                         selectedModel === model
-                          ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-sm'
+                          ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-300)] shadow-sm'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                       role="option"
                       aria-selected={selectedModel === model}
                     >
-                      <span>{MODEL_INFO[model].icon}</span>
-                      <div className="flex-1 text-left">
+                      {selectedModel === model && (
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[var(--color-accent-500)]/10 to-transparent" />
+                      )}
+                      <span className="relative">{MODEL_INFO[model].icon}</span>
+                      <div className="flex-1 text-left relative">
                         <div className="font-semibold">{MODEL_INFO[model].name}</div>
-                        <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
+                        <div className="text-xs opacity-60">{MODEL_INFO[model].provider}</div>
                       </div>
                       {selectedModel === model && <Icons.Check />}
                     </button>
                   ))}
 
-                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider mt-1">
+                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mt-1">
                     Google
                   </div>
                   {(['gemini-2.5-pro', 'gemini-2.5-flash'] as ChatModel[]).map((model) => (
@@ -288,22 +293,26 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-180',
+                        'relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-180',
+                        'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset',
                         selectedModel === model
-                          ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-sm'
+                          ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-300)] shadow-sm'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
-                      <span>{MODEL_INFO[model].icon}</span>
-                      <div className="flex-1 text-left">
+                      {selectedModel === model && (
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[var(--color-accent-500)]/10 to-transparent" />
+                      )}
+                      <span className="relative">{MODEL_INFO[model].icon}</span>
+                      <div className="flex-1 text-left relative">
                         <div className="font-semibold">{MODEL_INFO[model].name}</div>
-                        <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
+                        <div className="text-xs opacity-60">{MODEL_INFO[model].provider}</div>
                       </div>
                       {selectedModel === model && <Icons.Check />}
                     </button>
                   ))}
 
-                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider mt-1">
+                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mt-1">
                     Other
                   </div>
                   {(['gpt-4.1', 'claude-4.5-sonnet'] as ChatModel[]).map((model) => (
@@ -314,16 +323,20 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-180',
+                        'relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-180',
+                        'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset',
                         selectedModel === model
-                          ? 'bg-[var(--color-accent-500)]/18 text-[var(--color-accent-400)] shadow-sm'
+                          ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-300)] shadow-sm'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
-                      <span>{MODEL_INFO[model].icon}</span>
-                      <div className="flex-1 text-left">
+                      {selectedModel === model && (
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[var(--color-accent-500)]/10 to-transparent" />
+                      )}
+                      <span className="relative">{MODEL_INFO[model].icon}</span>
+                      <div className="flex-1 text-left relative">
                         <div className="font-semibold">{MODEL_INFO[model].name}</div>
-                        <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
+                        <div className="text-xs opacity-60">{MODEL_INFO[model].provider}</div>
                       </div>
                       {selectedModel === model && <Icons.Check />}
                     </button>
@@ -333,36 +346,43 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             )}
           </div>
 
-          {/* Elite Thinking Toggle */}
+          {/* Ultra Premium Thinking Toggle */}
           <button
             onClick={() => onThinkingChange?.(!thinkingEnabled)}
             className={cn(
-              'flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-180',
-              'border',
+              'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-180',
+              'border overflow-hidden',
               thinkingEnabled
-                ? 'bg-[var(--color-accent-500)]/18 border-[var(--color-accent-500)]/50 text-[var(--color-accent-400)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
-                : 'bg-[var(--color-bg-tertiary)]/90 border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/40'
+                ? 'bg-[var(--color-accent-500)]/20 border-[var(--color-accent-500)]/50 text-[var(--color-accent-300)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
+                : 'bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/40'
             )}
             title={thinkingEnabled ? 'Thinking ist aktiv' : 'Thinking ist deaktiviert'}
           >
+            {/* Animated gradient overlay for active state */}
+            {thinkingEnabled && (
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+            )}
             <Icons.Zap />
-            <span className="hidden sm:inline">Thinking: {thinkingEnabled ? 'ON' : 'OFF'}</span>
+            <span className="hidden sm:inline relative">Thinking: {thinkingEnabled ? 'ON' : 'OFF'}</span>
           </button>
 
-          {/* Elite File Upload Toggle */}
+          {/* Ultra Premium File Upload Toggle */}
           <button
             onClick={onToggleFileUpload}
             className={cn(
-              'flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-180',
-              'border',
+              'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-180',
+              'border overflow-hidden',
               showFileUpload
-                ? 'bg-[var(--color-accent-500)]/18 border-[var(--color-accent-500)]/50 text-[var(--color-accent-400)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
-                : 'bg-[var(--color-bg-tertiary)]/90 border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/40'
+                ? 'bg-[var(--color-accent-500)]/20 border-[var(--color-accent-500)]/50 text-[var(--color-accent-300)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
+                : 'bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/40'
             )}
             title="Dateien anfgen"
           >
+            {showFileUpload && (
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+            )}
             <Icons.Paperclip />
-            <span className="hidden sm:inline">Dateien</span>
+            <span className="hidden sm:inline relative">Dateien</span>
           </button>
 
           {/* Prompt Templates */}
@@ -371,22 +391,23 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Elite Token Estimate & Attachment Count */}
+          {/* Ultra Premium Status Indicators */}
           <div className="flex items-center gap-3">
             {hasAttachments && (
-              <span className="text-xs font-semibold text-[var(--color-accent-300)] bg-[var(--color-accent-500)]/15 px-2.5 py-1.5 rounded-xl border border-[var(--color-accent-500)]/30 shadow-sm shadow-[var(--color-accent-glow-subtle)]">
-                {images.length + files.length} {images.length + files.length === 1 ? 'Anhang' : 'Anhange'}
+              <span className="relative text-xs font-semibold text-[var(--color-accent-300)] bg-[var(--color-accent-500)]/15 px-3 py-1.5 rounded-xl border border-[var(--color-accent-500)]/30 shadow-sm shadow-[var(--color-accent-glow-subtle)] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+                <span className="relative">{images.length + files.length} {images.length + files.length === 1 ? 'Anhang' : 'Anhange'}</span>
               </span>
             )}
             {input.length > 0 && (
-              <span className="text-xs font-medium text-[var(--color-text-tertiary)] bg-[var(--color-bg-tertiary)]/90 px-2.5 py-1.5 rounded-xl border border-[var(--color-border-subtle)]">
+              <span className="text-xs font-medium text-[var(--color-text-tertiary)] bg-[var(--color-bg-tertiary)]/90 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-[var(--color-border-subtle)]">
                 ~{Math.ceil(input.length / 4)} tokens
               </span>
             )}
           </div>
         </div>
 
-        {/* Elite File Upload Panel */}
+        {/* Ultra Premium File Upload Panel */}
         {showFileUpload && (
           <div className="mb-4 animate-slide-in-bottom">
             <FileUpload
@@ -398,36 +419,41 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           </div>
         )}
 
-        {/* Elite Input Container */}
+        {/* Ultra Premium Input Container */}
         <div
           className={cn(
-            'relative rounded-3xl transition-all duration-180',
-            'bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md',
-            'border border-[var(--color-border-medium)]',
-            'shadow-inner-subtle',
-            'hover:border-[var(--color-border-default)]',
-            'focus-within:border-[var(--color-accent-500)]/40 focus-within:shadow-lg focus-within:shadow-[var(--color-accent-glow-subtle)]',
-            isDragging && 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/12 shadow-xl shadow-[var(--color-accent-glow-strong)]',
-            isLoading && 'opacity-65'
+            'relative rounded-3xl transition-all duration-180 overflow-hidden',
+            'bg-[var(--input-bg)] backdrop-blur-md',
+            'border',
+            'shadow-inner',
+            isDragging
+              ? 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/15 shadow-xl shadow-[var(--color-accent-glow-strong)]'
+              : 'border-[var(--color-border-medium)] hover:border-[var(--color-border-default)]',
+            'focus-within:border-[var(--color-accent-500)]/50 focus-within:shadow-xl focus-within:shadow-[var(--color-accent-glow-strong)]',
+            isLoading && 'opacity-60'
           )}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          {/* Image Previews (elite, kept for quick image paste) */}
+          {/* Subtle inner gradient for depth */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+
+          {/* Image Previews - Ultra Premium */}
           {images.length > 0 && (
             <div className="flex flex-wrap gap-3 p-4 pb-0">
               {images.map((img, index) => (
                 <div key={index} className="relative group animate-scale-in">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <img
                     src={`data:${img.mimeType};base64,${img.data}`}
                     alt={img.name || 'Uploaded image'}
-                    className="h-18 w-18 sm:h-22 sm:w-22 object-cover rounded-2xl border-2 border-[var(--color-border-subtle)] shadow-xl hover:shadow-2xl hover:shadow-[var(--color-accent-glow-subtle)] transition-all duration-180"
-                    style={{ height: '72px', width: '72px' }}
+                    className="relative w-18 h-18 sm:w-22 sm:h-22 object-cover rounded-2xl border-2 border-[var(--color-border-subtle)] shadow-xl hover:shadow-2xl hover:shadow-[var(--color-accent-glow-subtle)] transition-all duration-180 hover:scale-105"
+                    style={{ width: '72px', height: '72px' }}
                   />
                   <button
                     onClick={() => removeImage(index)}
-                    className="absolute -top-2.5 -right-2.5 w-7 h-7 bg-red-500 hover:bg-red-600 rounded-xl flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-180 hover:scale-110 shadow-lg"
+                    className="absolute -top-2.5 -right-2.5 w-7 h-7 bg-red-500/90 hover:bg-red-600 rounded-xl flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-180 hover:scale-110 shadow-lg backdrop-blur-sm"
                   >
                     <span className="text-xs font-bold"></span>
                   </button>
@@ -436,11 +462,11 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             </div>
           )}
 
-          {/* Elite Drag overlay */}
+          {/* Ultra Premium Drag overlay */}
           {isDragging && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-accent-500)]/12 rounded-3xl z-10 backdrop-blur-md animate-fade-in">
-              <div className="flex flex-col items-center gap-3 text-[var(--color-accent-400)] animate-scale-in-spring">
-                <div className="p-4 rounded-3xl bg-[var(--color-accent-500)]/25 shadow-xl shadow-[var(--color-accent-glow-strong)]">
+            <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-accent-500)]/15 rounded-3xl z-10 backdrop-blur-md animate-fade-in">
+              <div className="flex flex-col items-center gap-3 text-[var(--color-accent-300)] animate-scale-in-spring">
+                <div className="p-4 rounded-3xl bg-[var(--color-accent-500)]/25 shadow-xl shadow-[var(--color-accent-glow-strong)] border border-[var(--color-accent-500)]/30">
                   <Icons.Image />
                 </div>
                 <span className="text-sm font-semibold">Bild hier ablegen</span>
@@ -448,7 +474,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             </div>
           )}
 
-          <div className="flex items-end gap-3 p-4">
+          <div className="flex items-end gap-3 p-4 relative">
             {/* Attachment button */}
             <input
               ref={fileInputRef}
@@ -462,11 +488,12 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
               className={cn(
-                'p-3 rounded-2xl transition-all flex-shrink-0',
+                'p-3 rounded-2xl transition-all flex-shrink-0 relative overflow-hidden',
                 'text-[var(--color-text-muted)]',
-                'hover:text-[var(--color-accent-500)] hover:bg-[var(--color-accent-500)]/12',
+                'hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/12',
                 'disabled:opacity-50 disabled:cursor-not-allowed',
-                'min-w-[46px] min-h-[46px]' // WCAG 2.1 AAA touch target
+                'min-w-[46px] min-h-[46px]',
+                'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset'
               )}
               title="Bild hinzufgen"
               aria-label="Bild hochladen"
@@ -484,7 +511,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               rows={1}
               disabled={isLoading}
               className={cn(
-                'flex-1 bg-transparent text-[var(--color-text-primary)]',
+                'flex-1 bg-transparent text-[var(--color-text-primary)] relative',
                 'placeholder-[var(--color-text-muted)] text-[15px]',
                 'resize-none focus:outline-none py-3 px-2',
                 'disabled:opacity-50 min-h-[46px] max-h-[220px]',
@@ -499,14 +526,18 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={handleSend}
               disabled={!canSend}
               className={cn(
-                'p-3 rounded-2xl transition-all flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-tertiary)] min-w-[46px] min-h-[46px]',
+                'relative p-3 rounded-2xl transition-all flex-shrink-0 overflow-hidden min-w-[46px] min-h-[46px]',
+                'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset',
                 canSend
-                  ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white hover:to-[var(--color-accent-700)] shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105'
+                  ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105'
                   : 'text-[var(--color-text-muted)] cursor-not-allowed bg-[var(--color-bg-elevated)]'
               )}
               title={canSend ? 'Senden' : 'Nachricht eingeben...'}
               aria-label={canSend ? 'Nachricht senden' : 'Nachricht eingeben zum Senden'}
             >
+              {canSend && (
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+              )}
               <Icons.Send />
             </button>
           </div>

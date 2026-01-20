@@ -41,13 +41,17 @@ export function Skeleton({
 // Chat skeleton for sidebar
 export function ChatSkeleton({ count = 3 }: { count?: number }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-3 px-1">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="flex items-center gap-3 px-3 py-2.5 rounded-xl">
-          <Skeleton variant="circular" width={36} height={36} />
+        <div
+          key={i}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-[var(--color-bg-tertiary)]/30 border border-[var(--color-border-subtle)] animate-pulse-subtle"
+          style={{ animationDelay: `${i * 100}ms` }}
+        >
+          <div className="w-8 h-8 rounded-lg bg-[var(--color-bg-elevated)]/50 shimmer" />
           <div className="flex-1 space-y-2">
-            <Skeleton width="70%" height={14} />
-            <Skeleton width="40%" height={12} />
+            <Skeleton width="60%" height={14} variant="text" />
+            <Skeleton width="30%" height={12} variant="text" />
           </div>
         </div>
       ))}

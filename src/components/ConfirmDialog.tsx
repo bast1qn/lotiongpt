@@ -19,7 +19,7 @@ export function ConfirmDialog({
   isOpen,
   title,
   description,
-  confirmLabel = 'Bestatigen',
+  confirmLabel = 'Bestätigen',
   cancelLabel = 'Abbrechen',
   variant = 'danger',
   onConfirm,
@@ -27,12 +27,28 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   const confirmButtonRef = useRef<HTMLButtonElement>(null);
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
 
-  // Focus management
+  // Focus management with restoration
   useEffect(() => {
     if (isOpen) {
+      // Store the previously focused element to restore later
+      previousActiveElementRef.current = document.activeElement as HTMLElement;
+
       // Focus the cancel button by default (safer for destructive actions)
-      cancelButtonRef.current?.focus();
+      // Small delay to ensure the dialog is rendered
+      const timeoutId = setTimeout(() => {
+        cancelButtonRef.current?.focus();
+      }, 50);
+
+      return () => clearTimeout(timeoutId);
+    } else {
+      // Restore focus when dialog closes
+      const timeoutId = setTimeout(() => {
+        previousActiveElementRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timeoutId);
     }
   }, [isOpen]);
 
@@ -40,6 +56,7 @@ export function ConfirmDialog({
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
+        e.preventDefault();
         onCancel();
       }
     };
@@ -48,16 +65,20 @@ export function ConfirmDialog({
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onCancel]);
 
-  // Trap focus within dialog
+  // Trap focus within dialog - improved
   useEffect(() => {
     if (!isOpen) return;
 
     const handleTab = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return;
 
-      const focusableElements = document.querySelectorAll(
-        '[data-confirm-dialog] button, [data-confirm-dialog] button:not([disabled])'
+      // Get all focusable elements within the dialog
+      const focusableElements = dialogRef.current?.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
       );
+
+      if (!focusableElements || focusableElements.length === 0) return;
+
       const firstElement = focusableElements[0] as HTMLElement;
       const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
@@ -76,6 +97,16 @@ export function ConfirmDialog({
 
     document.addEventListener('keydown', handleTab);
     return () => document.removeEventListener('keydown', handleTab);
+  }, [isOpen]);
+
+  // Prevent body scroll when dialog is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -113,6 +144,7 @@ export function ConfirmDialog({
       {/* Dialog */}
       <div className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center p-4">
         <div
+          ref={dialogRef}
           data-confirm-dialog
           className={cn(
             'relative w-full max-w-md bg-[var(--color-bg-secondary)]',

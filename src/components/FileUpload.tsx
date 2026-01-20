@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Icons } from './Icons';
 import { cn } from '@/lib/utils';
 import { FILE_TYPE_CONFIGS, getFileType, formatFileSize, isFileAllowed, FileAttachment } from '@/types/chat';
+import { useToast } from '@/lib/hooks/useToast';
 
 interface FileUploadProps {
   files: FileAttachment[];
@@ -15,6 +16,7 @@ interface FileUploadProps {
 export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { showToast } = useToast();
 
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -74,9 +76,15 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
     const { addedCount, errors } = await processFiles(e.dataTransfer.files);
 
     if (errors.length > 0) {
-      console.warn('File upload errors:', errors);
+      // Show first error as toast
+      showToast(errors[0], 'error');
     }
-  }, [disabled, processFiles]);
+
+    // Show success message if files were added
+    if (addedCount > 0) {
+      showToast(`${addedCount} ${addedCount === 1 ? 'Datei' : 'Dateien'} hinzugefügt`, 'success');
+    }
+  }, [disabled, processFiles, showToast]);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -96,11 +104,17 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
     const { addedCount, errors } = await processFiles(e.target.files);
 
     if (errors.length > 0) {
-      console.warn('File upload errors:', errors);
+      // Show first error as toast
+      showToast(errors[0], 'error');
+    }
+
+    // Show success message if files were added
+    if (addedCount > 0) {
+      showToast(`${addedCount} ${addedCount === 1 ? 'Datei' : 'Dateien'} hinzugefügt`, 'success');
     }
 
     e.target.value = '';
-  }, [disabled, processFiles]);
+  }, [disabled, processFiles, showToast]);
 
   const totalSize = files.reduce((sum, f) => sum + f.size, 0);
 

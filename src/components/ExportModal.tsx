@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Message } from '@/types/chat';
 import { Icons } from './Icons';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/lib/hooks/useToast';
+import { useEffect, useRef } from 'react';
 
 interface ExportModalProps {
   isOpen: boolean;
@@ -19,6 +21,41 @@ type ExportFormat = 'markdown' | 'json' | 'txt';
 export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedAt, chatUpdatedAt }: ExportModalProps) {
   const [format, setFormat] = useState<ExportFormat>('markdown');
   const [isExporting, setIsExporting] = useState(false);
+  const { showToast } = useToast();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
+
+  // Focus management
+  useEffect(() => {
+    if (isOpen) {
+      previousActiveElementRef.current = document.activeElement as HTMLElement;
+
+      const timeoutId = setTimeout(() => {
+        // Focus first focusable element in modal
+        const focusable = modalRef.current?.querySelector(
+          'button:not([disabled])'
+        ) as HTMLElement;
+        focusable?.focus();
+      }, 50);
+
+      return () => clearTimeout(timeoutId);
+    } else {
+      const timeoutId = setTimeout(() => {
+        previousActiveElementRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isOpen]);
+
+  // Prevent body scroll
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -103,9 +140,11 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
+      showToast(`Chat als ${format.toUpperCase()} exportiert`, 'success');
       onClose();
     } catch (error) {
       console.error('Export failed:', error);
+      showToast('Export fehlgeschlagen', 'error');
     } finally {
       setIsExporting(false);
     }
@@ -130,9 +169,11 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
       }
 
       await navigator.clipboard.writeText(content);
+      showToast('In Zwischenablage kopiert', 'success');
       onClose();
     } catch (error) {
       console.error('Copy failed:', error);
+      showToast('Kopieren fehlgeschlagen', 'error');
     } finally {
       setIsExporting(false);
     }
@@ -148,7 +189,13 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-        <div className="bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl shadow-2xl shadow-black/50 w-full max-w-md pointer-events-auto animate-fade-in-down relative">
+        <div
+          ref={modalRef}
+          className="bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl shadow-2xl shadow-black/50 w-full max-w-md pointer-events-auto animate-fade-in-down relative"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="export-modal-title"
+        >
           {/* Glow effect */}
           <div className="absolute -inset-4 bg-[var(--color-accent-500)] opacity-5 blur-3xl -z-10" />
 
@@ -158,7 +205,7 @@ export function ExportModal({ isOpen, onClose, chatTitle, messages, chatCreatedA
               <div className="p-3 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)]/20 to-[var(--color-accent-600)]/10 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow)]">
                 <Icons.Download />
               </div>
-              <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">
+              <h2 id="export-modal-title" className="text-lg font-semibold text-[var(--color-text-primary)]">
                 Chat exportieren
               </h2>
             </div>

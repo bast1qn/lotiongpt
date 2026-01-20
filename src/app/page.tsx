@@ -600,6 +600,7 @@ function HomeContent() {
         onRefreshChats={loadChats}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        isLoadingChats={isLoadingChats}
       />
 
       <main id="main-content" className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)] relative z-10" tabIndex={-1}>
@@ -608,7 +609,10 @@ function HomeContent() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105"
+              className="lg:hidden p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
+              aria-label="Menu öffnen"
+              aria-expanded={sidebarOpen}
+              aria-controls="sidebar"
             >
               <Icons.Menu />
             </button>
@@ -626,8 +630,10 @@ function HomeContent() {
           <div className="flex items-center gap-1">
             <button
               onClick={handleToggleSearch}
-              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
               title="Suche im Chat (Strg+/)"
+              aria-label="Suche im Chat öffnen"
+              aria-expanded={searchVisible}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" />
@@ -636,8 +642,9 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowExportModal(true)}
-              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
               title="Chat exportieren"
+              aria-label="Chat exportieren"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -647,8 +654,9 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowKeyboardShortcuts(true)}
-              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-300)] transition-all duration-180 hover:scale-105"
-              title="Tastaturkurzel"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-300)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
+              title="Tastaturkurzel anzeigen"
+              aria-label="Tastaturkurzel anzeigen"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2" />

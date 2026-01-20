@@ -1,6 +1,6 @@
 /**
- * LotionGPT Global Styles - v8.0 Elite
- * Premium Design System with Aurora Effects
+ * LotionGPT Global Styles - v9.0 Ultra Premium
+ * Premium Design System with Aurora Effects & Mesh Gradients
  */
 
 @import "../styles/tokens.css";
@@ -41,39 +41,38 @@ body {
 }
 
 /* ============================================
-   AMBIENT AURORA EFFECT - Elite
+   ULTRA AMBIENT MESH GRADIENT BACKGROUND
    ============================================ */
 
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: var(--gradient-aurora);
+  background: var(--gradient-mesh-elite);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.7;
-  animation: auroraShift 20s ease-in-out infinite;
+  opacity: 1;
+  animation: auroraShift 25s ease-in-out infinite;
 }
 
-/* Secondary ambient glow for depth */
+/* Subtle noise texture for depth */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
-              radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.03) 0%, transparent 50%);
+  opacity: var(--noise-opacity);
   pointer-events: none;
-  z-index: 0;
-  opacity: 1;
+  background-image: var(--noise-grain);
+  z-index: 1;
 }
 
 /* ============================================
-   SCROLLBAR - Elite premium
+   SCROLLBAR - Ultra Premium
    ============================================ */
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -81,13 +80,14 @@ body::after {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 3px;
+  background: var(--scrollbar-thumb);
+  border-radius: 2px;
   transition: background var(--duration-normal) var(--ease-out);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--scrollbar-thumb-hover);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
 ::-webkit-scrollbar-corner {
@@ -96,11 +96,11 @@ body::after {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
 /* ============================================
-   TYPOGRAPHY - Premium refinement
+   TYPOGRAPHY - Ultra Premium refinement
    ============================================ */
 
 h1, h2, h3, h4, h5, h6 {
@@ -115,13 +115,13 @@ p {
 }
 
 a {
-  color: var(--color-accent-500);
+  color: var(--color-accent-400);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
 a:hover {
-  color: var(--color-accent-400);
+  color: var(--color-accent-300);
 }
 
 code {
@@ -130,7 +130,80 @@ code {
 }
 
 /* ============================================
-   PROSE STYLES - Elite refinement
+   SELECTION - Ultra Premium
+   ============================================ */
+
+::selection {
+  background: var(--color-accent-500);
+  color: var(--color-text-inverse);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: var(--color-accent-500);
+  color: var(--color-text-inverse);
+}
+
+/* ============================================
+   FOCUS STYLES - Ultra accessible
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================
+   BUTTON RESET
+   ============================================ */
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ============================================
+   INPUT RESET
+   ============================================ */
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   PROSE STYLES - Ultra Premium refinement
    ============================================ */
 
 .prose {
@@ -182,7 +255,7 @@ code {
 .prose a {
   color: var(--color-accent-400);
   text-decoration: none;
-  border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.35);
   transition: all var(--duration-fast) var(--ease-out);
 }
 
@@ -216,11 +289,11 @@ code {
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.86em;
-  background: var(--color-bg-elevated);
+  background: var(--code-bg);
   color: var(--color-accent-300);
   padding: 3px 6px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--code-border);
 }
 
 .prose pre {
@@ -253,77 +326,6 @@ code {
   border: none;
   border-top: 1px solid var(--color-border-medium);
   margin: var(--space-8) 0;
-}
-
-/* ============================================
-   SELECTION
-   ============================================ */
-
-::selection {
-  background: var(--color-accent-500);
-  color: var(--color-text-inverse);
-}
-
-::-moz-selection {
-  background: var(--color-accent-500);
-  color: var(--color-text-inverse);
-}
-
-/* ============================================
-   FOCUS STYLES
-   ============================================ */
-
-:focus-visible {
-  outline: 2px solid var(--color-accent-500);
-  outline-offset: 2px;
-  border-radius: var(--radius-xs);
-}
-
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* ============================================
-   BUTTON RESET
-   ============================================ */
-
-button {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  transition: all var(--duration-fast) var(--ease-smooth);
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-/* ============================================
-   INPUT RESET
-   ============================================ */
-
-input,
-textarea,
-select {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
-  background: none;
-  border: none;
-  outline: none;
-  transition: all var(--duration-fast) var(--ease-smooth);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--color-text-muted);
 }
 
 /* ============================================
@@ -377,10 +379,10 @@ textarea::placeholder {
 }
 
 /* ============================================
-   ADDITIONAL ELITE EFFECTS
+   ULTRA PREMIUM EFFECTS
    ============================================ */
 
-/* Subtle noise texture for depth - Enhanced */
+/* Enhanced noise texture */
 .noise-texture {
   position: relative;
 }
@@ -389,13 +391,13 @@ textarea::placeholder {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.025;
+  opacity: var(--noise-opacity);
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-image: var(--noise-grain);
   z-index: 1;
 }
 
-/* Premium card hover effect - Enhanced */
+/* Premium card hover effect */
 .card-hover {
   transition: transform var(--duration-normal) var(--ease-spring),
               box-shadow var(--duration-normal) var(--ease-out),
@@ -403,32 +405,33 @@ textarea::placeholder {
 }
 
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
   border-color: var(--color-border-accent);
 }
 
-/* Smooth inner shadow for inset elements */
+/* Smooth inner shadows */
 .inset-shadow {
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.65);
 }
 
 .inset-shadow-subtle {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .inset-shadow-strong {
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.55);
 }
 
-/* Premium focus ring override - Elite */
+/* Premium focus ring */
 .focus-ring-premium:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-bg-primary),
-              0 0 0 4px var(--color-accent-500);
+              0 0 0 4px var(--color-accent-500),
+              0 0 20px rgba(99, 102, 241, 0.3);
 }
 
-/* Aurora border effect */
+/* Aurora border effect - enhanced */
 .aurora-border {
   position: relative;
 }
@@ -441,7 +444,7 @@ textarea::placeholder {
   background-size: 300% 300%;
   border-radius: inherit;
   z-index: -1;
-  animation: gradientShift 8s ease infinite;
+  animation: gradientShift 10s ease infinite;
   opacity: 0;
   transition: opacity var(--duration-normal) var(--ease-out);
 }
@@ -450,7 +453,7 @@ textarea::placeholder {
   opacity: 1;
 }
 
-/* Shine effect on hover */
+/* Shine effect - enhanced */
 .shine-effect {
   position: relative;
   overflow: hidden;
@@ -466,15 +469,38 @@ textarea::placeholder {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.10),
     transparent
   );
-  transform: skewX(-20deg);
-  transition: left 0.7s var(--ease-premium);
+  transform: skewX(-18deg);
+  transition: left 0.8s var(--ease-premium);
 }
 
 .shine-effect:hover::after {
-  left: 150%;
+  left: 160%;
+}
+
+/* Mesh gradient background utility */
+.mesh-gradient {
+  background: var(--gradient-mesh-elite);
+  background-attachment: fixed;
+}
+
+.mesh-gradient-warm {
+  background: var(--gradient-mesh-warm);
+  background-attachment: fixed;
+}
+
+.mesh-gradient-cool {
+  background: var(--gradient-mesh-cool);
+  background-attachment: fixed;
+}
+
+/* Glow text effect */
+.glow-text {
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.5),
+               0 0 40px rgba(99, 102, 241, 0.3),
+               0 0 60px rgba(99, 102, 241, 0.2);
 }
 
 /* ============================================
@@ -493,7 +519,6 @@ textarea::placeholder {
   border-width: 0;
 }
 
-/* For making content visible only when focused */
 .sr-only-focusable:focus {
   clip: auto;
   width: auto;
@@ -507,36 +532,70 @@ textarea::placeholder {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --color-border-medium: rgba(255, 255, 255, 0.3);
-    --color-border-subtle: rgba(255, 255, 255, 0.15);
+    --color-border-medium: rgba(255, 255, 255, 0.35);
+    --color-border-subtle: rgba(255, 255, 255, 0.18);
   }
 }
 
-/* Focus visible enhancement - better visibility */
+/* Shimmer effect for skeleton loading */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  animation: shimmer-effect 2s infinite;
+}
+
+@keyframes shimmer-effect {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Focus visible enhancement */
 .focus-visible-ring:focus-visible {
   outline: 2px solid var(--color-accent-500);
-  outline-offset: 2px;
+  outline-offset: 3px;
   border-radius: var(--radius-xs);
 }
 
-/* Skip link styling improvement */
+/* Skip link styling */
 .skip-link {
   position: absolute;
   top: -100%;
   left: 16px;
-  padding: 8px 16px;
+  padding: 10px 18px;
   background: var(--color-accent-500);
   color: white;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   text-decoration: none;
-  z-index: 9999;
+  font-weight: var(--font-semibold);
+  z-index: var(--z-max);
   transition: top var(--duration-normal) var(--ease-out);
+  box-shadow: var(--shadow-glow);
 }
 
 .skip-link:focus {
   top: 16px;
 }
 
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -545,4 +604,101 @@ textarea::placeholder {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ============================================
+   ADDITIONAL ULTRA UTILITIES
+   ============================================ */
+
+/* Subtle border glow effect */
+.border-glow-subtle {
+  position: relative;
+}
+
+.border-glow-subtle::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-border);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.border-glow-subtle:hover::after {
+  opacity: 1;
+}
+
+/* Premium backdrop blur */
+.backdrop-blur-premium {
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+}
+
+/* Elevated card style */
+.card-elevated {
+  background: var(--color-bg-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+/* Input focus enhancement */
+.input-focus-enhanced:focus-within {
+  border-color: var(--color-accent-500);
+  box-shadow: var(--shadow-input-focus),
+              0 0 0 1px var(--color-accent-500);
+}
+
+/* Button primary style */
+.btn-primary {
+  background: var(--button-primary-bg);
+  color: white;
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-button);
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.btn-primary:hover {
+  background: var(--button-primary-hover);
+  box-shadow: var(--shadow-button-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Smooth scroll behavior */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Premium separator */
+.separator {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-medium),
+    transparent
+  );
 }

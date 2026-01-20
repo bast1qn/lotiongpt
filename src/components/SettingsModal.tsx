@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { storage } from '@/lib/storage';
 import { Icons } from './Icons';
 import { cn } from '@/lib/utils';
 import { MemoryList } from './MemoryList';
+import { useToast } from '@/lib/hooks/useToast';
 
 type Tab = 'settings' | 'memories';
 
@@ -20,6 +21,40 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [visionModel, setVisionModel] = useState('glm-4.6v-flashx');
   const [temperature, setTemperature] = useState(0.7);
   const [maxTokens, setMaxTokens] = useState(4096);
+  const { showToast } = useToast();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
+
+  // Focus management
+  useEffect(() => {
+    if (isOpen) {
+      previousActiveElementRef.current = document.activeElement as HTMLElement;
+
+      const timeoutId = setTimeout(() => {
+        const focusable = modalRef.current?.querySelector(
+          'button:not([disabled]), input:not([disabled])'
+        ) as HTMLElement;
+        focusable?.focus();
+      }, 50);
+
+      return () => clearTimeout(timeoutId);
+    } else {
+      const timeoutId = setTimeout(() => {
+        previousActiveElementRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isOpen]);
+
+  // Prevent body scroll
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -41,6 +76,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       maxTokens,
       thinking: true,
     });
+    showToast('Einstellungen gespeichert', 'success');
     onClose();
   };
 
@@ -55,7 +91,13 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       />
 
       {/* Modal with glassmorphism */}
-      <div className="relative w-full max-w-md bg-[var(--color-bg-glass-strong)] backdrop-blur-xl rounded-2xl border border-[var(--glass-border)] shadow-2xl shadow-black/50 animate-scale-in-spring overflow-hidden">
+      <div
+        ref={modalRef}
+        className="relative w-full max-w-md bg-[var(--color-bg-glass-strong)] backdrop-blur-xl rounded-2xl border border-[var(--glass-border)] shadow-2xl shadow-black/50 animate-scale-in-spring overflow-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="settings-modal-title"
+      >
         {/* Subtle glow effect behind modal */}
         <div className="absolute -inset-4 bg-[var(--color-accent-500)] opacity-5 blur-3xl -z-10" />
 
