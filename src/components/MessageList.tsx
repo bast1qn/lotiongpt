@@ -16,6 +16,7 @@ interface MessageListProps {
   onDeleteMessage?: (messageIndex: number) => void;
   onToggleStar?: (messageIndex: number) => void;
   onBranch?: (messageIndex: number) => void;
+  onRetry?: () => void;
   editingMessageIndex?: number | null;
   searchQuery?: string;
   highlightedMessageIndex?: number | null;
@@ -31,6 +32,7 @@ export function MessageList({
   onDeleteMessage,
   onToggleStar,
   onBranch,
+  onRetry,
   editingMessageIndex = null,
   searchQuery = '',
   highlightedMessageIndex = null,
@@ -102,6 +104,15 @@ export function MessageList({
 
   return (
     <div className="flex-1 overflow-y-auto relative">
+      {/* Screen reader live region for announcing new messages */}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {isLoading ? 'LotionGPT tippt gerade...' : ''}
+      </div>
       {/* Jump to Bottom Button */}
       {showScrollButton && (
         <button
@@ -145,6 +156,7 @@ export function MessageList({
                 onDelete={onDeleteMessage ? () => onDeleteMessage(index) : undefined}
                 onToggleStar={onToggleStar ? () => onToggleStar(index) : undefined}
                 onBranch={onBranch && message.role === 'assistant' ? () => onBranch(index) : undefined}
+                onRetry={message.isError && index === messages.length - 1 ? onRetry : undefined}
               />
             </div>
           ))}

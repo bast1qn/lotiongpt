@@ -208,11 +208,16 @@ function HomeContent() {
       );
     } catch (error) {
       console.error('Error sending message:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unbekannter Fehler';
       const errorChat: Chat = {
         ...updatedChat,
         messages: [
           ...updatedChat.messages,
-          { role: 'assistant', content: `Fehler: ${error instanceof Error ? error.message : 'Unknown error'}` },
+          {
+            role: 'assistant',
+            content: `Fehler: ${errorMessage}\n\nBitte versuche es erneut oder überprüfe deine API-Einstellungen.`,
+            isError: true,
+          },
         ],
         updatedAt: new Date().toISOString(),
       };
@@ -473,29 +478,37 @@ function HomeContent() {
     },
   });
 
-  // Search handlers
+  // Search handlers with ReDoS protection
   const handleSearchChange = useCallback((query: string) => {
     setSearchQuery(query);
     if (!currentChat) return;
 
-    if (!query.trim()) {
+    // Limit query length to prevent ReDoS attacks
+    if (!query.trim() || query.length > 100) {
       setMatchingMessageIndices([]);
       setCurrentMatchIndex(0);
       return;
     }
 
-    const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-    const matches = currentChat.messages
-      .map((msg, idx) => ({ idx, matches: regex.test(msg.content) }))
-      .filter(({ matches }) => matches)
-      .map(({ idx }) => idx);
+    try {
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').substring(0, 50);
+      const regex = new RegExp(escaped, 'gi');
+      const matches = currentChat.messages
+        .map((msg, idx) => ({ idx, matches: regex.test(msg.content) }))
+        .filter(({ matches }) => matches)
+        .map(({ idx }) => idx);
 
-    setMatchingMessageIndices(matches);
-    setCurrentMatchIndex(0);
+      setMatchingMessageIndices(matches);
+      setCurrentMatchIndex(0);
 
-    // Scroll to first match
-    if (matches.length > 0) {
-      document.getElementById(`message-${matches[0]}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Scroll to first match
+      if (matches.length > 0) {
+        document.getElementById(`message-${matches[0]}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } catch {
+      // If regex fails, clear search
+      setMatchingMessageIndices([]);
+      setCurrentMatchIndex(0);
     }
   }, [currentChat]);
 
@@ -545,39 +558,44 @@ function HomeContent() {
         onClose={() => setSidebarOpen(false)}
       />
 
-      <main className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)] relative z-10">
-        <header className="flex-shrink-0 flex items-center justify-between px-4 sm:px-5 py-3 border-b border-[var(--color-border-subtle)]">
-          <div className="flex items-center gap-3">
+      <main id="main-content" className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)] relative z-10" tabIndex={-1}>
+        {/* Premium Header with Glass Effect */}
+        <header className="flex-shrink-0 flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-secondary)]/50 backdrop-blur-md">
+          <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-120"
+              className="lg:hidden p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
             >
               <Icons.Menu />
             </button>
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-1 rounded-full bg-[var(--color-accent-500)] shadow-[var(--color-accent-glow)]" />
-              <h1 className="text-sm font-medium text-[var(--color-text-secondary)] tracking-tight">
+            <div className="flex items-center gap-3 group">
+              <div className="relative">
+                <div className="w-2 h-2 rounded-full bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] shadow-lg shadow-[var(--color-accent-glow)] animate-pulse-subtle" />
+                <div className="absolute inset-0 w-2 h-2 rounded-full bg-[var(--color-accent-500)] blur-md opacity-50" />
+              </div>
+              <h1 className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight group-hover:text-[var(--color-accent-400)] transition-colors duration-200">
                 {currentChat?.title || 'Neuer Chat'}
               </h1>
             </div>
           </div>
-          <div className="flex items-center gap-0">
+
+          <div className="flex items-center gap-1">
             <button
               onClick={handleToggleSearch}
-              className="p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-120"
-              title="Suche im Chat"
+              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
+              title="Suche im Chat (Strg+/)"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </button>
             <button
               onClick={() => setShowExportModal(true)}
-              className="p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-120"
+              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
               title="Chat exportieren"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
@@ -585,10 +603,10 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowKeyboardShortcuts(true)}
-              className="p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-120"
-              title="Tastaturkürzel"
+              className="p-2.5 hover:bg-[var(--color-bg-elevated)] rounded-xl text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-400)] transition-all duration-200 hover:scale-105"
+              title="Tastaturkurzel"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <path d="M6 8h.01" />
                 <path d="M10 8h.01" />
@@ -623,6 +641,7 @@ function HomeContent() {
           onDeleteMessage={handleDeleteMessage}
           onToggleStar={handleToggleStar}
           onBranch={handleBranch}
+          onRetry={handleRegenerate}
           editingMessageIndex={editingMessageIndex}
           searchQuery={searchQuery}
           highlightedMessageIndex={matchingMessageIndices[currentMatchIndex]}

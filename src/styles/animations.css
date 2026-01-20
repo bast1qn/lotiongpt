@@ -1,10 +1,11 @@
 /**
- * LotionGPT Animations - v2.0
- * Smooth, subtle, minimal
+ * LotionGPT Animations - v3.0 Ultra Premium
+ * Spring physics, micro-interactions, smooth motion
+ * Inspired by Apple, Linear, and VisionOS
  */
 
 /* ============================================
-   FADE ANIMATIONS
+   FADE ANIMATIONS - Enhanced
    ============================================ */
 
 @keyframes fadeIn {
@@ -28,18 +29,77 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   SLIDE ANIMATIONS - Enhanced with spring
+   ============================================ */
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(24px) scale(0.98);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-24px) scale(0.98);
+  }
+}
+
+@keyframes slideInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -48,53 +108,13 @@
 }
 
 /* ============================================
-   SLIDE ANIMATIONS
-   ============================================ */
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutRight {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes slideOutLeft {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-/* ============================================
-   SCALE ANIMATIONS
+   SCALE ANIMATIONS - Premium spring
    ============================================ */
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.92);
   }
   to {
     opacity: 1;
@@ -109,12 +129,26 @@
   }
   to {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.92);
+  }
+}
+
+@keyframes scaleInSpring {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
 /* ============================================
-   LOADING ANIMATIONS
+   LOADING ANIMATIONS - Enhanced
    ============================================ */
 
 @keyframes spin {
@@ -131,7 +165,16 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
   }
 }
 
@@ -144,28 +187,37 @@
   }
 }
 
-/* Typing indicator dots */
-@keyframes bounce {
+/* Typing indicator dots - Enhanced */
+@keyframes bounceDot {
   0%, 80%, 100% {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
   }
 }
 
 /* ============================================
-   MESSAGE ANIMATIONS
+   MESSAGE ANIMATIONS - Premium
    ============================================ */
 
 @keyframes messageIn {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(8px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -176,18 +228,29 @@
   }
   to {
     opacity: 0;
-    transform: scale(0.98);
+    transform: scale(0.95);
+  }
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
 /* ============================================
-   TOAST ANIMATIONS
+   TOAST ANIMATIONS - Enhanced
    ============================================ */
 
 @keyframes toastIn {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.98);
+    transform: translateY(16px) scale(0.95);
   }
   to {
     opacity: 1;
@@ -198,16 +261,16 @@
 @keyframes toastOut {
   from {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
   to {
     opacity: 0;
-    transform: translateX(100%);
+    transform: translateX(100%) scale(0.95);
   }
 }
 
 /* ============================================
-   SHAKE ANIMATION (for errors)
+   SHAKE ANIMATION (for errors) - Enhanced
    ============================================ */
 
 @keyframes shake {
@@ -222,48 +285,86 @@
   }
 }
 
+@keyframes errorPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 /* ============================================
-   UTILITY CLASSES
+   BOUNCE IN ANIMATION
+   ============================================ */
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES - Enhanced
    ============================================ */
 
 .animate-fade-in {
-  animation: fadeIn 0.2s var(--ease-out);
+  animation: fadeIn var(--duration-normal) var(--ease-out);
 }
 
 .animate-fade-out {
-  animation: fadeOut 0.2s var(--ease-in);
+  animation: fadeOut var(--duration-normal) var(--ease-in);
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.3s var(--ease-out);
+  animation: fadeInUp var(--duration-slow) var(--ease-spring);
 }
 
 .animate-fade-in-down {
-  animation: fadeInDown 0.3s var(--ease-out);
+  animation: fadeInDown var(--duration-slow) var(--ease-spring);
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 0.3s var(--ease-out);
+  animation: slideInRight var(--duration-slow) var(--ease-spring);
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.3s var(--ease-out);
+  animation: slideInLeft var(--duration-slow) var(--ease-spring);
+}
+
+.animate-slide-in-bottom {
+  animation: slideInBottom var(--duration-slow) var(--ease-spring);
 }
 
 .animate-slide-out-right {
-  animation: slideOutRight 0.3s var(--ease-in);
+  animation: slideOutRight var(--duration-normal) var(--ease-in);
 }
 
 .animate-slide-out-left {
-  animation: slideOutLeft 0.3s var(--ease-in);
+  animation: slideOutLeft var(--duration-normal) var(--ease-in);
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.2s var(--ease-out);
+  animation: scaleIn var(--duration-normal) var(--ease-spring);
+}
+
+.animate-scale-in-spring {
+  animation: scaleInSpring 0.5s var(--ease-spring);
 }
 
 .animate-scale-out {
-  animation: scaleOut 0.2s var(--ease-in);
+  animation: scaleOut var(--duration-normal) var(--ease-in);
 }
 
 .animate-spin {
@@ -274,32 +375,52 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
+.animate-pulse-subtle {
+  animation: pulseSubtle 2.5s ease-in-out infinite;
+}
+
 .animate-shimmer {
   animation: shimmer 2s infinite;
 }
 
 .animate-bounce {
-  animation: bounce 1.4s ease-in-out infinite;
+  animation: bounceDot 1.4s ease-in-out infinite;
+}
+
+.animate-bounce-dot {
+  animation: bounceDot 1.2s ease-in-out infinite;
 }
 
 .animate-message-in {
-  animation: messageIn 0.25s var(--ease-out);
+  animation: messageIn var(--duration-slow) var(--ease-spring);
+}
+
+.animate-message-slide-in {
+  animation: messageSlideIn var(--duration-slow) var(--ease-spring);
 }
 
 .animate-message-out {
-  animation: messageOut 0.2s var(--ease-in);
+  animation: messageOut var(--duration-normal) var(--ease-in);
 }
 
 .animate-toast-in {
-  animation: toastIn 0.3s var(--ease-out);
+  animation: toastIn var(--duration-slow) var(--ease-spring);
 }
 
 .animate-toast-out {
-  animation: toastOut 0.25s var(--ease-in);
+  animation: toastOut var(--duration-normal) var(--ease-in);
 }
 
 .animate-shake {
   animation: shake 0.5s ease-in-out;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.6s var(--ease-spring);
+}
+
+.animate-error-pulse {
+  animation: errorPulse 2s ease-in-out infinite;
 }
 
 /* ============================================
@@ -317,23 +438,25 @@
 
 /* Typing indicator dots */
 .typing-dot-1 { animation-delay: 0ms; }
-.typing-dot-2 { animation-delay: 200ms; }
-.typing-dot-3 { animation-delay: 400ms; }
+.typing-dot-2 { animation-delay: 150ms; }
+.typing-dot-3 { animation-delay: 300ms; }
 
 /* ============================================
-   HOVER EFFECTS
+   HOVER EFFECTS - Premium
    ============================================ */
 
 .hover-lift {
-  transition: transform var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .hover-lift:hover {
   transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .hover-scale {
-  transition: transform var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-normal) var(--ease-spring);
 }
 
 .hover-scale:hover {
@@ -341,9 +464,97 @@
 }
 
 .hover-glow {
-  transition: box-shadow var(--duration-normal) var(--ease-out);
+  transition: box-shadow var(--duration-normal) var(--ease-out),
+              border-color var(--duration-normal) var(--ease-out);
 }
 
 .hover-glow:hover {
-  box-shadow: var(--shadow-glow-sm);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+
+.glass {
+  background: var(--color-bg-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: var(--color-bg-glass-strong);
+  backdrop-filter: var(--blur-strong);
+  -webkit-backdrop-filter: var(--blur-strong);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-heavy {
+  background: var(--color-bg-glass-heavy);
+  backdrop-filter: var(--blur-heavy);
+  -webkit-backdrop-filter: var(--blur-heavy);
+  border: 1px solid var(--glass-border);
+}
+
+/* ============================================
+   GRADIENT TEXT
+   ============================================ */
+
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-subtle {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   CUSTOM GLOW EFFECTS
+   ============================================ */
+
+.glow-accent {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15),
+              0 0 40px rgba(99, 102, 241, 0.10);
+}
+
+.glow-accent-strong {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.25),
+              0 0 60px rgba(99, 102, 241, 0.15);
+}
+
+.glow-success {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+.glow-error {
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.15);
+}
+
+/* ============================================
+   SCROLLBAR STYLES
+   ============================================ */
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.12);
 }

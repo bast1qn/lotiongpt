@@ -23,6 +23,7 @@ export interface Message {
   images?: ImageAttachment[];
   files?: FileAttachment[];
   starred?: boolean;
+  isError?: boolean;
 }
 
 export interface Chat {

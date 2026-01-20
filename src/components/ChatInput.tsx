@@ -217,20 +217,24 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
   const canSend = (input.trim() || hasAttachments) && !isLoading;
 
   return (
-    <div className="flex-shrink-0 p-3">
+    <div className="flex-shrink-0 p-4">
       <div className="max-w-3xl mx-auto">
-        {/* Controls Bar */}
-        <div className="flex items-center gap-1.5 mb-2">
-          {/* Model Selector */}
+        {/* Premium Controls Bar */}
+        <div className="flex items-center gap-2 mb-3">
+          {/* Premium Model Selector */}
           <div className="relative" ref={modelPickerRef}>
             <button
               onClick={() => setShowModelPicker(!showModelPicker)}
               className={cn(
-                'flex items-center gap-2 px-2 py-1 rounded text-sm font-medium transition-all duration-120',
-                'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]',
+                'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-200',
+                'bg-[var(--color-bg-tertiary)]/80 border border-[var(--color-border-medium)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
-                'hover:border-[var(--color-border-default)]'
+                'hover:border-[var(--color-accent-500)]/50 hover:bg-[var(--color-bg-elevated)] hover:shadow-md hover:shadow-[var(--color-accent-glow-subtle)]',
+                'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]'
               )}
+              aria-label="Modell auswahlen"
+              aria-haspopup="listbox"
+              aria-expanded={showModelPicker}
             >
               <span>{MODEL_INFO[selectedModel].icon}</span>
               <span className="hidden sm:inline">{MODEL_INFO[selectedModel].name}</span>
@@ -239,9 +243,13 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
             {/* Model Dropdown */}
             {showModelPicker && (
-              <div className="absolute bottom-full left-0 mb-2 w-56 bg-[var(--color-bg-secondary)] border border-[var(--color-border-default)] rounded-lg shadow-xl animate-fade-in-up z-20">
-                <div className="p-2 space-y-1">
-                  <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider">
+              <div
+                className="absolute bottom-full left-0 mb-2 w-60 bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border)] rounded-xl shadow-2xl shadow-black/50 animate-fade-in-up z-20"
+                role="listbox"
+                aria-label="KI-Modelle"
+              >
+                <div className="p-2 space-y-0.5">
+                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider">
                     Zhipu AI
                   </div>
                   {(['glm-4.6', 'glm-4.7'] as ChatModel[]).map((model) => (
@@ -252,22 +260,24 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)]',
                         selectedModel === model
-                          ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
+                          ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-sm'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
+                      role="option"
+                      aria-selected={selectedModel === model}
                     >
                       <span>{MODEL_INFO[model].icon}</span>
                       <div className="flex-1 text-left">
-                        <div className="font-medium">{MODEL_INFO[model].name}</div>
+                        <div className="font-semibold">{MODEL_INFO[model].name}</div>
                         <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
                       </div>
                       {selectedModel === model && <Icons.Check />}
                     </button>
                   ))}
 
-                  <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider mt-2">
+                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider mt-1">
                     Google
                   </div>
                   {(['gemini-2.5-pro', 'gemini-2.5-flash'] as ChatModel[]).map((model) => (
@@ -278,22 +288,22 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
                         selectedModel === model
-                          ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
+                          ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-sm'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
                       <span>{MODEL_INFO[model].icon}</span>
                       <div className="flex-1 text-left">
-                        <div className="font-medium">{MODEL_INFO[model].name}</div>
+                        <div className="font-semibold">{MODEL_INFO[model].name}</div>
                         <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
                       </div>
                       {selectedModel === model && <Icons.Check />}
                     </button>
                   ))}
 
-                  <div className="px-2 py-1 text-xs text-[var(--color-text-muted)] font-medium uppercase tracking-wider mt-2">
+                  <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider mt-1">
                     Other
                   </div>
                   {(['gpt-4.1', 'claude-4.5-sonnet'] as ChatModel[]).map((model) => (
@@ -304,15 +314,15 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                         setShowModelPicker(false);
                       }}
                       className={cn(
-                        'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all',
+                        'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
                         selectedModel === model
-                          ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
+                          ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-sm'
                           : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
                       )}
                     >
                       <span>{MODEL_INFO[model].icon}</span>
                       <div className="flex-1 text-left">
-                        <div className="font-medium">{MODEL_INFO[model].name}</div>
+                        <div className="font-semibold">{MODEL_INFO[model].name}</div>
                         <div className="text-xs opacity-70">{MODEL_INFO[model].provider}</div>
                       </div>
                       {selectedModel === model && <Icons.Check />}
@@ -323,15 +333,15 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             )}
           </div>
 
-          {/* Thinking Toggle */}
+          {/* Premium Thinking Toggle */}
           <button
             onClick={() => onThinkingChange?.(!thinkingEnabled)}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-200',
               'border',
               thinkingEnabled
-                ? 'bg-[var(--color-accent-500)]/10 border-[var(--color-accent-500)] text-[var(--color-accent-500)]'
-                : 'bg-[var(--color-bg-tertiary)] border-[var(--color-border-default)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]'
+                ? 'bg-[var(--color-accent-500)]/15 border-[var(--color-accent-500)]/50 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
+                : 'bg-[var(--color-bg-tertiary)]/80 border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/30'
             )}
             title={thinkingEnabled ? 'Thinking ist aktiv' : 'Thinking ist deaktiviert'}
           >
@@ -339,17 +349,17 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             <span className="hidden sm:inline">Thinking: {thinkingEnabled ? 'ON' : 'OFF'}</span>
           </button>
 
-          {/* File Upload Toggle */}
+          {/* Premium File Upload Toggle */}
           <button
             onClick={onToggleFileUpload}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all',
+              'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-200',
               'border',
               showFileUpload
-                ? 'bg-[var(--color-accent-500)]/10 border-[var(--color-accent-500)] text-[var(--color-accent-500)]'
-                : 'bg-[var(--color-bg-tertiary)] border-[var(--color-border-default)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]'
+                ? 'bg-[var(--color-accent-500)]/15 border-[var(--color-accent-500)]/50 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
+                : 'bg-[var(--color-bg-tertiary)]/80 border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/30'
             )}
-            title="Dateien anhängen"
+            title="Dateien anfgen"
           >
             <Icons.Paperclip />
             <span className="hidden sm:inline">Dateien</span>
@@ -361,22 +371,22 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Token Estimate & Attachment Count */}
+          {/* Premium Token Estimate & Attachment Count */}
           <div className="flex items-center gap-3">
             {hasAttachments && (
-              <span className="text-xs text-[var(--color-text-muted)]">
-                {images.length + files.length} {images.length + files.length === 1 ? 'Anhang' : 'Anhänge'}
+              <span className="text-xs font-medium text-[var(--color-accent-400)] bg-[var(--color-accent-500)]/10 px-2 py-1 rounded-lg">
+                {images.length + files.length} {images.length + files.length === 1 ? 'Anhang' : 'Anhange'}
               </span>
             )}
             {input.length > 0 && (
-              <span className="text-xs text-[var(--color-text-muted)]">
+              <span className="text-xs font-medium text-[var(--color-text-tertiary)] bg-[var(--color-bg-tertiary)]/80 px-2 py-1 rounded-lg border border-[var(--color-border-subtle)]">
                 ~{Math.ceil(input.length / 4)} tokens
               </span>
             )}
           </div>
         </div>
 
-        {/* File Upload Panel */}
+        {/* Premium File Upload Panel */}
         {showFileUpload && (
           <div className="mb-3 animate-slide-in-bottom">
             <FileUpload
@@ -388,51 +398,54 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           </div>
         )}
 
+        {/* Premium Input Container */}
         <div
           className={cn(
-            'relative rounded transition-all duration-120',
-            'bg-[var(--color-bg-tertiary)]',
-            'border border-[var(--color-border-subtle)]',
+            'relative rounded-2xl transition-all duration-200',
+            'bg-[var(--color-bg-tertiary)]/80 backdrop-blur-sm',
+            'border border-[var(--color-border-medium)]',
             'shadow-inner-subtle',
-            isDragging && 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/5',
+            isDragging && 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/10 shadow-lg shadow-[var(--color-accent-glow)]',
             isLoading && 'opacity-70'
           )}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          {/* Image Previews (legacy, kept for quick image paste) */}
+          {/* Image Previews (premium, kept for quick image paste) */}
           {images.length > 0 && (
-            <div className="flex flex-wrap gap-2 p-3 pb-0">
+            <div className="flex flex-wrap gap-2.5 p-4 pb-0">
               {images.map((img, index) => (
                 <div key={index} className="relative group animate-scale-in">
                   <img
                     src={`data:${img.mimeType};base64,${img.data}`}
                     alt={img.name || 'Uploaded image'}
-                    className="h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-lg border border-[var(--color-border-subtle)] shadow-md hover:shadow-lg transition-shadow"
+                    className="h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-xl border-2 border-[var(--color-border-subtle)] shadow-lg hover:shadow-xl hover:shadow-[var(--color-accent-glow-subtle)] transition-all duration-200"
                   />
                   <button
                     onClick={() => removeImage(index)}
-                    className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-120 hover:scale-100 shadow-md"
+                    className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 shadow-lg"
                   >
-                    <span className="text-xs font-bold">×</span>
+                    <span className="text-sm font-bold"></span>
                   </button>
                 </div>
               ))}
             </div>
           )}
 
-          {/* Drag overlay */}
+          {/* Premium Drag overlay */}
           {isDragging && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-accent-500)]/10 rounded-2xl z-10 backdrop-blur-sm animate-fade-in">
-              <div className="flex flex-col items-center gap-2 text-[var(--color-accent-500)] animate-scale-in">
-                <Icons.Image />
-                <span className="text-sm font-medium">Bild hier ablegen</span>
+            <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-accent-500)]/10 rounded-2xl z-10 backdrop-blur-md animate-fade-in">
+              <div className="flex flex-col items-center gap-3 text-[var(--color-accent-500)] animate-scale-in-spring">
+                <div className="p-3 rounded-2xl bg-[var(--color-accent-500)]/20 shadow-lg shadow-[var(--color-accent-glow)]">
+                  <Icons.Image />
+                </div>
+                <span className="text-sm font-semibold">Bild hier ablegen</span>
               </div>
             </div>
           )}
 
-          <div className="flex items-end gap-2 p-3">
+          <div className="flex items-end gap-3 p-4">
             {/* Attachment button */}
             <input
               ref={fileInputRef}
@@ -472,18 +485,22 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                 'disabled:opacity-50 min-h-[40px] max-h-[200px]',
                 'leading-relaxed'
               )}
+              aria-label="Nachricht eingeben"
+              aria-describedby="chat-input-hint"
+              maxLength={10000}
             />
 
             <button
               onClick={handleSend}
               disabled={!canSend}
               className={cn(
-                'p-2 rounded-md transition-colors flex-shrink-0',
+                'p-2 rounded-md transition-colors flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-tertiary)]',
                 canSend
                   ? 'bg-[var(--color-accent-500)] text-white hover:bg-[var(--color-accent-600)]'
                   : 'text-[var(--color-text-muted)] cursor-not-allowed bg-[var(--color-bg-elevated)]'
               )}
               title={canSend ? 'Senden' : 'Nachricht eingeben...'}
+              aria-label={canSend ? 'Nachricht senden' : 'Nachricht eingeben zum Senden'}
             >
               <Icons.Send />
             </button>
@@ -491,7 +508,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
         </div>
 
         {/* Footer hint */}
-        <p className="text-center text-xs text-[var(--color-text-muted)] mt-2">
+        <p id="chat-input-hint" className="text-center text-xs text-[var(--color-text-muted)] mt-2">
           Enter zum Senden, Shift + Enter für neue Zeile
         </p>
       </div>

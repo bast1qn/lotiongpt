@@ -2,56 +2,67 @@ import { createClient } from '@/lib/supabase/client'
 import type { Chat, Message } from '@/types/chat'
 import { generateId } from '@/lib/utils'
 
-// Type für Supabase Chat Row
-type SupabaseChat = {
+// Type für Supabase Chat Row mit Messages (JOIN)
+type SupabaseChatWithMessages = {
   id: string
   user_id: string
   title: string
   created_at: string
   updated_at: string
+  messages?: Array<{
+    id: string
+    chat_id: string
+    role: string
+    content: string
+    images: any
+    created_at: string
+  }>
 }
 
-// Chats für einen User abrufen
+// Chats für einen User abrufen (mit JOIN - keine N+1 Queries mehr)
 export async function fetchChats(): Promise<Chat[]> {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) return []
 
-  const { data } = await supabase
+  // Optimierte Query mit JOIN - einzige Query für alle Daten
+  const { data, error } = await supabase
     .from('chats')
-    .select('id, user_id, title, created_at, updated_at')
+    .select(`
+      id,
+      user_id,
+      title,
+      created_at,
+      updated_at,
+      messages (
+        id,
+        chat_id,
+        role,
+        content,
+        images,
+        created_at
+      )
+    `)
     .eq('user_id', user.id)
     .order('updated_at', { ascending: false })
 
-  if (!data) return []
+  if (error || !data) return []
 
-  // Für jeden Chat die Messages laden
-  const chatsWithMessages = await Promise.all(
-    data.map(async (chat: SupabaseChat) => {
-      const { data: messagesData } = await supabase
-        .from('messages')
-        .select('*')
-        .eq('chat_id', chat.id)
-        .order('created_at', { ascending: true })
-
-      const messages: Message[] = (messagesData || []).map((msg: any) => ({
-        role: msg.role,
+  // Transformiere die Daten in das erwartete Format
+  return data.map((chat: SupabaseChatWithMessages) => ({
+    id: chat.id,
+    title: chat.title,
+    createdAt: chat.created_at,
+    updatedAt: chat.updated_at,
+    messages: (chat.messages || [])
+      .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+      .map((msg): Message => ({
+        role: msg.role as 'user' | 'assistant' | 'system',
         content: msg.content,
         images: msg.images,
       }))
-
-      return {
-        id: chat.id,
-        title: chat.title,
-        messages,
-        createdAt: chat.created_at,
-        updatedAt: chat.updated_at,
-      }
-    })
-  )
-
-  return chatsWithMessages
+  }))
 }
 
 // Neuen Chat erstellen
@@ -107,35 +118,24 @@ export async function updateChat(chatId: string, messages: Message[], title?: st
   // Messages speichern (lösche alte, füge neue hinzu)
   await supabase.from('messages').delete().eq('chat_id', chatId)
 
-  for (const message of messages) {
-    await supabase.from('messages').insert({
+  // Bulk insert für bessere Performance
+  if (messages.length > 0) {
+    const messagesToInsert = messages.map(msg => ({
       chat_id: chatId,
-      role: message.role,
-      content: message.content,
-      images: message.images || null,
-    })
+      role: msg.role,
+      content: msg.content,
+      images: msg.images || null,
+    }))
+
+    const { error: insertError } = await supabase
+      .from('messages')
+      .insert(messagesToInsert)
+
+    if (insertError) throw insertError
   }
 
-  // Messages neu laden
-  const { data: messagesData } = await supabase
-    .from('messages')
-    .select('*')
-    .eq('chat_id', chatId)
-    .order('created_at', { ascending: true })
-
-  const fetchedMessages: Message[] = (messagesData || []).map((msg: any) => ({
-    role: msg.role,
-    content: msg.content,
-    images: msg.images,
-  }))
-
-  return {
-    id: chatData.id,
-    title: chatData.title,
-    messages: fetchedMessages,
-    createdAt: chatData.created_at,
-    updatedAt: chatData.updated_at,
-  }
+  // Chat neu laden mit optimierter Query
+  return fetchChat(chatId) as Promise<Chat>
 }
 
 // Chat löschen
@@ -154,39 +154,48 @@ export async function deleteChat(chatId: string): Promise<void> {
   if (error) throw error
 }
 
-// Einzelnen Chat abrufen
+// Einzelnen Chat abrufen (optimiert mit JOIN)
 export async function fetchChat(chatId: string): Promise<Chat | null> {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) return null
 
-  const { data } = await supabase
+  // Optimierte Query mit JOIN
+  const { data, error } = await supabase
     .from('chats')
-    .select('*')
+    .select(`
+      id,
+      user_id,
+      title,
+      created_at,
+      updated_at,
+      messages (
+        id,
+        chat_id,
+        role,
+        content,
+        images,
+        created_at
+      )
+    `)
     .eq('id', chatId)
     .eq('user_id', user.id)
     .single()
 
-  if (!data) return null
-
-  const { data: messagesData } = await supabase
-    .from('messages')
-    .select('*')
-    .eq('chat_id', chatId)
-    .order('created_at', { ascending: true })
-
-  const messages: Message[] = (messagesData || []).map((msg: any) => ({
-    role: msg.role,
-    content: msg.content,
-    images: msg.images,
-  }))
+  if (error || !data) return null
 
   return {
     id: data.id,
     title: data.title,
-    messages,
     createdAt: data.created_at,
     updatedAt: data.updated_at,
+    messages: (data.messages || [])
+      .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+      .map((msg): Message => ({
+        role: msg.role as 'user' | 'assistant' | 'system',
+        content: msg.content,
+        images: msg.images,
+      }))
   }
 }

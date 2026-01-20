@@ -59,37 +59,38 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
 
   return (
     <>
-      {/* Mobile Overlay */}
+      {/* Premium Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-md z-40 lg:hidden animate-fade-in"
           onClick={onClose}
         />
       )}
 
-      {/* Sidebar Container */}
+      {/* Sidebar Container - Premium Glass Effect */}
       <aside
         className={cn(
           'fixed lg:relative inset-y-0 left-0 z-50',
           'h-full flex flex-col',
-          'bg-[var(--color-bg-secondary)]',
+          'bg-[var(--color-bg-secondary)]/80 backdrop-blur-xl',
           'border-r border-[var(--color-border-default)]',
-          'transition-all duration-120 ease-out',
+          'transition-all duration-200 ease-spring',
           isCollapsed ? 'w-16' : 'w-[280px]',
           isOpen ? 'translate-x-0' : '-translate-x-full',
           'lg:translate-x-0',
           'flex-shrink-0'
         )}
       >
-        {/* Toggle Button - Desktop only */}
+        {/* Premium Toggle Button - Desktop only */}
         <div className="hidden lg:block absolute -right-3 top-6 z-10">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-6 h-6 rounded-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] flex items-center justify-center text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-500)] hover:border-[var(--color-accent-500)] transition-all"
+            className="w-7 h-7 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border-medium)] flex items-center justify-center text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-500)] hover:border-[var(--color-accent-500)] hover:shadow-lg hover:shadow-[var(--color-accent-glow)] transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]"
             aria-label={isCollapsed ? 'Sidebar erweitern' : 'Sidebar minimieren'}
+            aria-expanded={isCollapsed}
           >
             <svg
-              className={cn('w-3 h-3 transition-transform', isCollapsed ? 'rotate-180' : '')}
+              className={cn('w-3.5 h-3.5 transition-transform duration-200', isCollapsed ? 'rotate-180' : '')}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -99,31 +100,34 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
           </button>
         </div>
 
-        {/* Collapsed View - Icon only */}
+        {/* Collapsed View - Premium Icon only */}
         {isCollapsed ? (
-          <div className="flex flex-col h-full p-2">
-            {/* New Chat Icon */}
+          <div className="flex flex-col h-full p-2.5">
+            {/* New Chat Icon - Premium */}
             <button
               onClick={onNewChat}
-              className="flex items-center justify-center w-12 h-12 mb-2 rounded-lg bg-[var(--color-accent-500)] text-white hover:bg-[var(--color-accent-600)] transition-all"
+              className="flex items-center justify-center w-11 h-11 mb-3 rounded-xl bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]"
               title="Neuer Chat"
+              aria-label="Neuen Chat erstellen"
             >
               <Icons.Chat />
             </button>
 
-            {/* Navigation Icons */}
+            {/* Navigation Icons - Premium */}
             <button
               onClick={() => {
                 setIsCollapsed(false);
                 setPanelMode(panelMode === 'projects' ? 'none' : 'projects');
               }}
               className={cn(
-                'flex items-center justify-center w-12 h-12 mb-1 rounded-lg transition-all',
+                'flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
                 panelMode === 'projects'
-                  ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-500)]'
+                  ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Projekte"
+              aria-label="Projekte anzeigen"
+              aria-pressed={panelMode === 'projects'}
             >
               <Icons.Folder />
             </button>
@@ -134,12 +138,14 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 setPanelMode(panelMode === 'snippets' ? 'none' : 'snippets');
               }}
               className={cn(
-                'flex items-center justify-center w-12 h-12 mb-1 rounded-lg transition-all',
+                'flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
                 panelMode === 'snippets'
-                  ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-500)]'
+                  ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Code Snippets"
+              aria-label="Code Snippets anzeigen"
+              aria-pressed={panelMode === 'snippets'}
             >
               <Icons.Code />
             </button>
@@ -150,12 +156,14 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 setPanelMode(panelMode === 'artifacts' ? 'none' : 'artifacts');
               }}
               className={cn(
-                'flex items-center justify-center w-12 h-12 mb-1 rounded-lg transition-all',
+                'flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
                 panelMode === 'artifacts'
-                  ? 'bg-[var(--color-accent-500)]/20 text-[var(--color-accent-500)]'
+                  ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md shadow-[var(--color-accent-glow-subtle)]'
                   : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
               )}
               title="Artefakte"
+              aria-label="Artefakte anzeigen"
+              aria-pressed={panelMode === 'artifacts'}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -166,62 +174,63 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             {/* Spacer */}
             <div className="flex-1" />
 
-            {/* Settings Icon */}
+            {/* Settings Icon - Premium */}
             <button
               onClick={() => setShowSettings(true)}
-              className="flex items-center justify-center w-12 h-12 mb-1 rounded-lg text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-accent-500)] transition-all"
+              className="flex items-center justify-center w-11 h-11 mb-1.5 rounded-xl text-[var(--color-text-tertiary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-accent-500)] transition-all duration-200 hover:scale-105"
               title="Einstellungen"
             >
               <Icons.Settings />
             </button>
           </div>
         ) : (
-          /* Expanded View - Full Sidebar */
+          /* Expanded View - Premium Full Sidebar */
           <>
-            {/* TOP SECTION: Navigation */}
-            <nav className="flex-shrink-0 p-4 space-y-2">
-              {/* New Chat Button */}
+            {/* TOP SECTION: Premium Navigation */}
+            <nav className="flex-shrink-0 p-4 space-y-1.5">
+              {/* Premium New Chat Button */}
               <button
                 onClick={onNewChat}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-[var(--color-accent-500)] text-white hover:bg-[var(--color-accent-600)] transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-[1.02] transition-all duration-200 group relative overflow-hidden"
               >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                 <Icons.Chat />
-                <span className="text-sm font-medium">Neuer Chat</span>
+                <span className="text-sm font-semibold relative z-10">Neuer Chat</span>
               </button>
 
-              {/* Navigation Buttons */}
+              {/* Premium Navigation Buttons */}
               <button
                 onClick={() => setPanelMode(panelMode === 'projects' ? 'none' : 'projects')}
                 className={cn(
-                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all',
+                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200',
                   panelMode === 'projects'
-                    ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
+                    ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
                 <Icons.Folder />
-                <span className="text-sm">Projekte</span>
+                <span className="text-sm font-medium">Projekte</span>
               </button>
 
               <button
                 onClick={() => setPanelMode(panelMode === 'snippets' ? 'none' : 'snippets')}
                 className={cn(
-                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all',
+                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200',
                   panelMode === 'snippets'
-                    ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
+                    ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
                 <Icons.Code />
-                <span className="text-sm">Code Snippets</span>
+                <span className="text-sm font-medium">Code Snippets</span>
               </button>
 
               <button
                 onClick={() => setPanelMode(panelMode === 'artifacts' ? 'none' : 'artifacts')}
                 className={cn(
-                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all',
+                  'w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200',
                   panelMode === 'artifacts'
-                    ? 'bg-[var(--color-accent-500)]/10 text-[var(--color-accent-500)]'
+                    ? 'bg-[var(--color-accent-500)]/15 text-[var(--color-accent-500)] shadow-md'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]'
                 )}
               >
@@ -229,20 +238,20 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
                 </svg>
-                <span className="text-sm">Artefakte</span>
+                <span className="text-sm font-medium">Artefakte</span>
               </button>
             </nav>
 
-            {/* PANEL: Projects, Snippets, or Artifacts */}
+            {/* PANEL: Projects, Snippets, or Artifacts - Premium */}
             {panelMode === 'projects' && (
-              <div className="flex-shrink-0 border-y border-[var(--color-border-default)] animate-fade-in-down">
+              <div className="flex-shrink-0 border-y border-[var(--color-border-subtle)] bg-[var(--color-bg-tertiary)]/30 animate-slide-in-bottom">
                 <div className="flex items-center justify-between px-4 py-3">
-                  <h3 className="text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wide">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider">
                     Projekte
                   </h3>
                   <button
                     onClick={() => setPanelMode('none')}
-                    className="p-1 hover:bg-[var(--color-bg-elevated)] rounded-md text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors"
+                    className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
                   >
                     <Icons.Close />
                   </button>
@@ -252,14 +261,14 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             )}
 
             {panelMode === 'snippets' && (
-              <div className="flex-shrink-0 border-y border-[var(--color-border-default)] animate-fade-in-down max-h-[400px] overflow-y-auto">
+              <div className="flex-shrink-0 border-y border-[var(--color-border-subtle)] bg-[var(--color-bg-tertiary)]/30 animate-slide-in-bottom max-h-[400px] overflow-y-auto sidebar-scroll">
                 <div className="flex items-center justify-between px-4 py-3">
-                  <h3 className="text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wide">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider">
                     Code Snippets
                   </h3>
                   <button
                     onClick={() => setPanelMode('none')}
-                    className="p-1 hover:bg-[var(--color-bg-elevated)] rounded-md text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors"
+                    className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
                   >
                     <Icons.Close />
                   </button>
@@ -269,14 +278,14 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
             )}
 
             {panelMode === 'artifacts' && (
-              <div className="flex-shrink-0 border-y border-[var(--color-border-default)] animate-fade-in-down max-h-[400px] overflow-y-auto">
+              <div className="flex-shrink-0 border-y border-[var(--color-border-subtle)] bg-[var(--color-bg-tertiary)]/30 animate-slide-in-bottom max-h-[400px] overflow-y-auto sidebar-scroll">
                 <div className="flex items-center justify-between px-4 py-3">
-                  <h3 className="text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wide">
+                  <h3 className="text-xs font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider">
                     Artefakte
                   </h3>
                   <button
                     onClick={() => setPanelMode('none')}
-                    className="p-1 hover:bg-[var(--color-bg-elevated)] rounded-md text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors"
+                    className="p-1.5 hover:bg-[var(--color-bg-elevated)] rounded-lg text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105"
                   >
                     <Icons.Close />
                   </button>
@@ -285,19 +294,19 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               </div>
             )}
 
-            {/* SEARCH & FILTER SECTION */}
+            {/* SEARCH & FILTER SECTION - Premium */}
             {panelMode === 'none' && (
-              <div className="flex-shrink-0 px-4 py-3 border-b border-[var(--color-border-default)] space-y-3">
-                {/* Search Input */}
-                <div className="relative">
+              <div className="flex-shrink-0 px-4 py-3 border-b border-[var(--color-border-subtle)] space-y-3">
+                {/* Premium Search Input */}
+                <div className="relative group">
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Chats durchsuchen..."
-                    className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-accent-500)] transition-all"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[var(--color-bg-tertiary)]/80 border border-[var(--color-border-medium)] text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:border-[var(--color-accent-500)] focus:shadow-lg focus:shadow-[var(--color-accent-glow-subtle)] transition-all duration-200"
                   />
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] pointer-events-none">
+                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] group-focus-within:text-[var(--color-accent-500)] transition-colors duration-200 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="11" cy="11" r="8" />
                       <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -306,21 +315,21 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] p-1 transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] p-1 transition-all duration-200 hover:scale-110"
                     >
                       <Icons.Close />
                     </button>
                   )}
                 </div>
 
-                {/* Filter Pills */}
+                {/* Premium Filter Pills */}
                 <div className="flex gap-2">
                   <button
                     onClick={() => setFilterMode('all')}
                     className={cn(
-                      'flex-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all',
+                      'flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200',
                       filterMode === 'all'
-                        ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
+                        ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] shadow-sm'
                         : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'
                     )}
                   >
@@ -329,9 +338,9 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                   <button
                     onClick={() => setFilterMode('today')}
                     className={cn(
-                      'flex-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all',
+                      'flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200',
                       filterMode === 'today'
-                        ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
+                        ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] shadow-sm'
                         : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'
                     )}
                   >
@@ -340,9 +349,9 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                   <button
                     onClick={() => setFilterMode('week')}
                     className={cn(
-                      'flex-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all',
+                      'flex-1 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200',
                       filterMode === 'week'
-                        ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
+                        ? 'bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] shadow-sm'
                         : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'
                     )}
                   >
@@ -352,30 +361,31 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
               </div>
             )}
 
-            {/* MIDDLE SECTION: Chat List */}
+            {/* MIDDLE SECTION: Premium Chat List */}
             {panelMode === 'none' && (
-              <div className="flex-1 overflow-y-auto px-4 py-3">
+              <div className="flex-1 overflow-y-auto px-4 py-3 sidebar-scroll">
                 {Object.entries(groupedChats).map(([dateLabel, dateChats]) => (
                   <div key={dateLabel}>
-                    <h3 className="text-[9px] font-medium text-[var(--color-text-muted)] px-2 mb-1 uppercase tracking-wider">
+                    <h3 className="text-[10px] font-semibold text-[var(--color-text-muted)] px-3 mb-2 uppercase tracking-wider">
                       {dateLabel}
                     </h3>
-                    <div className="flex flex-col gap-0.5 mb-4">
-                      {dateChats.map((chat) => (
+                    <div className="flex flex-col gap-0.5 mb-5">
+                      {dateChats.map((chat, idx) => (
                         <div
                           key={chat.id}
                           className={cn(
-                            'relative flex items-center justify-between px-3 py-1.5 rounded cursor-pointer group transition-all duration-120',
+                            'relative flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer group transition-all duration-200',
                             currentChatId === chat.id
-                              ? 'bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white'
-                              : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'
+                              ? 'bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)]'
+                              : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]/80'
                           )}
                           onClick={() => {
                             onChatSelect(chat.id);
                             onClose();
                           }}
+                          style={{ animationDelay: `${idx * 30}ms` }}
                         >
-                          <span className="text-sm truncate flex-1 pr-2">
+                          <span className="text-sm font-medium truncate flex-1 pr-2">
                             {chat.title.length > 35 ? chat.title.slice(0, 35) + '...' : chat.title}
                           </span>
                           <button
@@ -384,10 +394,10 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                               handleDeleteChat(chat.id, e);
                             }}
                             className={cn(
-                              'opacity-0 group-hover:opacity-100 p-0.5 rounded transition-all flex-shrink-0',
+                              'opacity-0 group-hover:opacity-100 p-1.5 rounded-lg transition-all duration-200 flex-shrink-0 hover:scale-110',
                               currentChatId === chat.id
-                                ? 'hover:bg-white/15 text-white/50 hover:text-white'
-                                : 'text-[var(--color-text-faint)] hover:text-[var(--color-error)]'
+                                ? 'hover:bg-white/20 text-white/70 hover:text-white'
+                                : 'text-[var(--color-text-faint)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-soft)]'
                             )}
                             aria-label="Chat löschen"
                           >
@@ -400,28 +410,34 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
                 ))}
 
                 {filteredChats.length === 0 && (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="w-12 h-12 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-default)] flex items-center justify-center mb-3">
-                      <Icons.Search />
+                  <div className="flex flex-col items-center justify-center py-16 text-center animate-fade-in">
+                    <div className="w-14 h-14 rounded-2xl bg-[var(--color-bg-tertiary)]/50 border border-[var(--color-border-subtle)] flex items-center justify-center mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-text-muted)]">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
                     </div>
-                    <p className="text-sm text-[var(--color-text-secondary)]">
+                    <p className="text-sm text-[var(--color-text-secondary)] font-medium">
                       {searchQuery ? 'Keine Chats gefunden' : 'Noch keine Chats'}
+                    </p>
+                    <p className="text-xs text-[var(--color-text-muted)] mt-1">
+                      {searchQuery ? 'Versuche einen anderen Suchbegriff' : 'Erstelle deinen ersten Chat'}
                     </p>
                   </div>
                 )}
               </div>
             )}
 
-            {/* BOTTOM SECTION: Settings & Auth */}
-            <div className="flex-shrink-0 border-t border-[var(--color-border-default)] p-4 space-y-2">
+            {/* BOTTOM SECTION: Premium Settings & Auth */}
+            <div className="flex-shrink-0 border-t border-[var(--color-border-subtle)] p-4 space-y-1.5">
               <button
                 onClick={() => setShowSettings(true)}
-                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-[var(--color-bg-elevated)] transition-all group"
+                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-[var(--color-bg-elevated)] transition-all duration-200 group"
               >
-                <div className="flex-shrink-0 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-accent-500)] transition-colors">
+                <div className="flex-shrink-0 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-accent-500)] transition-colors duration-200">
                   <Icons.Settings />
                 </div>
-                <span className="text-sm text-[var(--color-text-secondary)]">Einstellungen</span>
+                <span className="text-sm font-medium text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)]">Einstellungen</span>
               </button>
 
               <AuthButton />
