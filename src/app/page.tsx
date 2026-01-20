@@ -555,7 +555,7 @@ function HomeContent() {
               <Icons.Menu />
             </button>
             <div className="flex items-center gap-2">
-              <div className="w-1 h-1 rounded-full bg-[var(--color-accent-500)] shadow-[0_0_8px_rgba(99,102,241,0.5)]" />
+              <div className="w-1 h-1 rounded-full bg-[var(--color-accent-500)] shadow-[var(--color-accent-glow)]" />
               <h1 className="text-sm font-medium text-[var(--color-text-secondary)] tracking-tight">
                 {currentChat?.title || 'Neuer Chat'}
               </h1>

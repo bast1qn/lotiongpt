@@ -289,7 +289,7 @@ export function MessageItem({
                   <img
                     src={`data:${img.mimeType};base64,${img.data}`}
                     alt={img.name || 'Attached image'}
-                    className="max-h-64 max-w-xs object-cover transition-transform duration-200 group-hover/img:scale-[1.02]"
+                    className="max-h-64 max-w-xs object-cover transition-transform duration-120 group-hover/img:scale-100"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/10 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">

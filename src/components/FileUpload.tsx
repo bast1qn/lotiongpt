@@ -185,7 +185,7 @@ export function FileUpload({ files, onFilesAdd, onFileRemove, disabled = false }
           'relative rounded-2xl border-2 border-dashed transition-all duration-120',
           'min-h-[100px] flex flex-col items-center justify-center p-5 overflow-hidden',
           isDragging
-            ? 'border-[var(--color-accent-500)] bg-gradient-to-br from-[var(--color-accent-500)]/10 to-[var(--color-accent-600)]/5 scale-[1.01] shadow-lg shadow-[var(--color-accent-glow)]'
+            ? 'border-[var(--color-accent-500)] bg-gradient-to-br from-[var(--color-accent-500)]/10 to-[var(--color-accent-600)]/5 scale-100 shadow-lg shadow-[var(--color-accent-glow)]'
             : 'border-[var(--color-border-subtle)] hover:border-[var(--color-border-default)] bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] hover:shadow-md',
           disabled && 'opacity-50 cursor-not-allowed'
         )}

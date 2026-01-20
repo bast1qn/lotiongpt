@@ -106,7 +106,7 @@ export function MessageList({
       {showScrollButton && (
         <button
           onClick={scrollToBottom}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-[var(--color-accent-500)] hover:bg-[var(--color-accent-600)] text-white rounded-full shadow-lg shadow-[var(--color-accent-glow)] transition-all duration-200 hover:scale-100 animate-fade-in-up flex items-center gap-2"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-[var(--color-accent-500)] hover:bg-[var(--color-accent-600)] text-white rounded-full shadow-lg shadow-[var(--color-accent-glow)] transition-all duration-120 hover:scale-100 animate-fade-in-up flex items-center gap-2"
         >
           <span className="text-sm font-medium">Neue Nachricht</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
