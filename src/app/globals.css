@@ -1,6 +1,6 @@
 /**
- * LotionGPT Global Styles - v3.0
- * Professional Modern Design
+ * LotionGPT Global Styles - v4.0
+ * Ultra-Professional Design
  */
 
 @import "../styles/tokens.css";
@@ -40,13 +40,12 @@ body {
 }
 
 /* ============================================
-   SCROLLBAR - Professional, minimal
+   SCROLLBAR - Ultra minimal, premium
    ============================================ */
 
-/* Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -54,19 +53,18 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  transition: background 150ms ease;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  transition: background var(--duration-fast) ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
 }
 
 /* ============================================
@@ -77,6 +75,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: var(--font-semibold);
   line-height: var(--leading-tight);
   color: var(--color-text-primary);
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -84,17 +83,13 @@ p {
 }
 
 a {
-  color: var(--color-primary-500);
+  color: var(--color-accent-500);
   text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 a:hover {
-  color: var(--color-primary-400);
-}
-
-strong {
-  font-weight: var(--font-semibold);
+  color: var(--color-accent-400);
 }
 
 code {
@@ -103,7 +98,7 @@ code {
 }
 
 /* ============================================
-   PROSE STYLES - For message content
+   PROSE STYLES
    ============================================ */
 
 .prose {
@@ -113,7 +108,7 @@ code {
 }
 
 .prose p {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .prose p:last-child {
@@ -132,7 +127,7 @@ code {
 .prose ul,
 .prose ol {
   margin: var(--space-3) 0;
-  padding-left: var(--space-6);
+  padding-left: var(--space-5);
 }
 
 .prose ul {
@@ -144,43 +139,38 @@ code {
 }
 
 .prose li {
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
 }
 
 .prose li::marker {
-  color: var(--color-primary-500);
+  color: var(--color-accent-500);
 }
 
 .prose a {
-  color: var(--color-primary-500);
+  color: var(--color-accent-500);
   text-decoration: underline;
   text-underline-offset: 2px;
-  text-decoration-color: rgba(167, 139, 250, 0.3);
-  transition: text-decoration-color var(--duration-fast) var(--ease-out);
+  text-decoration-color: rgba(99, 102, 241, 0.3);
 }
 
 .prose a:hover {
-  text-decoration-color: var(--color-primary-500);
+  text-decoration-color: var(--color-accent-500);
 }
 
 .prose h1,
 .prose h2,
 .prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
+.prose h4 {
   color: var(--color-text-primary);
   font-weight: var(--font-semibold);
-  margin-top: var(--space-6);
-  margin-bottom: var(--space-3);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-2);
+  letter-spacing: -0.01em;
 }
 
 .prose h1:first-child,
 .prose h2:first-child,
-.prose h3:first-child,
-.prose h4:first-child,
-.prose h5:first-child,
-.prose h6:first-child {
+.prose h3:first-child {
   margin-top: 0;
 }
 
@@ -191,11 +181,11 @@ code {
 
 .prose code {
   font-family: var(--font-mono);
-  font-size: 0.9em;
+  font-size: 0.88em;
   background: var(--color-bg-tertiary);
-  color: var(--color-primary-400);
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
+  color: var(--color-accent-400);
+  padding: 2px 5px;
+  border-radius: var(--radius-xs);
   border: 1px solid var(--color-border-subtle);
 }
 
@@ -203,7 +193,7 @@ code {
   margin: var(--space-4) 0;
   background: var(--color-bg-tertiary);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: var(--space-4);
   overflow-x: auto;
   font-size: var(--text-sm);
@@ -218,11 +208,10 @@ code {
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--color-primary-500);
+  border-left: 2px solid var(--color-accent-500);
   padding-left: var(--space-4);
   margin: var(--space-4) 0;
   color: var(--color-text-tertiary);
-  font-style: italic;
 }
 
 .prose hr {
@@ -231,46 +220,28 @@ code {
   margin: var(--space-6) 0;
 }
 
-.prose img {
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--radius-lg);
-  margin: var(--space-4) 0;
-}
-
 /* ============================================
    SELECTION
    ============================================ */
 
 ::selection {
-  background: var(--color-primary-500);
+  background: var(--color-accent-500);
   color: var(--color-text-inverse);
 }
 
 ::-moz-selection {
-  background: var(--color-primary-500);
+  background: var(--color-accent-500);
   color: var(--color-text-inverse);
 }
 
 /* ============================================
-   FOCUS STYLES - Modern and minimal
+   FOCUS STYLES
    ============================================ */
 
 :focus-visible {
-  outline: 2px solid var(--color-primary-500);
+  outline: 2px solid var(--color-accent-500);
   outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-
-button:focus-visible {
-  outline-offset: 2px;
-}
-
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid var(--color-primary-500);
-  outline-offset: 0;
+  border-radius: var(--radius-xs);
 }
 
 :focus:not(:focus-visible) {
@@ -290,7 +261,7 @@ button {
   background: none;
   border: none;
   padding: 0;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 button:disabled {
@@ -312,7 +283,7 @@ select {
   background: none;
   border: none;
   outline: none;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 input::placeholder,
@@ -324,7 +295,6 @@ textarea::placeholder {
    UTILITY CLASSES
    ============================================ */
 
-/* Hide scrollbar but keep functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -334,44 +304,12 @@ textarea::placeholder {
   display: none;
 }
 
-/* Text gradient */
-.text-gradient-primary {
-  background: var(--color-primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Skeleton loading */
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--color-bg-tertiary) 0%,
-    var(--color-bg-elevated) 50%,
-    var(--color-bg-tertiary) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: var(--radius-md);
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* Truncate text */
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* Line clamp */
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -394,43 +332,19 @@ textarea::placeholder {
 }
 
 /* ============================================
-   RESPONSIVE UTILITIES
+   RESPONSIVE
    ============================================ */
 
 @media (max-width: 768px) {
   html {
     font-size: 14px;
   }
-
-  .prose {
-    font-size: var(--text-sm);
-  }
-
-  .prose pre {
-    padding: var(--space-3);
-  }
-}
-
-/* ============================================
-   DARK MODE ENHANCEMENTS
-   ============================================ */
-
-/* Image adjustments for dark backgrounds */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Code syntax highlighting adjustment */
-.prose pre {
-  background: var(--color-bg-secondary);
 }
 
 /* ============================================
    ACCESSIBILITY
    ============================================ */
 
-/* Screen reader only */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -443,24 +357,6 @@ img {
   border-width: 0;
 }
 
-/* Skip to content link */
-.skip-to-content {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-primary-500);
-  color: var(--color-text-inverse);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  z-index: var(--z-tooltip);
-}
-
-.skip-to-content:focus {
-  top: var(--space-4);
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

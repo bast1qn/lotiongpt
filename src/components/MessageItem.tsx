@@ -371,14 +371,15 @@ export function MessageItem({
               </div>
             </div>
           ) : message.content ? (
-            // Normal Display
+            // Normal Display - Ultra professional message bubbles
             <div
               className={cn(
-                'inline-block rounded-xl px-4 py-2.5 max-w-full transition-all duration-200',
+                'inline-block rounded-lg px-4 py-2 max-w-full',
+                'transition-colors duration-150',
                 isUser
-                  ? 'bg-[var(--color-primary-500)] text-white rounded-tr-sm'
+                  ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white rounded-tr-sm'
                   : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] border border-[var(--color-border-default)] rounded-tl-sm',
-                isSearchMatch && 'ring-2 ring-[var(--color-primary-500)]'
+                isSearchMatch && 'ring-1 ring-[var(--color-accent-500)] ring-offset-1 ring-offset-[var(--color-bg-primary)]'
               )}
             >
               <div
@@ -390,12 +391,12 @@ export function MessageItem({
 
           {/* Suggested Follow-ups */}
           {!isUser && !isEditing && suggestions.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3 ml-1">
+            <div className="flex flex-wrap gap-1.5 mt-2 ml-0.5">
               {suggestions.map((suggestion, i) => (
                 <button
                   key={i}
                   onClick={() => onSuggestionClick?.(suggestion)}
-                  className="px-3 py-1.5 text-xs bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border-default)] hover:border-[var(--color-primary-500)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-lg transition-colors duration-150"
+                  className="px-3 py-1 text-xs bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] hover:border-[var(--color-border-medium)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] rounded-md transition-all duration-150"
                 >
                   {suggestion}
                 </button>

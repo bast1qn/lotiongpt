@@ -518,9 +518,9 @@ function HomeContent() {
   if (isLoadingChats) {
     return (
       <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-[var(--color-primary-500)] flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+        <div className="flex flex-col items-center gap-5">
+          <div className="w-9 h-9 rounded-md bg-[var(--color-accent-500)] flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
               <path d="M2 17l10 5 10-5" />
               <path d="M2 12l10 5 10-5" />
@@ -546,38 +546,38 @@ function HomeContent() {
       />
 
       <main className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)]">
-        <header className="flex-shrink-0 flex items-center justify-between px-4 sm:px-5 py-3 border-b border-[var(--color-border-default)]">
+        <header className="flex-shrink-0 flex items-center justify-between px-4 sm:px-5 py-3 border-b border-[var(--color-border-subtle)]">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 hover:bg-[var(--color-bg-tertiary)] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+              className="lg:hidden p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
             >
               <Icons.Menu />
             </button>
             <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-500)]" />
+              <div className="w-1 h-1 rounded-full bg-[var(--color-accent-500)]" />
               <h1 className="text-sm font-medium text-[var(--color-text-secondary)]">
                 {currentChat?.title || 'Neuer Chat'}
               </h1>
             </div>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             <button
               onClick={handleToggleSearch}
-              className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+              className="p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
               title="Suche im Chat"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </button>
             <button
               onClick={() => setShowExportModal(true)}
-              className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+              className="p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
               title="Chat exportieren"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
@@ -585,10 +585,10 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowKeyboardShortcuts(true)}
-              className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
+              className="p-1.5 hover:bg-[var(--color-bg-tertiary)] rounded text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
               title="Tastaturkürzel"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <path d="M6 8h.01" />
                 <path d="M10 8h.01" />
