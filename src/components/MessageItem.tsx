@@ -56,6 +56,7 @@ export function MessageItem({
   const [showActions, setShowActions] = useState(false);
   const { showToast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const isError = message.isError && !isUser;
 
   const formatTimestamp = (ts?: string) => {
@@ -161,10 +162,12 @@ export function MessageItem({
         onMouseEnter={() => {
           setShowTimestamp(true);
           setShowActions(true);
+          setIsHovered(true);
         }}
         onMouseLeave={() => {
           setShowTimestamp(false);
           setShowActions(false);
+          setIsHovered(false);
         }}
         onFocus={() => {
           setShowTimestamp(true);
@@ -243,47 +246,53 @@ export function MessageItem({
                   showActions ? 'opacity-100' : 'opacity-0'
                 )}
               >
-                {/* Copy Button */}
+                {/* Copy Button - Enhanced v10.0 */}
                 <button
                   onClick={handleCopy}
                   className={cn(
-                    'p-1.5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1 hover:scale-110',
+                    'p-2 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1 min-w-[36px] min-h-[36px] flex items-center justify-center',
                     copiedCode === 'all'
-                      ? 'text-[var(--color-accent-400)] bg-[var(--color-accent-500)]/20 shadow-md shadow-[var(--color-accent-glow-subtle)]'
-                      : 'text-[var(--color-text-faint)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]'
+                      ? 'text-[var(--color-accent-400)] bg-[var(--color-accent-500)]/20 shadow-md shadow-[var(--color-accent-glow-subtle)] scale-105'
+                      : 'text-[var(--color-text-faint)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] hover:scale-105'
                   )}
                   title={copiedCode === 'all' ? 'Kopiert!' : 'Kopieren'}
                   aria-label={copiedCode === 'all' ? 'Nachricht wurde kopiert' : 'Nachricht kopieren'}
                   aria-pressed={copiedCode === 'all'}
                 >
-                  <Icons.Copy />
+                  {copiedCode === 'all' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="animate-checkmark">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <Icons.Copy />
+                  )}
                 </button>
 
-                {/* Star Button */}
+                {/* Star Button - Enhanced v10.0 */}
                 {onToggleStar && (
                   <button
                     onClick={onToggleStar}
                     className={cn(
-                      'p-1.5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-1 hover:scale-110',
+                      'p-2 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-1 min-w-[36px] min-h-[36px] flex items-center justify-center',
                       isStarred
-                        ? 'text-yellow-400 bg-yellow-400/15 shadow-md shadow-yellow-400/20'
-                        : 'text-[var(--color-text-faint)] hover:text-yellow-400 hover:bg-yellow-400/10'
+                        ? 'text-yellow-400 bg-yellow-400/15 shadow-md shadow-yellow-400/20 scale-105'
+                        : 'text-[var(--color-text-faint)] hover:text-yellow-400 hover:bg-yellow-400/10 hover:scale-105'
                     )}
                     title={isStarred ? 'Markierung aufheben' : 'Markieren'}
                     aria-label={isStarred ? 'Nachricht markierung aufheben' : 'Nachricht markieren'}
                     aria-pressed={isStarred}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill={isStarred ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill={isStarred ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isStarred ? 'animate-icon-bounce' : ''}>
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
                   </button>
                 )}
 
-                {/* Edit Button */}
+                {/* Edit Button - Enhanced v10.0 */}
                 {isUser && onEdit && (
                   <button
                     onClick={onEdit}
-                    className="p-1.5 rounded-lg text-[var(--color-text-faint)] hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1"
+                    className="p-2 rounded-xl text-[var(--color-text-faint)] hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1 min-w-[36px] min-h-[36px] flex items-center justify-center"
                     title="Bearbeiten"
                     aria-label="Nachricht bearbeiten"
                   >
@@ -291,11 +300,11 @@ export function MessageItem({
                   </button>
                 )}
 
-                {/* Delete Button */}
+                {/* Delete Button - Enhanced v10.0 */}
                 {onDelete && (
                   <button
                     onClick={onDelete}
-                    className="p-1.5 rounded-lg text-[var(--color-text-faint)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-soft)] transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-1"
+                    className="p-2 rounded-xl text-[var(--color-text-faint)] hover:text-[var(--color-error)] hover:bg-[var(--color-error-soft)] transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-error)] focus:ring-offset-1 min-w-[36px] min-h-[36px] flex items-center justify-center"
                     title="Lschen"
                     aria-label="Nachricht lschen"
                   >
@@ -303,11 +312,11 @@ export function MessageItem({
                   </button>
                 )}
 
-                {/* Branch Button */}
+                {/* Branch Button - Enhanced v10.0 */}
                 {onBranch && !isUser && (
                   <button
                     onClick={onBranch}
-                    className="p-1.5 rounded-lg text-[var(--color-text-faint)] hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1"
+                    className="p-2 rounded-xl text-[var(--color-text-faint)] hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1 min-w-[36px] min-h-[36px] flex items-center justify-center"
                     title="Verzweigen (Branch)"
                     aria-label="Verzweigung von dieser Nachricht erstellen"
                   >
@@ -320,11 +329,11 @@ export function MessageItem({
                   </button>
                 )}
 
-                {/* Regenerate Button */}
+                {/* Regenerate Button - Enhanced v10.0 */}
                 {!isUser && isLast && onRegenerate && (
                   <button
                     onClick={onRegenerate}
-                    className="p-1.5 rounded-lg text-[var(--color-text-faint)] hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1"
+                    className="p-2 rounded-xl text-[var(--color-text-faint)] hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/10 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-1 min-w-[36px] min-h-[36px] flex items-center justify-center"
                     title="Neu generieren"
                     aria-label="Antwort neu generieren"
                   >
@@ -332,12 +341,15 @@ export function MessageItem({
                   </button>
                 )}
 
-                {/* Copy Code Dropdown */}
+                {/* Copy Code Dropdown - Enhanced v10.0 */}
                 {!isUser && hasCodeBlocks && (
                   <div className="relative group/code">
                     <button
-                      className="p-1.5 rounded-lg text-[var(--color-text-faint)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-200 hover:scale-105"
+                      className="p-2 rounded-xl text-[var(--color-text-faint)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-200 hover:scale-105 min-w-[36px] min-h-[36px] flex items-center justify-center"
                       title="Code kopieren"
+                      aria-label="Code-Optionen anzeigen"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                     >
                       <Icons.Code />
                     </button>

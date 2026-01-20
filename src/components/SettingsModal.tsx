@@ -84,30 +84,30 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Enhanced Backdrop with gradient */}
+      {/* Elite Backdrop with gradient v10.0 */}
       <div
-        className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70 backdrop-blur-md animate-fade-in"
+        className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/75 to-black/80 backdrop-blur-xl animate-fade-in"
         onClick={onClose}
       />
 
-      {/* Modal with glassmorphism */}
+      {/* Modal with glassmorphism v10.0 */}
       <div
         ref={modalRef}
-        className="relative w-full max-w-md bg-[var(--color-bg-glass-strong)] backdrop-blur-xl rounded-2xl border border-[var(--glass-border)] shadow-2xl shadow-black/50 animate-scale-in-spring overflow-hidden"
+        className="relative w-full max-w-md bg-[var(--color-bg-glass-strong)] backdrop-blur-xl rounded-2xl border border-[var(--glass-border-strong)] shadow-2xl shadow-black/70 animate-modal-in overflow-hidden"
         role="dialog"
         aria-modal="true"
         aria-labelledby="settings-modal-title"
       >
-        {/* Subtle glow effect behind modal */}
-        <div className="absolute -inset-4 bg-[var(--color-accent-500)] opacity-5 blur-3xl -z-10" />
+        {/* Enhanced glow effect behind modal v10.0 */}
+        <div className="absolute -inset-6 bg-[var(--color-accent-500)]/8 blur-3xl -z-10 animate-glow-pulse-slow" />
 
-        {/* Header with Tabs - Enhanced */}
+        {/* Header with Tabs - Elite v10.0 */}
         <div className="border-b border-[var(--glass-border)] bg-gradient-to-b from-[var(--glass-highlight)] to-transparent">
           <div className="flex items-center">
             <button
               onClick={() => setActiveTab('settings')}
               className={cn(
-                'flex-1 px-5 py-4 text-sm font-medium transition-all relative group',
+                'flex-1 px-5 py-4 text-sm font-medium transition-all duration-200 ease-spring relative group',
                 activeTab === 'settings'
                   ? 'text-[var(--color-text-primary)]'
                   : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
@@ -115,16 +115,16 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             >
               <span className="relative z-10">Einstellungen</span>
               {activeTab === 'settings' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[var(--color-accent-500)] to-transparent shadow-md shadow-[var(--color-accent-glow)]" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[var(--color-accent-500)] to-transparent shadow-md shadow-[var(--color-accent-glow)] animate-gradient-morph bg-[length:200%_100%]" />
               )}
               {activeTab !== 'settings' && (
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--color-accent-500)] opacity-0 group-hover:opacity-50 transition-all duration-120" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--color-accent-500)] opacity-0 group-hover:opacity-60 group-hover:w-16 transition-all duration-200" />
               )}
             </button>
             <button
               onClick={() => setActiveTab('memories')}
               className={cn(
-                'flex-1 px-5 py-4 text-sm font-medium transition-all relative group',
+                'flex-1 px-5 py-4 text-sm font-medium transition-all duration-200 ease-spring relative group',
                 activeTab === 'memories'
                   ? 'text-[var(--color-text-primary)]'
                   : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
@@ -132,15 +132,15 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             >
               <span className="relative z-10">Memories</span>
               {activeTab === 'memories' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[var(--color-accent-500)] to-transparent shadow-md shadow-[var(--color-accent-glow)]" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[var(--color-accent-500)] to-transparent shadow-md shadow-[var(--color-accent-glow)] animate-gradient-morph bg-[length:200%_100%]" />
               )}
               {activeTab !== 'memories' && (
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--color-accent-500)] opacity-0 group-hover:opacity-50 transition-all duration-120" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--color-accent-500)] opacity-0 group-hover:opacity-60 group-hover:w-16 transition-all duration-200" />
               )}
             </button>
             <button
               onClick={onClose}
-              className="px-4 hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:shadow-md rounded-xl transition-all duration-120 m-1"
+              className="px-4 hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:shadow-md rounded-xl transition-all duration-200 ease-spring m-1 active:scale-95"
             >
               <Icons.X />
             </button>

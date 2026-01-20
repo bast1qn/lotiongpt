@@ -591,6 +591,15 @@ function HomeContent() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="skip-to-main focus-ring-enhanced"
+        aria-label="Zum Hauptinhalt springen"
+      >
+        Zum Hauptinhalt springen
+      </a>
+
       <Sidebar
         currentChatId={currentChat?.id || null}
         onChatSelect={handleChatSelect}

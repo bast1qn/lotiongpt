@@ -134,9 +134,9 @@ export function ConfirmDialog({
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Elite Backdrop v10.0 */}
       <div
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[var(--z-overlay)] animate-fade-in"
+        className="fixed inset-0 bg-black/80 backdrop-blur-xl z-[var(--z-overlay)] animate-fade-in"
         onClick={onCancel}
         aria-hidden="true"
       />
@@ -147,22 +147,25 @@ export function ConfirmDialog({
           ref={dialogRef}
           data-confirm-dialog
           className={cn(
-            'relative w-full max-w-md bg-[var(--color-bg-secondary)]',
-            'border border-[var(--color-border-medium)] rounded-2xl',
-            'shadow-2xl shadow-black/50',
-            'animate-scale-in-spring p-6'
+            'relative w-full max-w-md bg-[var(--color-bg-glass-strong)] backdrop-blur-xl',
+            'border border-[var(--glass-border-strong)] rounded-2xl',
+            'shadow-2xl shadow-black/70',
+            'animate-modal-in p-6 overflow-hidden'
           )}
           role="alertdialog"
           aria-modal="true"
           aria-labelledby="confirm-title"
           aria-describedby="confirm-description"
         >
+          {/* Subtle glow effect v10.0 */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)]/5 to-transparent pointer-events-none" />
+
           {/* Icon */}
           <div className={cn(
-            'w-12 h-12 rounded-xl flex items-center justify-center mb-4',
+            'w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-lg',
             variantConfig.iconBg
           )}>
-            <span className={cn('text-xl', variantConfig.iconColor)}>
+            <span className={cn('text-2xl', variantConfig.iconColor)}>
               {variantConfig.confirmIcon}
             </span>
           </div>
@@ -188,10 +191,10 @@ export function ConfirmDialog({
               onClick={onCancel}
               className={cn(
                 'flex-1 px-4 py-2.5 rounded-xl text-sm font-medium',
-                'bg-[var(--color-bg-tertiary)] border border-[var(--color-border-medium)]',
+                'bg-[var(--color-bg-tertiary)] border border-[var(--glass-border)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
                 'hover:bg-[var(--color-bg-elevated)]',
-                'transition-all duration-200 hover:scale-[1.02]',
+                'transition-all duration-200 ease-spring hover:scale-[1.02] active:scale-[1.01]',
                 'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-secondary)]'
               )}
             >
@@ -202,7 +205,7 @@ export function ConfirmDialog({
               onClick={onConfirm}
               className={cn(
                 'flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-white',
-                'shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]',
+                'shadow-lg hover:shadow-xl transition-all duration-200 ease-spring hover:scale-[1.02] active:scale-[1.01]',
                 variantConfig.confirmBg,
                 'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-secondary)]'
               )}

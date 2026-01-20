@@ -1079,3 +1079,480 @@
   background-image: var(--noise-grain);
   z-index: 1;
 }
+
+/* ============================================
+   ULTRATHINK v10.0 NEW ANIMATIONS
+   ============================================ */
+
+/* Magnetic button effect */
+@keyframes magneticPull {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Ripple effect for buttons */
+@keyframes rippleExpand {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Success checkmark animation */
+@keyframes checkmarkDraw {
+  0% {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+  }
+  50% {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Success circle */
+@keyframes successCircle {
+  0% {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+  }
+  100% {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Text highlight reveal */
+@keyframes textReveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Smooth counter animation */
+@keyframes countUp {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Skeleton shimmer with gradient */
+@keyframes shimmerSmooth {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Loading dots */
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Progress bar fill */
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: var(--progress, 100%);
+  }
+}
+
+/* Tooltip fade in */
+@keyframes tooltipIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Spotlight effect */
+@keyframes spotlight {
+  0% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 350% 50%;
+  }
+}
+
+/* Morphing background */
+@keyframes morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+}
+
+/* Smooth fade and slide combo */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Notification badge pop */
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Card hover lift effect */
+@keyframes cardLift {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Icon bounce */
+@keyframes iconBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Smooth rotation */
+@keyframes rotateSmooth {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Wave animation */
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-3px);
+  }
+  75% {
+    transform: translateY(3px);
+  }
+}
+
+/* Typing cursor blink */
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Success confetti */
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Shake for errors */
+@keyframes shakeX {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-4px);
+  }
+  40%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+/* Pulse ring for loading */
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   ULTRATHINK v10.0 UTILITY CLASSES
+   ============================================ */
+
+.animate-magnetic {
+  animation: magneticPull 0.4s var(--ease-spring);
+}
+
+.animate-ripple {
+  animation: rippleExpand 0.6s var(--ease-out);
+}
+
+.animate-checkmark {
+  animation: checkmarkDraw 0.4s var(--ease-spring) forwards;
+}
+
+.animate-text-reveal {
+  animation: textReveal 0.5s var(--ease-spring);
+}
+
+.animate-count-up {
+  animation: countUp 0.3s var(--ease-spring);
+}
+
+.animate-shimmer-smooth {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    var(--color-bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSmooth 2s infinite;
+}
+
+.animate-loading-dots {
+  animation: loadingDots 1.4s ease-in-out infinite;
+}
+
+.animate-tooltip-in {
+  animation: tooltipIn 0.2s var(--ease-spring);
+}
+
+.animate-spotlight {
+  background-size: 200% 200%;
+  animation: spotlight 3s linear infinite;
+}
+
+.animate-morph {
+  animation: morph 8s ease-in-out infinite;
+}
+
+.animate-fade-slide-in {
+  animation: fadeSlideIn 0.3s var(--ease-spring);
+}
+
+.animate-badge-pop {
+  animation: badgePop 0.3s var(--ease-spring-bounce);
+}
+
+.animate-icon-bounce {
+  animation: iconBounce 0.5s var(--ease-spring);
+}
+
+.animate-rotate-smooth {
+  animation: rotateSmooth 1s linear infinite;
+}
+
+.animate-wave {
+  animation: wave 1s ease-in-out infinite;
+}
+
+.animate-cursor-blink {
+  animation: cursorBlink 1s step-end infinite;
+}
+
+.animate-confetti {
+  animation: confettiFall 2.5s ease-out forwards;
+}
+
+.animate-shake-x {
+  animation: shakeX 0.5s var(--ease-spring);
+}
+
+.animate-pulse-ring {
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+/* Stagger delays for children */
+.stagger-child-1 { animation-delay: 0ms; }
+.stagger-child-2 { animation-delay: 50ms; }
+.stagger-child-3 { animation-delay: 100ms; }
+.stagger-child-4 { animation-delay: 150ms; }
+.stagger-child-5 { animation-delay: 200ms; }
+.stagger-child-6 { animation-delay: 250ms; }
+.stagger-child-7 { animation-delay: 300ms; }
+.stagger-child-8 { animation-delay: 350ms; }
+
+/* Wave animation delays */
+.wave-1 { animation-delay: 0ms; }
+.wave-2 { animation-delay: 100ms; }
+.wave-3 { animation-delay: 200ms; }
+.wave-4 { animation-delay: 300ms; }
+.wave-5 { animation-delay: 400ms; }
+
+/* Loading animation delays */
+.loading-dot-1 { animation-delay: 0ms; }
+.loading-dot-2 { animation-delay: 160ms; }
+.loading-dot-3 { animation-delay: 320ms; }
+
+/* ============================================
+   INTERACTION STATES - Enhanced
+   ============================================ */
+
+/* Press state for buttons */
+.press-scale:active {
+  transform: scale(0.96);
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+/* Focus visible with ring enhancement */
+.focus-ring-enhanced:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-bg-primary),
+    0 0 0 4px var(--color-accent-500),
+    0 0 20px rgba(99, 102, 241, 0.3);
+  transition: box-shadow var(--duration-fast) var(--ease-out);
+}
+
+/* Disabled state enhancement */
+.disabled-enhanced:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.3);
+}
+
+/* Loading state for buttons */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-loading::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: rotateSmooth 0.8s linear infinite;
+  top: 50%;
+  left: 50%;
+  margin: -8px 0 0 -8px;
+}
+
+/* ============================================
+   UTILITY ANIMATIONS - Ultra Premium
+   ============================================ */
+
+/* Entrance animations by direction */
+.animate-enter-from-left {
+  animation: slideInLeft 0.4s var(--ease-spring);
+}
+
+.animate-enter-from-right {
+  animation: slideInRight 0.4s var(--ease-spring);
+}
+
+.animate-enter-from-top {
+  animation: fadeInDown 0.4s var(--ease-spring);
+}
+
+.animate-enter-from-bottom {
+  animation: fadeInUp 0.4s var(--ease-spring);
+}
+
+/* Exit animations */
+.animate-exit-to-left {
+  animation: slideOutLeft 0.3s var(--ease-in);
+}
+
+.animate-exit-to-right {
+  animation: slideOutRight 0.3s var(--ease-in);
+}
+
+.animate-exit-to-top {
+  animation: fadeInDown 0.3s var(--ease-in) reverse;
+}
+
+.animate-exit-to-bottom {
+  animation: fadeInUp 0.3s var(--ease-in) reverse;
+}
+
+/* Duration modifiers */
+.duration-150 { animation-duration: 150ms; }
+.duration-200 { animation-duration: 200ms; }
+.duration-300 { animation-duration: 300ms; }
+.duration-500 { animation-duration: 500ms; }
+.duration-700 { animation-duration: 700ms; }
+.duration-1000 { animation-duration: 1000ms; }
+
+/* Ease modifiers */
+.ease-linear { animation-timing-function: linear; }
+.ease-out-back { animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ease-in-out-smooth { animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }

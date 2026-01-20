@@ -209,47 +209,52 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
 
   const hasAttachments = images.length > 0 || files.length > 0;
   const canSend = (input.trim() || hasAttachments) && !isLoading;
+  const charCount = input.length;
+  const isNearLimit = charCount > 9000;
+  const isAtLimit = charCount >= 10000;
 
   return (
-    <div className="flex-shrink-0 p-4 sm:p-6">
+    <div className="flex-shrink-0 p-4 sm:p-6" role="region" aria-label="Nachrichteneingabe">
       <div className="max-w-3xl mx-auto">
         {/* Ultra Premium Controls Bar */}
         <div className="flex items-center gap-2.5 mb-4">
-          {/* Ultra Premium Model Selector */}
+          {/* Elite Model Selector v10.0 */}
           <div className="relative" ref={modelPickerRef}>
             <button
               onClick={() => setShowModelPicker(!showModelPicker)}
               className={cn(
                 'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold',
-                'transition-all duration-180',
-                'bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md',
-                'border border-[var(--color-border-medium)]',
+                'transition-all duration-200 ease-spring',
+                'bg-[var(--color-bg-tertiary)]/95 backdrop-blur-md',
+                'border border-[var(--glass-border)]',
                 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]',
-                'hover:border-[var(--color-accent-500)]/50',
+                'hover:border-[var(--color-accent-500)]/60',
                 'hover:bg-[var(--color-bg-elevated)]',
-                'hover:shadow-lg hover:shadow-[var(--color-accent-glow-subtle)]',
+                'hover:shadow-lg hover:shadow-[var(--color-accent-glow-subtle)] hover:-translate-y-0.5',
                 'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
-                'overflow-hidden'
+                'overflow-hidden active:translate-y-0'
               )}
               aria-label="Modell auswahlen"
               aria-haspopup="listbox"
               aria-expanded={showModelPicker}
             >
-              {/* Subtle gradient shine on hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+              {/* Enhanced gradient shine on hover v10.0 */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               <span className="relative">{MODEL_INFO[selectedModel].icon}</span>
               <span className="hidden sm:inline relative">{MODEL_INFO[selectedModel].name}</span>
               <Icons.ChevronDown />
             </button>
 
-            {/* Model Dropdown - Ultra Premium */}
+            {/* Model Dropdown - Elite v10.0 */}
             {showModelPicker && (
               <div
                 className="absolute bottom-full left-0 mb-3 w-72 bg-[var(--color-bg-glass-strong)] backdrop-blur-xl border border-[var(--glass-border-strong)] rounded-2xl shadow-2xl shadow-black/70 animate-fade-in-up z-20 overflow-hidden"
                 role="listbox"
                 aria-label="KI-Modelle"
               >
-                <div className="p-2 space-y-0.5">
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)]/5 to-transparent pointer-events-none" />
+                <div className="relative p-2 space-y-0.5">
                   <div className="px-3 py-2 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                     Zhipu AI
                   </div>
@@ -346,40 +351,40 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             )}
           </div>
 
-          {/* Ultra Premium Thinking Toggle */}
+          {/* Elite Thinking Toggle v10.0 */}
           <button
             onClick={() => onThinkingChange?.(!thinkingEnabled)}
             className={cn(
-              'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-180',
+              'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ease-spring',
               'border overflow-hidden',
               thinkingEnabled
-                ? 'bg-[var(--color-accent-500)]/20 border-[var(--color-accent-500)]/50 text-[var(--color-accent-300)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
-                : 'bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/40'
+                ? 'bg-[var(--color-accent-500)]/25 border-[var(--color-accent-500)]/60 text-[var(--color-accent-300)] shadow-lg shadow-[var(--color-accent-glow-subtle)] animate-glow-pulse-slow'
+                : 'bg-[var(--color-bg-tertiary)]/95 backdrop-blur-md border-[var(--glass-border)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/50 hover:-translate-y-0.5 active:translate-y-0'
             )}
             title={thinkingEnabled ? 'Thinking ist aktiv' : 'Thinking ist deaktiviert'}
           >
-            {/* Animated gradient overlay for active state */}
+            {/* Animated gradient overlay for active state v10.0 */}
             {thinkingEnabled && (
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             )}
             <Icons.Zap />
             <span className="hidden sm:inline relative">Thinking: {thinkingEnabled ? 'ON' : 'OFF'}</span>
           </button>
 
-          {/* Ultra Premium File Upload Toggle */}
+          {/* Elite File Upload Toggle v10.0 */}
           <button
             onClick={onToggleFileUpload}
             className={cn(
-              'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-180',
+              'group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ease-spring',
               'border overflow-hidden',
               showFileUpload
-                ? 'bg-[var(--color-accent-500)]/20 border-[var(--color-accent-500)]/50 text-[var(--color-accent-300)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
-                : 'bg-[var(--color-bg-tertiary)]/90 backdrop-blur-md border-[var(--color-border-medium)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/40'
+                ? 'bg-[var(--color-accent-500)]/25 border-[var(--color-accent-500)]/60 text-[var(--color-accent-300)] shadow-lg shadow-[var(--color-accent-glow-subtle)]'
+                : 'bg-[var(--color-bg-tertiary)]/95 backdrop-blur-md border-[var(--glass-border)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-accent-500)]/50 hover:-translate-y-0.5 active:translate-y-0'
             )}
             title="Dateien anfgen"
           >
             {showFileUpload && (
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             )}
             <Icons.Paperclip />
             <span className="hidden sm:inline relative">Dateien</span>
@@ -391,17 +396,25 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Ultra Premium Status Indicators */}
+          {/* Ultra Premium Status Indicators - Enhanced v10.0 */}
           <div className="flex items-center gap-3">
             {hasAttachments && (
-              <span className="relative text-xs font-semibold text-[var(--color-accent-300)] bg-[var(--color-accent-500)]/15 px-3 py-1.5 rounded-xl border border-[var(--color-accent-500)]/30 shadow-sm shadow-[var(--color-accent-glow-subtle)] overflow-hidden">
+              <span className="relative text-xs font-semibold text-[var(--color-accent-300)] bg-[var(--color-accent-500)]/15 px-3 py-1.5 rounded-xl border border-[var(--color-accent-500)]/30 shadow-sm shadow-[var(--color-accent-glow-subtle)] overflow-hidden animate-badge-pop">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
                 <span className="relative">{images.length + files.length} {images.length + files.length === 1 ? 'Anhang' : 'Anhange'}</span>
               </span>
             )}
             {input.length > 0 && (
-              <span className="text-xs font-medium text-[var(--color-text-tertiary)] bg-[var(--color-bg-tertiary)]/90 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-[var(--color-border-subtle)]">
+              <span className={cn(
+                'text-xs font-medium px-3 py-1.5 rounded-xl border backdrop-blur-sm transition-all duration-200',
+                isAtLimit
+                  ? 'text-[var(--color-error)] bg-[var(--color-error-soft)]/30 border-[var(--color-error)]/50 animate-shake-x'
+                  : isNearLimit
+                  ? 'text-[var(--color-warning)] bg-[var(--color-warning-soft)]/30 border-[var(--color-warning)]/40'
+                  : 'text-[var(--color-text-tertiary)] bg-[var(--color-bg-tertiary)]/90 border-[var(--color-border-subtle)]'
+              )}>
                 ~{Math.ceil(input.length / 4)} tokens
+                {isNearLimit && <span className="ml-1">({charCount}/10000)</span>}
               </span>
             )}
           </div>
@@ -419,25 +432,29 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           </div>
         )}
 
-        {/* Ultra Premium Input Container */}
+        {/* Elite Input Container v10.0 */}
         <div
           className={cn(
-            'relative rounded-3xl transition-all duration-180 overflow-hidden',
+            'relative rounded-3xl transition-all duration-200 ease-spring overflow-hidden',
             'bg-[var(--input-bg)] backdrop-blur-md',
             'border',
             'shadow-inner',
             isDragging
               ? 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/15 shadow-xl shadow-[var(--color-accent-glow-strong)]'
-              : 'border-[var(--color-border-medium)] hover:border-[var(--color-border-default)]',
-            'focus-within:border-[var(--color-accent-500)]/50 focus-within:shadow-xl focus-within:shadow-[var(--color-accent-glow-strong)]',
+              : 'border-[var(--glass-border)] hover:border-[var(--glass-border-active)]',
+            'focus-within:border-[var(--color-accent-500)]/60 focus-within:shadow-xl focus-within:shadow-[var(--color-accent-glow-strong)]',
             isLoading && 'opacity-60'
           )}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          {/* Subtle inner gradient for depth */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+          {/* Enhanced inner gradient for depth v10.0 */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
+          {/* Animated border glow on focus */}
+          <div className="absolute inset-0 rounded-3xl opacity-0 focus-within:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-[var(--color-accent-500)]/30 via-[var(--color-accent-600)]/20 to-[var(--color-accent-500)]/30" />
+          </div>
 
           {/* Image Previews - Ultra Premium */}
           {images.length > 0 && (
@@ -526,17 +543,17 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={handleSend}
               disabled={!canSend}
               className={cn(
-                'relative p-3 rounded-2xl transition-all flex-shrink-0 overflow-hidden min-w-[46px] min-h-[46px]',
+                'relative p-3 rounded-2xl transition-all duration-200 ease-spring flex-shrink-0 overflow-hidden min-w-[46px] min-h-[46px]',
                 'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset',
                 canSend
-                  ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105'
+                  ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105 active:scale-100'
                   : 'text-[var(--color-text-muted)] cursor-not-allowed bg-[var(--color-bg-elevated)]'
               )}
               title={canSend ? 'Senden' : 'Nachricht eingeben...'}
               aria-label={canSend ? 'Nachricht senden' : 'Nachricht eingeben zum Senden'}
             >
               {canSend && (
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               )}
               <Icons.Send />
             </button>

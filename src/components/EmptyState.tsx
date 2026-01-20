@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
 import { Icons } from './Icons';
 import { cn } from '@/lib/utils';
 
@@ -18,10 +19,37 @@ export function EmptyState({
     'Erklre mir Quantum Computing',
     'Schreibe eine E-Mail fr...',
     'Hilf mir bei einem Python Skript',
+    'Analysiere diesen Code',
+    'Erstelle ein Projektplan',
   ],
   onSuggestionClick,
   className,
 }: EmptyStateProps) {
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+  // Keyboard navigation for suggestions
+  const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onSuggestionClick?.(suggestions[index]);
+    } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev + 1) % suggestions.length);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
+    }
+  }, [onSuggestionClick, suggestions]);
+
+  // Auto-cycle through suggestions
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSelectedIndex((prev) => (prev + 1) % suggestions.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [suggestions.length]);
+
   return (
     <div
       className={cn(
@@ -33,33 +61,34 @@ export function EmptyState({
       aria-labelledby="empty-state-title"
       aria-describedby="empty-state-description"
     >
-      {/* Ultra Premium Logo with Multi-layer Aurora Glow Effect */}
+      {/* Elite Logo with Multi-layer Aurora Glow Effect v10.0 */}
       <div className="relative mb-14">
-        {/* Ambient aurora glow layers - enhanced */}
-        <div className="absolute inset-0 w-36 h-36 rounded-full bg-[var(--color-accent-500)] opacity-15 blur-3xl animate-aurora" />
-        <div className="absolute inset-0 w-28 h-28 rounded-full bg-[var(--color-accent-600)] opacity-10 blur-2xl animate-pulse-subtle" style={{ animationDelay: '1s' }} />
-        <div className="absolute inset-0 w-20 h-20 rounded-full bg-[var(--color-accent-400)] opacity-12 blur-xl animate-ambient-drift" style={{ animationDelay: '2s' }} />
+        {/* Enhanced ambient aurora glow layers v10.0 */}
+        <div className="absolute inset-0 w-40 h-40 rounded-full bg-[var(--color-accent-500)] opacity-18 blur-3xl animate-aurora-shift" />
+        <div className="absolute inset-0 w-32 h-32 rounded-full bg-[var(--color-accent-600)] opacity-12 blur-2xl animate-glow-pulse-slow" style={{ animationDelay: '1s' }} />
+        <div className="absolute inset-0 w-24 h-24 rounded-full bg-[var(--color-accent-400)] opacity-15 blur-xl animate-ambient-drift" style={{ animationDelay: '2s' }} />
 
-        {/* Floating orbital particles */}
-        <div className="absolute -top-1 -right-4 w-2.5 h-2.5 rounded-full bg-[var(--color-accent-400)] animate-float opacity-70 shadow-lg shadow-[var(--color-accent-glow-subtle)]" style={{ animationDelay: '0ms' }} />
-        <div className="absolute -bottom-4 -left-3 w-2 h-2 rounded-full bg-[var(--color-accent-500)] animate-float opacity-50 shadow-md shadow-[var(--color-accent-glow-subtle)]" style={{ animationDelay: '700ms' }} />
-        <div className="absolute top-1/2 -right-8 w-1.5 h-1.5 rounded-full bg-[var(--color-accent-300)] animate-float opacity-40 shadow-sm" style={{ animationDelay: '1400ms' }} />
-        <div className="absolute top-4 -left-6 w-1 h-1 rounded-full bg-[var(--color-accent-600)] animate-float opacity-30" style={{ animationDelay: '2100ms' }} />
+        {/* Orbital particles with enhanced effects v10.0 */}
+        <div className="absolute -top-2 -right-5 w-3 h-3 rounded-full bg-gradient-to-br from-[var(--color-accent-400)] to-[var(--color-accent-500)] animate-float opacity-80 shadow-lg shadow-[var(--color-accent-glow)]" style={{ animationDelay: '0ms' }} />
+        <div className="absolute -bottom-5 -left-4 w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] animate-float opacity-60 shadow-md shadow-[var(--color-accent-glow-subtle)]" style={{ animationDelay: '700ms' }} />
+        <div className="absolute top-1/2 -right-10 w-2 h-2 rounded-full bg-gradient-to-br from-[var(--color-accent-300)] to-[var(--color-accent-400)] animate-float opacity-50 shadow-sm" style={{ animationDelay: '1400ms' }} />
+        <div className="absolute top-5 -left-8 w-1.5 h-1.5 rounded-full bg-[var(--color-accent-600)] animate-float opacity-40 shadow-sm" style={{ animationDelay: '2100ms' }} />
+        <div className="absolute -top-8 left-1/2 w-1 h-1 rounded-full bg-[var(--color-accent-400)] animate-orb-float opacity-35" style={{ animationDelay: '2800ms' }} />
 
-        {/* Main logo container with ultra premium floating effect */}
-        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] flex items-center justify-center shadow-2xl shadow-[var(--color-accent-glow-ultra)] transition-all duration-500 hover:scale-105 animate-float-slow overflow-hidden">
-          {/* Animated shine overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] animate-shimmer" />
+        {/* Main logo container with elite floating effect v10.0 */}
+        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] flex items-center justify-center shadow-2xl shadow-[var(--color-accent-glow-ultra)] transition-all duration-300 ease-spring hover:scale-105 animate-float-slow overflow-hidden">
+          {/* Enhanced animated shine overlay v10.0 */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/35 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-400" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full animate-shimmer-slow" />
 
-          {/* Inner glow ring */}
-          <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-transparent via-[var(--color-accent-400)]/50 to-transparent opacity-70 animate-gradient-shift bg-[length:250%_250%]" />
+          {/* Inner glow ring - enhanced v10.0 */}
+          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-transparent via-[var(--color-accent-400)]/60 to-transparent opacity-80 animate-gradient-morph bg-[length:300%_300%]" />
 
           {/* Logo icon */}
           <Icons.Logo />
 
-          {/* Animated border glow effect */}
-          <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-transparent via-[var(--color-accent-400)]/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 animate-gradient-shift bg-[length:200%_200%]" />
+          {/* Animated border glow effect - enhanced v10.0 */}
+          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-transparent via-[var(--color-accent-400)]/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-400 animate-gradient-morph bg-[length:200%_200%]" />
         </div>
       </div>
 
@@ -75,40 +104,81 @@ export function EmptyState({
         </p>
       )}
 
-      {/* Ultra Premium Suggestions with multi-layer effects */}
+      {/* Ultra Premium Suggestions with multi-layer effects - Enhanced v10.0 */}
       {suggestions && suggestions.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-3.5 max-w-2xl" role="list" aria-label="Vorgeschlagene Prompts">
-          {suggestions.map((suggestion, index) => (
-            <button
-              key={index}
-              onClick={() => onSuggestionClick?.(suggestion)}
-              className={cn(
-                'group relative px-6 py-3.5 rounded-2xl text-sm font-medium overflow-hidden',
-                'bg-[var(--color-bg-glass)] backdrop-blur-md border border-[var(--color-border-medium)]',
-                'text-[var(--color-text-secondary)] hover:text-[var(--color-accent-300)]',
-                'hover:bg-[var(--color-accent-500)]/15 hover:border-[var(--color-accent-500)]/50',
-                'transition-all duration-180 hover:scale-105 hover:shadow-xl hover:shadow-[var(--color-accent-glow)]',
-                'animate-fade-in-up focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-h-[44px]',
-                'cursor-pointer'
-              )}
-              style={{ animationDelay: `${150 + index * 80}ms` }}
-              aria-label={`Vorschlag verwenden: ${suggestion}`}
-            >
-              {/* Multi-layer shine effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent via-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-180" />
+        <div className="w-full max-w-2xl" role="list" aria-label="Vorgeschlagene Prompts">
+          {/* Keyboard hint for navigation */}
+          <div className="flex items-center justify-center gap-2 mb-4 text-xs text-[var(--color-text-muted)] animate-fade-in" style={{ animationDelay: '120ms' }}>
+            <span className="px-2 py-1 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]">
+              Navigieren mit Pfeiltasten
+            </span>
+            <span className="px-2 py-1 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border-subtle)]">
+              Enter zum Auswhlen
+            </span>
+          </div>
 
-              {/* Subtle inner glow on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)]/0 via-[var(--color-accent-500)]/5 to-[var(--color-accent-500)]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="flex flex-wrap justify-center gap-3.5">
+            {suggestions.map((suggestion, index) => (
+              <button
+                key={index}
+                onClick={() => onSuggestionClick?.(suggestion)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                onMouseEnter={() => setFocusedIndex(index)}
+                onMouseLeave={() => setFocusedIndex(null)}
+                onFocus={() => setFocusedIndex(index)}
+                onBlur={() => setFocusedIndex(null)}
+                className={cn(
+                  'group relative px-5 py-3.5 rounded-2xl text-sm font-medium overflow-hidden',
+                  'bg-[var(--color-bg-glass)] backdrop-blur-md border transition-all duration-200 ease-spring',
+                  'text-[var(--color-text-secondary)] hover:text-[var(--color-accent-300)]',
+                  'hover:bg-[var(--color-accent-500)]/18 hover:scale-105 hover:shadow-xl',
+                  'animate-fade-in-up focus:outline-none min-h-[44px] cursor-pointer active:scale-100',
+                  'focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]',
+                  // Auto-selected state
+                  selectedIndex === index && 'border-[var(--color-accent-500)]/50 bg-[var(--color-accent-500)]/15 shadow-lg shadow-[var(--color-accent-glow-subtle)]',
+                  // Hover state
+                  focusedIndex === index && 'border-[var(--color-accent-500)]/60 bg-[var(--color-accent-500)]/18'
+                )}
+                style={{ animationDelay: `${150 + index * 80}ms` }}
+                aria-label={`Vorschlag verwenden: ${suggestion}`}
+                aria-pressed={selectedIndex === index}
+                tabIndex={selectedIndex === index ? 0 : -1}
+              >
+                {/* Enhanced multi-layer shine effect on hover v10.0 */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent via-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
-              {/* Border shimmer effect */}
-              <div className="absolute inset-0 rounded-2xl">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-[var(--color-accent-500)]/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              </div>
+                {/* Enhanced subtle inner glow on hover/selected v10.0 */}
+                <div className={cn(
+                  'absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity duration-300',
+                  'from-[var(--color-accent-500)]/0 via-[var(--color-accent-500)]/8 to-[var(--color-accent-500)]/0',
+                  (focusedIndex === index || selectedIndex === index) && 'opacity-100'
+                )} />
 
-              <span className="relative z-10">{suggestion}</span>
-            </button>
-          ))}
+                {/* Enhanced selection indicator v10.0 */}
+                {selectedIndex === index && (
+                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 rounded-full bg-gradient-to-b from-[var(--color-accent-500)] to-[var(--color-accent-600)] shadow-md shadow-[var(--color-accent-glow)] animate-pop-in" />
+                )}
+
+                {/* Enhanced border shimmer effect v10.0 */}
+                <div className="absolute inset-0 rounded-2xl">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-[var(--color-accent-500)]/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                </div>
+
+                <span className="relative z-10 flex items-center gap-2">
+                  <svg className="w-3 h-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  {suggestion}
+                  {selectedIndex === index && (
+                    <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--color-accent-500)]/25 text-[var(--color-accent-300)] font-mono border border-[var(--color-accent-500)]/30">
+                      Enter
+                    </kbd>
+                  )}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

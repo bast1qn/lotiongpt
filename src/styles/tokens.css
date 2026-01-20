@@ -1,53 +1,68 @@
 /**
- * LotionGPT Design Tokens - v9.0 Ultra Premium
- * Next-Generation Design System
- * Inspired by Linear, Raycast, Vercel, Arc Browser, Apple VisionOS
- * Enhanced with aurora effects, mesh gradients, noise textures, and micro-interactions
+ * LotionGPT Design Tokens - v10.0 "Ultrathink"
+ * Next-Generation Elite Design System
+ * Enhanced with living gradients, animated mesh, quantum effects, and micro-interactions
  */
 
 :root {
   /* ============================================
-     COLORS - Ultra Premium refinement
+     COLORS - Elite Ultra refinement v10.0
      ============================================ */
 
   /* Backgrounds - Rich blacks with warmth and depth */
   --color-bg-primary: #000000;
-  --color-bg-secondary: #020204;
-  --color-bg-tertiary: #07070a;
-  --color-bg-elevated: #0d0d13;
-  --color-bg-surface: #12121a;
-  --color-bg-hover: #181820;
-  --color-bg-overlay: rgba(0, 0, 0, 0.94);
-  --color-bg-glass: rgba(7, 7, 10, 0.88);
-  --color-bg-glass-strong: rgba(0, 0, 0, 0.92);
-  --color-bg-glass-heavy: rgba(2, 2, 4, 0.97);
-  --color-bg-glass-crystal: rgba(7, 7, 10, 0.78);
-  --color-bg-message-user: linear-gradient(135deg, #6366f1 0%, #7c3aed 50%, #8b5cf6 100%);
-  --color-bg-message-assistant: linear-gradient(180deg, rgba(13, 13, 19, 0.95) 0%, rgba(18, 18, 26, 0.98) 100%);
+  --color-bg-secondary: #010103;
+  --color-bg-tertiary: #050508;
+  --color-bg-elevated: #0a0a10;
+  --color-bg-surface: #0f0f16;
+  --color-bg-hover: #14141c;
+  --color-bg-overlay: rgba(0, 0, 0, 0.96);
+  --color-bg-glass: rgba(5, 5, 8, 0.90);
+  --color-bg-glass-strong: rgba(0, 0, 0, 0.94);
+  --color-bg-glass-heavy: rgba(1, 1, 3, 0.98);
+  --color-bg-glass-crystal: rgba(5, 5, 8, 0.82);
+  --color-bg-glass-ultra: rgba(10, 10, 16, 0.85);
+
+  /* Animated gradient backgrounds */
+  --color-bg-animated-1: linear-gradient(135deg, #0a0a14 0%, #0f0f1a 50%, #0a0a14 100%);
+  --color-bg-animated-2: linear-gradient(180deg, rgba(99, 102, 241, 0.03) 0%, transparent 50%, rgba(139, 92, 246, 0.02) 100%);
+  --color-bg-shimmer: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.05) 50%, transparent 100%);
+
+  /* Message backgrounds - Enhanced v10.0 */
+  --color-bg-message-user: linear-gradient(135deg, #6366f1 0%, #7c3aed 35%, #8b5cf6 65%, #a78bfa 100%);
+  --color-bg-message-user-hover: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 35%, #a78bfa 65%, #c084fc 100%);
+  --color-bg-message-assistant: linear-gradient(180deg, rgba(10, 10, 16, 0.96) 0%, rgba(15, 15, 22, 0.98) 100%);
+  --color-bg-message-assistant-hover: linear-gradient(180deg, rgba(15, 15, 24, 0.98) 0%, rgba(20, 20, 28, 0.99) 100%);
 
   /* Borders - Multi-layer with animated glow potential */
-  --color-border-subtle: rgba(255, 255, 255, 0.03);
-  --color-border-default: rgba(255, 255, 255, 0.06);
-  --color-border-medium: rgba(255, 255, 255, 0.10);
-  --color-border-strong: rgba(255, 255, 255, 0.14);
-  --color-border-accent: rgba(99, 102, 241, 0.40);
-  --color-border-glow: rgba(99, 102, 241, 0.25);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.03);
-  --glass-border-strong: rgba(255, 255, 255, 0.11);
-  --glass-border-active: rgba(99, 102, 241, 0.35);
+  --color-border-subtle: rgba(255, 255, 255, 0.025);
+  --color-border-default: rgba(255, 255, 255, 0.05);
+  --color-border-medium: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+  --color-border-accent: rgba(99, 102, 241, 0.45);
+  --color-border-glow: rgba(99, 102, 241, 0.28);
+  --color-border-glow-strong: rgba(99, 102, 241, 0.50);
+  --color-border-shimmer: rgba(255, 255, 255, 0.12);
 
-  /* Text - Ultra premium readability */
+  /* Glass borders */
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-highlight: rgba(255, 255, 255, 0.025);
+  --glass-border-strong: rgba(255, 255, 255, 0.10);
+  --glass-border-active: rgba(99, 102, 241, 0.40);
+  --glass-border-glow: rgba(99, 102, 241, 0.25);
+
+  /* Text - Ultra premium readability with glow */
   --color-text-primary: #fcfcfd;
-  --color-text-secondary: #a8a8b0;
-  --color-text-tertiary: #6e6e76;
-  --color-text-muted: #4a4a52;
-  --color-text-faint: #35353a;
+  --color-text-secondary: #a5a5ad;
+  --color-text-tertiary: #696972;
+  --color-text-muted: #46464e;
+  --color-text-faint: #323238;
   --color-text-inverse: #000000;
-  --color-text-glow: rgba(255, 255, 255, 0.07);
+  --color-text-glow: rgba(255, 255, 255, 0.08);
   --color-text-shimmer: rgba(255, 255, 255, 0.5);
+  --color-text-glow-strong: rgba(99, 102, 241, 0.15);
 
-  /* Accent - Ultra violet-indigo spectrum */
+  /* Accent - Ultra violet-indigo spectrum enhanced */
   --color-accent-50: #f5f7ff;
   --color-accent-100: #e8ecff;
   --color-accent-200: #d0d9fd;
@@ -58,67 +73,105 @@
   --color-accent-550: #5a5eef;
   --color-accent-600: #4f46e5;
   --color-accent-700: #4538ca;
-  --color-accent-glow: rgba(99, 102, 241, 0.28);
-  --color-accent-glow-strong: rgba(99, 102, 241, 0.45);
-  --color-accent-glow-subtle: rgba(99, 102, 241, 0.12);
-  --color-accent-glow-ultra: rgba(99, 102, 241, 0.60);
-  --color-accent-sheen: rgba(167, 139, 250, 0.4);
 
-  /* Semantic colors - Ultra palette */
+  /* Accent glow levels */
+  --color-accent-glow: rgba(99, 102, 241, 0.30);
+  --color-accent-glow-strong: rgba(99, 102, 241, 0.50);
+  --color-accent-glow-ultra: rgba(99, 102, 241, 0.70);
+  --color-accent-glow-subtle: rgba(99, 102, 241, 0.15);
+  --color-accent-glow-minimal: rgba(99, 102, 241, 0.08);
+
+  /* Accent sheen effects */
+  --color-accent-sheen: rgba(167, 139, 250, 0.45);
+  --color-accent-sheen-strong: rgba(167, 139, 250, 0.65);
+
+  /* Semantic colors - Ultra palette enhanced */
   --color-success: #22c55e;
-  --color-success-soft: rgba(34, 197, 94, 0.15);
-  --color-success-glow: rgba(34, 197, 94, 0.30);
+  --color-success-soft: rgba(34, 197, 94, 0.18);
+  --color-success-glow: rgba(34, 197, 94, 0.35);
   --color-error: #f87171;
-  --color-error-soft: rgba(248, 113, 113, 0.15);
-  --color-error-glow: rgba(248, 113, 113, 0.28);
+  --color-error-soft: rgba(248, 113, 113, 0.18);
+  --color-error-glow: rgba(248, 113, 113, 0.32);
   --color-warning: #fbbf24;
-  --color-warning-soft: rgba(251, 191, 36, 0.15);
-  --color-warning-glow: rgba(251, 191, 36, 0.28);
+  --color-warning-soft: rgba(251, 191, 36, 0.18);
+  --color-warning-glow: rgba(251, 191, 36, 0.32);
   --color-info: #60a5fa;
-  --color-info-soft: rgba(96, 165, 250, 0.15);
-  --color-info-glow: rgba(96, 165, 250, 0.28);
-
-  /* Gradients - Ultra sophistication with animated mesh */
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #7c3aed 25%, #8b5cf6 50%, #a78bfa 75%, #6366f1 100%);
-  --gradient-accent: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
-  --gradient-accent-reverse: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #6366f1 100%);
-  --gradient-accent-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.10) 100%);
-  --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
-  --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-  --gradient-shine-strong: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  --gradient-shine-accent: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.2), transparent);
-
-  /* Animated Aurora Gradients */
-  --gradient-aurora: radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
-                     radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.12) 0px, transparent 50%),
-                     radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.10) 0px, transparent 50%),
-                     radial-gradient(at 100% 80%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
-
-  /* Mesh Gradients - Premium layered effects */
-  --gradient-mesh-warm: radial-gradient(at 30% 20%, rgba(139, 92, 246, 0.15) 0px, transparent 40%),
-                        radial-gradient(at 70% 60%, rgba(99, 102, 241, 0.12) 0px, transparent 40%),
-                        radial-gradient(at 50% 80%, rgba(167, 139, 250, 0.08) 0px, transparent 40%);
-
-  --gradient-mesh-cool: radial-gradient(at 60% 30%, rgba(96, 165, 250, 0.10) 0px, transparent 45%),
-                        radial-gradient(at 20% 70%, rgba(99, 102, 241, 0.12) 0px, transparent 45%),
-                        radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.08) 0px, transparent 45%);
-
-  --gradient-mesh-elite: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.15), transparent),
-                         radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.10), transparent),
-                         radial-gradient(ellipse 50% 30% at 20% 80%, rgba(167, 139, 250, 0.08), transparent);
-
-  /* Glow Effects */
-  --gradient-glow-top: radial-gradient(ellipse 200% 140% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%);
-  --gradient-glow-center: radial-gradient(900px circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 100%);
-  --gradient-glow-bottom: radial-gradient(ellipse 200% 140% at 50% 100%, rgba(168, 85, 247, 0.10) 0%, transparent 65%);
-  --gradient-flow: linear-gradient(270deg, #6366f1, #8b5cf6, #a78bfa, #c084fc, #6366f1);
-
-  /* Border Gradients */
-  --gradient-border: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.2), rgba(167, 139, 250, 0.4));
-  --gradient-border-shimmer: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  --color-info-soft: rgba(96, 165, 250, 0.18);
+  --color-info-glow: rgba(96, 165, 250, 0.32);
 
   /* ============================================
-     SPACING - Ultra precision
+     GRADIENTS - Elite sophistication v10.0
+     ============================================ */
+
+  /* Primary animated gradients */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #7c3aed 20%, #8b5cf6 40%, #a78bfa 60%, #8b5cf6 80%, #6366f1 100%);
+  --gradient-accent: linear-gradient(135deg, #6366f1 0%, #7c3aed 40%, #8b5cf6 70%, #a78bfa 100%);
+  --gradient-accent-reverse: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 30%, #7c3aed 60%, #6366f1 100%);
+  --gradient-accent-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(139, 92, 246, 0.12) 100%);
+
+  /* Aurora gradients - Enhanced with more layers */
+  --gradient-aurora: radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.16) 0px, transparent 50%),
+                     radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.14) 0px, transparent 50%),
+                     radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+                     radial-gradient(at 100% 80%, rgba(99, 102, 241, 0.10) 0px, transparent 50%),
+                     radial-gradient(at 50% 100%, rgba(167, 139, 250, 0.08) 0px, transparent 50%);
+
+  /* Aurora animated */
+  --gradient-aurora-animated: radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.18) 0px, transparent 50%),
+                              radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.16) 0px, transparent 50%),
+                              radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.14) 0px, transparent 50%),
+                              radial-gradient(at 100% 80%, rgba(99, 102, 241, 0.12) 0px, transparent 50%);
+
+  /* Mesh Gradients - Premium layered effects v10.0 */
+  --gradient-mesh-warm: radial-gradient(at 30% 20%, rgba(139, 92, 246, 0.18) 0px, transparent 45%),
+                        radial-gradient(at 70% 60%, rgba(99, 102, 241, 0.15) 0px, transparent 45%),
+                        radial-gradient(at 50% 80%, rgba(167, 139, 250, 0.10) 0px, transparent 45%);
+
+  --gradient-mesh-cool: radial-gradient(at 60% 30%, rgba(96, 165, 250, 0.12) 0px, transparent 50%),
+                        radial-gradient(at 20% 70%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                        radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.10) 0px, transparent 50%);
+
+  --gradient-mesh-elite: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.18), transparent),
+                         radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.12), transparent),
+                         radial-gradient(ellipse 50% 30% at 20% 80%, rgba(167, 139, 250, 0.10), transparent),
+                         radial-gradient(ellipse 40% 40% at 40% 40%, rgba(99, 102, 241, 0.08), transparent);
+
+  /* Glow Effects - Enhanced */
+  --gradient-glow-top: radial-gradient(ellipse 200% 140% at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
+  --gradient-glow-center: radial-gradient(900px circle at 50% 50%, rgba(99, 102, 241, 0.10) 0%, transparent 100%);
+  --gradient-glow-bottom: radial-gradient(ellipse 200% 140% at 50% 100%, rgba(168, 85, 247, 0.12) 0%, transparent 60%);
+  --gradient-flow: linear-gradient(270deg, #6366f1, #8b5cf6, #a78bfa, #c084fc, #a78bfa, #8b5cf6, #6366f1);
+
+  /* Border Gradients - Enhanced */
+  --gradient-border: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(139, 92, 246, 0.3), rgba(167, 139, 250, 0.5));
+  --gradient-border-strong: linear-gradient(135deg, rgba(99, 102, 241, 0.7), rgba(139, 92, 246, 0.5), rgba(167, 139, 250, 0.7));
+  --gradient-border-shimmer: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+
+  /* New v10.0 Gradients */
+  --gradient-quantum: linear-gradient(135deg,
+    rgba(99, 102, 241, 0.4) 0%,
+    rgba(139, 92, 246, 0.3) 25%,
+    rgba(168, 85, 247, 0.2) 50%,
+    rgba(139, 92, 246, 0.3) 75%,
+    rgba(99, 102, 241, 0.4) 100%
+  );
+
+  --gradient-living: linear-gradient(
+    45deg,
+    rgba(99, 102, 241, 0.15),
+    rgba(139, 92, 246, 0.10),
+    rgba(168, 85, 247, 0.08),
+    rgba(139, 92, 246, 0.10),
+    rgba(99, 102, 241, 0.15)
+  );
+
+  --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, transparent 100%);
+  --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+  --gradient-shine-strong: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  --gradient-shine-accent: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.25), transparent);
+
+  /* ============================================
+     SPACING - Ultra precision v10.0
      ============================================ */
   --space-0: 0;
   --space-0_5: 2px;
@@ -139,7 +192,7 @@
   --space-24: 96px;
 
   /* ============================================
-     RADIUS - Ultra refinement
+     RADIUS - Ultra refinement v10.0
      ============================================ */
   --radius-xs: 4px;
   --radius-sm: 6px;
@@ -149,34 +202,43 @@
   --radius-2xl: 16px;
   --radius-3xl: 20px;
   --radius-4xl: 24px;
+  --radius-5xl: 28px;
   --radius-full: 9999px;
 
   /* ============================================
-     SHADOWS - Ultra depth system
+     SHADOWS - Elite depth system v10.0
      ============================================ */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.60);
-  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.70);
-  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.75);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.80);
-  --shadow-xl: 0 20px 55px rgba(0, 0, 0, 0.85);
-  --shadow-2xl: 0 30px 75px rgba(0, 0, 0, 0.88);
-  --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.22);
-  --shadow-glow-strong: 0 0 80px rgba(99, 102, 241, 0.32);
-  --shadow-glow-stronger: 0 0 120px rgba(99, 102, 241, 0.40);
-  --shadow-glow-ultra: 0 0 160px rgba(99, 102, 241, 0.48);
-  --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --shadow-inner-subtle: inset 0 1px 4px rgba(0, 0, 0, 0.70);
-  --shadow-inner-strong: inset 0 2px 8px rgba(0, 0, 0, 0.55);
-  --shadow-message-user: 0 4px 16px rgba(99, 102, 241, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  --shadow-message-assistant: 0 4px 16px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  --shadow-button: 0 2px 10px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --shadow-button-hover: 0 6px 20px rgba(99, 102, 241, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  --shadow-input: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.02);
-  --shadow-input-focus: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(99, 102, 241, 0.15);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.65);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.75);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.78);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.82);
+  --shadow-xl: 0 20px 55px rgba(0, 0, 0, 0.87);
+  --shadow-2xl: 0 30px 75px rgba(0, 0, 0, 0.90);
+
+  /* Glow shadows - Enhanced */
+  --shadow-glow: 0 0 45px rgba(99, 102, 241, 0.25);
+  --shadow-glow-strong: 0 0 90px rgba(99, 102, 241, 0.35);
+  --shadow-glow-stronger: 0 0 140px rgba(99, 102, 241, 0.42);
+  --shadow-glow-ultra: 0 0 200px rgba(99, 102, 241, 0.50);
+  --shadow-glow-max: 0 0 300px rgba(99, 102, 241, 0.35);
+
+  /* Inner shadows */
+  --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --shadow-inner-subtle: inset 0 1px 4px rgba(0, 0, 0, 0.75);
+  --shadow-inner-strong: inset 0 2px 8px rgba(0, 0, 0, 0.60);
+
+  /* Component shadows - Enhanced */
+  --shadow-message-user: 0 6px 20px rgba(99, 102, 241, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --shadow-message-user-hover: 0 8px 28px rgba(99, 102, 241, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  --shadow-message-assistant: 0 6px 20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.60), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-button: 0 3px 12px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --shadow-button-hover: 0 8px 24px rgba(99, 102, 241, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --shadow-input: inset 0 2px 6px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.02);
+  --shadow-input-focus: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(99, 102, 241, 0.18);
 
   /* ============================================
-     TYPOGRAPHY - Ultra refinement
+     TYPOGRAPHY - Ultra refinement v10.0
      ============================================ */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Fira Code', ui-monospace, monospace;
@@ -206,15 +268,16 @@
   --tracking-wider: 0.02em;
 
   /* ============================================
-     TRANSITIONS - Ultra physics
+     TRANSITIONS - Elite physics v10.0
      ============================================ */
-  --duration-instant: 80ms;
-  --duration-fast: 120ms;
-  --duration-normal: 180ms;
-  --duration-slow: 280ms;
-  --duration-slower: 450ms;
-  --duration-ultra: 650ms;
+  --duration-instant: 60ms;
+  --duration-fast: 100ms;
+  --duration-normal: 160ms;
+  --duration-slow: 240ms;
+  --duration-slower: 400ms;
+  --duration-ultra: 600ms;
 
+  /* Easing curves - Enhanced */
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
@@ -223,32 +286,33 @@
   --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-premium: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --ease-elite: cubic-bezier(0.15, 0.85, 0.25, 1);
+  --ease-elite: cubic-bezier(0.12, 0.82, 0.28, 1);
   --ease-bounce-subtle: cubic-bezier(0.25, 0.75, 0.5, 1.25);
   --ease-shimmer: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-glow: cubic-bezier(0.2, 0.8, 0.2, 1);
 
   /* ============================================
-     LAYOUT - Ultra spacing
+     LAYOUT - Ultra spacing v10.0
      ============================================ */
   --header-height: 56px;
   --sidebar-width: 280px;
   --sidebar-width-collapsed: 72px;
 
   /* ============================================
-     EFFECTS - VisionOS & Ultra Aurora
+     EFFECTS - VisionOS & Ultra Aurora v10.0
      ============================================ */
-  --blur-glass: blur(28px);
-  --blur-strong: blur(40px);
-  --blur-heavy: blur(60px);
-  --blur-overlay: blur(12px);
-  --blur-subtle: blur(16px);
-  --blur-ultra: blur(100px);
+  --blur-glass: blur(32px);
+  --blur-strong: blur(48px);
+  --blur-heavy: blur(64px);
+  --blur-overlay: blur(16px);
+  --blur-subtle: blur(20px);
+  --blur-ultra: blur(120px);
 
-  /* Noise Texture */
-  --noise-opacity: 0.035;
+  /* Noise Texture - Enhanced */
+  --noise-opacity: 0.040;
   --noise-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 
-  /* Z-Index scale */
+  /* Z-Index scale v10.0 */
   --z-base: 1;
   --z-dropdown: 100;
   --z-sticky: 200;
@@ -260,41 +324,54 @@
   --z-max: 9999;
 
   /* ============================================
-     COMPONENT-SPECIFIC TOKENS
+     COMPONENT-SPECIFIC TOKENS v10.0
      ============================================ */
 
-  /* Message Bubbles */
-  --message-user-bg: linear-gradient(135deg, #6366f1 0%, #7c3aed 50%, #8b5cf6 100%);
-  --message-user-border: rgba(255, 255, 255, 0.15);
-  --message-assistant-bg: linear-gradient(180deg, rgba(13, 13, 19, 0.95) 0%, rgba(18, 18, 26, 0.98) 100%);
-  --message-assistant-border: rgba(255, 255, 255, 0.06);
+  /* Message Bubbles - Enhanced */
+  --message-user-bg: linear-gradient(135deg, #6366f1 0%, #7c3aed 35%, #8b5cf6 70%, #a78bfa 100%);
+  --message-user-border: rgba(255, 255, 255, 0.18);
+  --message-user-glow: rgba(99, 102, 241, 0.35);
+  --message-assistant-bg: linear-gradient(180deg, rgba(10, 10, 16, 0.96) 0%, rgba(15, 15, 22, 0.98) 100%);
+  --message-assistant-border: rgba(255, 255, 255, 0.07);
+  --message-assistant-glow: rgba(99, 102, 241, 0.08);
 
-  /* Input */
-  --input-bg: rgba(7, 7, 10, 0.85);
-  --input-border: rgba(255, 255, 255, 0.08);
-  --input-border-hover: rgba(255, 255, 255, 0.12);
-  --input-border-focus: rgba(99, 102, 241, 0.4);
-  --input-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+  /* Input - Enhanced */
+  --input-bg: rgba(5, 5, 8, 0.88);
+  --input-border: rgba(255, 255, 255, 0.09);
+  --input-border-hover: rgba(255, 255, 255, 0.14);
+  --input-border-focus: rgba(99, 102, 241, 0.50);
+  --input-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55);
+  --input-glow: 0 0 30px rgba(99, 102, 241, 0.15);
 
-  /* Buttons */
+  /* Buttons - Enhanced */
   --button-primary-bg: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
   --button-primary-hover: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
-  --button-ghost-bg: rgba(255, 255, 255, 0.04);
-  --button-ghost-hover: rgba(255, 255, 255, 0.08);
+  --button-ghost-bg: rgba(255, 255, 255, 0.045);
+  --button-ghost-hover: rgba(255, 255, 255, 0.09);
+  --button-glow: 0 0 35px rgba(99, 102, 241, 0.20);
 
-  /* Sidebar */
-  --sidebar-bg: rgba(2, 2, 4, 0.92);
-  --sidebar-border: rgba(255, 255, 255, 0.05);
-  --sidebar-item-hover: rgba(255, 255, 255, 0.05);
+  /* Sidebar - Enhanced */
+  --sidebar-bg: rgba(1, 1, 3, 0.94);
+  --sidebar-border: rgba(255, 255, 255, 0.045);
+  --sidebar-item-hover: rgba(255, 255, 255, 0.055);
   --sidebar-item-active: linear-gradient(135deg, #6366f1, #7c3aed);
+  --sidebar-glow: 0 0 40px rgba(99, 102, 241, 0.12);
 
-  /* Scrollbar */
+  /* Scrollbar - Enhanced v10.0 */
   --scrollbar-track: transparent;
-  --scrollbar-thumb: rgba(255, 255, 255, 0.08);
-  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.09);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.18);
+  --scrollbar-thumb-active: rgba(99, 102, 241, 0.40);
 
-  /* Code Blocks */
-  --code-bg: rgba(0, 0, 0, 0.4);
-  --code-border: rgba(255, 255, 255, 0.08);
-  --code-header-bg: rgba(255, 255, 255, 0.03);
+  /* Code Blocks - Enhanced */
+  --code-bg: rgba(0, 0, 0, 0.45);
+  --code-border: rgba(255, 255, 255, 0.09);
+  --code-header-bg: rgba(255, 255, 255, 0.035);
+  --code-glow: 0 0 30px rgba(99, 102, 241, 0.10);
+
+  /* Modal - Enhanced */
+  --modal-bg: rgba(5, 5, 8, 0.95);
+  --modal-border: rgba(255, 255, 255, 0.10);
+  --modal-shadow: 0 40px 100px rgba(0, 0, 0, 0.85);
+  --modal-glow: 0 0 100px rgba(99, 102, 241, 0.15);
 }
