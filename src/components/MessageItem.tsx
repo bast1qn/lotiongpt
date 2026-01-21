@@ -57,7 +57,31 @@ export function MessageItem({
   const { showToast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [tiltStyle, setTiltStyle] = useState({});
   const isError = message.isError && !isUser;
+
+  // v13.0 3D Tilt Effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+
+    setMousePosition({ x, y });
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
+    });
+  };
 
   const formatTimestamp = (ts?: string) => {
     if (!ts) return '';
@@ -155,7 +179,7 @@ export function MessageItem({
     <>
       <div
         className={cn(
-          'flex gap-4 sm:gap-5 group animate-message-in relative',
+          'flex gap-4 sm:gap-5 group animate-message-in relative perspective-container',
           isUser ? 'flex-row-reverse' : ''
         )}
         style={{ animationDelay: `${index * 50}ms` }}
@@ -168,7 +192,9 @@ export function MessageItem({
           setShowTimestamp(false);
           setShowActions(false);
           setIsHovered(false);
+          handleMouseLeave();
         }}
+        onMouseMove={handleMouseMove}
         onFocus={() => {
           setShowTimestamp(true);
           setShowActions(true);
@@ -180,11 +206,11 @@ export function MessageItem({
           }
         }}
       >
-        {/* v12.0 Hyper-Premium Avatar with glow effects */}
+        {/* v13.0 Quantum Avatar with 3D effects */}
         <div
           className={cn(
-            'flex-shrink-0 w-10 h-10 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center relative overflow-hidden',
-            'transition-all duration-300 hover:scale-110',
+            'flex-shrink-0 w-10 h-10 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center relative overflow-hidden transform-3d-card',
+            'transition-all duration-300 hover:scale-110 magnetic-btn',
             isUser
               ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-[var(--shadow-message-user)] hover:shadow-[var(--glow-multi-layer)]'
               : 'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-surface)] border border-[var(--color-border-medium)] shadow-[var(--shadow-message-assistant)] hover:shadow-[var(--shadow-depth-2)]'
@@ -196,6 +222,8 @@ export function MessageItem({
           {isUser && (
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent animate-pulse-subtle" />
           )}
+          {/* v13.0 Add holographic border effect */}
+          <div className="absolute inset-0 rounded-2xl border-2 border-transparent opacity-0 group-hover:opacity-100 group-hover:border-[var(--color-accent-500)]/30 transition-all duration-300 pointer-events-none" />
           {isUser ? (
             <span className="text-white text-sm font-bold relative z-10">B</span>
           ) : (
@@ -491,10 +519,10 @@ export function MessageItem({
               </div>
             </div>
           ) : message.content ? (
-            // v12.0 Hyper-Premium Normal Display
+            // v13.0 Quantum 3D Normal Display
             <div
               className={cn(
-                'message-premium-v12 relative inline-block rounded-3xl px-5 py-3.5 max-w-full',
+                'message-premium-v12 message-3d relative inline-block rounded-3xl px-5 py-3.5 max-w-full transform-3d-card',
                 'transition-all duration-300 overflow-hidden',
                 isError
                   ? 'bg-[var(--color-error-soft)]/95 backdrop-blur-sm text-[var(--color-error)] border border-[var(--color-error)]/55 rounded-tl-2xl shadow-[var(--color-error-glow)] animate-error-pulse'

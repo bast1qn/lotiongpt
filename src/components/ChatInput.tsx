@@ -56,6 +56,31 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
   const fileInputRef = useRef<HTMLInputElement>(null);
   const modelPickerRef = useRef<HTMLDivElement>(null);
 
+  // v13.0 Mouse tracking for 3D effects
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [inputTiltStyle, setInputTiltStyle] = useState({});
+
+  const handleInputMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+
+    setMousePosition({ x, y });
+    setInputTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(5px)`,
+    });
+  };
+
+  const handleInputMouseLeave = () => {
+    setInputTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
+    });
+  };
+
   const handleSend = useCallback(() => {
     const trimmed = input.trim();
     if ((trimmed || images.length > 0 || files.length > 0) && !isLoading) {
@@ -432,10 +457,10 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           </div>
         )}
 
-        {/* v12.0 Hyper-Premium Input Container */}
+        {/* v13.0 Quantum 3D Input Container */}
         <div
           className={cn(
-            'input-premium-v12 relative rounded-3xl transition-all duration-300 ease-spring overflow-hidden',
+            'input-premium-v12 perspective-container relative rounded-3xl transition-all duration-300 ease-spring overflow-hidden transform-3d-card',
             'bg-[var(--input-bg)] backdrop-blur-md',
             'border border-beam',
             'shadow-inner',
@@ -443,11 +468,15 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               ? 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/18 shadow-xl shadow-[var(--color-accent-glow-stronger)] animate-glow-oscillate'
               : 'border-[var(--glass-border)] hover:border-[var(--glass-border-active)]',
             'focus-within:border-[var(--color-accent-500)]/70 focus-within:shadow-xl focus-within:shadow-[var(--glow-pulse-wave)]',
-            isLoading && 'opacity-60'
+            isLoading && 'opacity-60',
+            'hover-3d-lift'
           )}
+          style={inputTiltStyle}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
+          onMouseMove={handleInputMouseMove}
+          onMouseLeave={handleInputMouseLeave}
         >
           {/* v12.0 Enhanced inner gradient for depth */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/[0.06] to-transparent pointer-events-none" />
@@ -508,12 +537,13 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
               className={cn(
-                'p-3 rounded-2xl transition-all flex-shrink-0 relative overflow-hidden',
+                'p-3 rounded-2xl transition-all flex-shrink-0 relative overflow-hidden button-3d',
                 'text-[var(--color-text-muted)]',
                 'hover:text-[var(--color-accent-400)] hover:bg-[var(--color-accent-500)]/12',
                 'disabled:opacity-50 disabled:cursor-not-allowed',
                 'min-w-[46px] min-h-[46px]',
-                'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset'
+                'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset',
+                'magnetic-btn'
               )}
               title="Bild hinzufgen"
               aria-label="Bild hochladen"
@@ -546,7 +576,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
               onClick={handleSend}
               disabled={!canSend}
               className={cn(
-                'relative p-3 rounded-2xl transition-all duration-300 ease-spring flex-shrink-0 overflow-hidden min-w-[46px] min-h-[46px]',
+                'relative p-3 rounded-2xl transition-all duration-300 ease-spring flex-shrink-0 overflow-hidden min-w-[46px] min-h-[46px] button-3d',
                 'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset magnetic-btn btn-beam',
                 canSend
                   ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--glow-pulse-wave)] hover:scale-105 active:scale-95 border-beam'
