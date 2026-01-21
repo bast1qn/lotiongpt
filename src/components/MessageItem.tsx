@@ -180,19 +180,19 @@ export function MessageItem({
           }
         }}
       >
-        {/* Ultra Premium Avatar */}
+        {/* Quantum Premium Avatar */}
         <div
           className={cn(
             'flex-shrink-0 w-10 h-10 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center relative overflow-hidden',
-            'transition-all duration-180 hover:scale-105',
+            'transition-all duration-200 hover:scale-105',
             isUser
               ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-[var(--shadow-message-user)]'
               : 'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-surface)] border border-[var(--color-border-medium)] shadow-[var(--shadow-message-assistant)]'
           )}
           aria-hidden="true"
         >
-          {/* Subtle shine overlay */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* Quantum shine overlay */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/18 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {isUser ? (
             <span className="text-white text-sm font-bold relative z-10">B</span>
           ) : (
@@ -484,25 +484,25 @@ export function MessageItem({
               </div>
             </div>
           ) : message.content ? (
-            // Ultra Premium Normal Display
+            // Quantum Premium Normal Display
             <div
               className={cn(
                 'relative inline-block rounded-3xl px-5 py-3.5 max-w-full',
-                'transition-all duration-180 overflow-hidden',
+                'transition-all duration-200 overflow-hidden',
                 isError
-                  ? 'bg-[var(--color-error-soft)]/90 backdrop-blur-sm text-[var(--color-error)] border border-[var(--color-error)]/50 rounded-tl-2xl shadow-[var(--color-error-glow)]'
+                  ? 'bg-[var(--color-error-soft)]/95 backdrop-blur-sm text-[var(--color-error)] border border-[var(--color-error)]/55 rounded-tl-2xl shadow-[var(--color-error-glow)]'
                   : isUser
-                    ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white rounded-tr-2xl shadow-[var(--shadow-message-user)]'
-                    : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] border border-[var(--color-border-medium)] rounded-tl-2xl shadow-[var(--shadow-message-assistant)]',
+                    ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white rounded-tr-2xl shadow-[var(--shadow-message-user)] hover:shadow-[var(--shadow-message-user-hover)]'
+                    : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] border border-[var(--color-border-medium)] rounded-tl-2xl shadow-[var(--shadow-message-assistant)] hover:border-[var(--color-border-accent)]/30',
                 isSearchMatch && 'ring-2 ring-[var(--color-accent-500)] ring-offset-2 ring-offset-[var(--color-bg-primary)]'
               )}
             >
-              {/* Subtle gradient overlay for user messages */}
+              {/* Enhanced gradient overlay for user messages */}
               {isUser && (
-                <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-white/5 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8 pointer-events-none" />
               )}
               <div
-                className="relative text-[15px] leading-[1.7] prose prose-invert prose-p:last:mb-0 prose-p:my-1.5 prose-headings:my-2.5 prose-headings:font-semibold prose-a:text-[var(--color-accent-300)] prose-a:no-underline prose-a:border-b prose-a:border-[var(--color-accent-500)]/40 hover:prose-a:border-[var(--color-accent-500)]/70 prose-code:bg-[var(--color-bg-primary)]/50 prose-code:px-2 prose-code:py-1 prose-code:rounded-lg prose-code:text-sm prose-code:font-mono prose-code:border prose-code:border-[var(--color-border-subtle)] prose-pre:bg-[var(--color-bg-primary)]/80 prose-pre:border prose-pre:border-[var(--color-border-medium)] prose-pre:rounded-2xl max-w-none"
+                className="relative text-[15px] leading-[1.75] prose prose-invert prose-p:last:mb-0 prose-p:my-1.5 prose-headings:my-2.5 prose-headings:font-semibold prose-a:text-[var(--color-accent-300)] prose-a:no-underline prose-a:border-b prose-a:border-[var(--color-accent-500)]/45 hover:prose-a:border-[var(--color-accent-500)]/75 prose-code:bg-[var(--color-bg-primary)]/55 prose-code:px-2 prose-code:py-1 prose-code:rounded-lg prose-code:text-sm prose-code:font-mono prose-code:border prose-code:border-[var(--color-border-subtle)] prose-pre:bg-[var(--color-bg-primary)]/85 prose-pre:border prose-pre:border-[var(--color-border-medium)] prose-pre:rounded-2xl max-w-none"
                 dangerouslySetInnerHTML={{ __html: formatMessageWithHighlight(message.content) }}
               />
             </div>

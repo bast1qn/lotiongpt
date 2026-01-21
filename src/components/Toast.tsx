@@ -136,7 +136,7 @@ function ToastItem({ toast, onClose, index }: ToastItemProps) {
         'flex items-center gap-3 px-4 py-3.5 rounded-xl min-w-[320px] max-w-md',
         'bg-[var(--color-bg-glass-strong)] backdrop-blur-xl',
         'border', config.borderColor,
-        'shadow-xl shadow-black/40',
+        'shadow-xl shadow-black/50',
         // Enhanced entrance/exit animations
         isExiting ? 'animate-exit-to-right' : 'animate-toast-in',
         'hover:scale-[1.02] transition-transform duration-200',
@@ -154,8 +154,8 @@ function ToastItem({ toast, onClose, index }: ToastItemProps) {
       onKeyDown={handleKeyDown}
       tabIndex={0}
     >
-      {/* Subtle glow effect behind toast */}
-      <div className="absolute -inset-2 opacity-20 blur-xl -z-10 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+      {/* Quantum glow effect behind toast */}
+      <div className="absolute -inset-2 opacity-25 blur-xl -z-10 bg-gradient-to-br from-white/8 to-transparent pointer-events-none" />
 
       {/* Progress bar - Premium */}
       {duration > 0 && (

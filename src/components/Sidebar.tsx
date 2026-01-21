@@ -114,7 +114,7 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
         />
       )}
 
-      {/* Elite Sidebar Container v10.0 */}
+      {/* Quantum Elite Sidebar Container v11.0 */}
       <aside
         id="sidebar"
         className={cn(
@@ -130,8 +130,8 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
         )}
         aria-label="Hauptnavigation"
       >
-        {/* Enhanced ambient glow from the right v10.0 */}
-        <div className="absolute top-0 right-0 w-40 h-full bg-gradient-to-l from-[var(--color-accent-500)]/5 via-[var(--color-accent-500)]/2 to-transparent pointer-events-none animate-aurora-pulse" />
+        {/* Quantum enhanced ambient glow from the right v11.0 */}
+        <div className="absolute top-0 right-0 w-40 h-full bg-gradient-to-l from-[var(--color-accent-500)]/6 via-[var(--color-accent-500)]/3 to-transparent pointer-events-none animate-aurora-pulse" />
 
         {/* Elite Collapse Toggle - Desktop only v10.0 */}
         <div className="hidden lg:block absolute -right-3.5 top-6 z-10">
@@ -155,14 +155,14 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
         {/* Collapsed View - Ultra Icon only */}
         {isCollapsed ? (
           <div className="flex flex-col h-full p-3">
-            {/* New Chat Icon - Elite v10.0 */}
+            {/* New Chat Icon - Quantum Elite v11.0 */}
             <button
               onClick={onNewChat}
-              className="group relative flex items-center justify-center w-12 h-12 mb-4 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white shadow-xl shadow-[var(--color-accent-glow-strong)] hover:shadow-2xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-110 transition-all duration-200 ease-spring focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] overflow-hidden active:scale-100"
+              className="group relative flex items-center justify-center w-12 h-12 mb-4 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white shadow-xl shadow-[var(--color-accent-glow-stronger)] hover:shadow-2xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-110 transition-all duration-200 ease-spring focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] overflow-hidden active:scale-100"
               title="Neuer Chat"
               aria-label="Neuen Chat erstellen"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/22 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               <Icons.Chat />
             </button>
 
@@ -244,13 +244,13 @@ export function Sidebar({ currentChatId, onChatSelect, onNewChat, onDeleteChat, 
           <>
             {/* TOP SECTION: Ultra Premium Navigation */}
             <nav className="flex-shrink-0 p-5 space-y-2">
-              {/* Elite New Chat Button v10.0 */}
+              {/* Quantum Elite New Chat Button v11.0 */}
               <button
                 onClick={onNewChat}
-                className="group relative w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white shadow-xl shadow-[var(--color-accent-glow-strong)] hover:shadow-2xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-[1.02] transition-all duration-200 ease-spring overflow-hidden focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] active:scale-[1.01]"
+                className="group relative w-full flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white shadow-xl shadow-[var(--color-accent-glow-stronger)] hover:shadow-2xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-[1.02] transition-all duration-200 ease-spring overflow-hidden focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] active:scale-[1.01]"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/22 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Icons.Chat />
                 <span className="text-sm font-semibold relative z-10">Neuer Chat</span>
               </button>

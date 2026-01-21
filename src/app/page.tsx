@@ -613,8 +613,8 @@ function HomeContent() {
       />
 
       <main id="main-content" className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)] relative z-10" tabIndex={-1}>
-        {/* Elite Header with Glass Effect */}
-        <header className="flex-shrink-0 flex items-center justify-between px-5 sm:px-7 py-4 border-b border-[var(--color-border-medium)] bg-[var(--color-bg-secondary)]/60 backdrop-blur-xl">
+        {/* Quantum Elite Header with Premium Glass Effect */}
+        <header className="flex-shrink-0 flex items-center justify-between px-5 sm:px-7 py-4 border-b border-[var(--color-border-medium)] bg-[var(--color-bg-glass-strong)] backdrop-blur-xl shadow-sm">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -628,7 +628,7 @@ function HomeContent() {
             <div className="flex items-center gap-3 group">
               <div className="relative">
                 <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-xl shadow-[var(--color-accent-glow-strong)] animate-pulse-subtle" />
-                <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-[var(--color-accent-500)] blur-md opacity-60" />
+                <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-[var(--color-accent-500)] blur-md opacity-70" />
               </div>
               <h1 className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight group-hover:text-[var(--color-accent-300)] transition-colors duration-180">
                 {currentChat?.title || 'Neuer Chat'}

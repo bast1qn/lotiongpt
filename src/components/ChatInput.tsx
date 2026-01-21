@@ -432,7 +432,7 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
           </div>
         )}
 
-        {/* Elite Input Container v10.0 */}
+        {/* Quantum Elite Input Container v11.0 */}
         <div
           className={cn(
             'relative rounded-3xl transition-all duration-200 ease-spring overflow-hidden',
@@ -440,20 +440,20 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
             'border',
             'shadow-inner',
             isDragging
-              ? 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/15 shadow-xl shadow-[var(--color-accent-glow-strong)]'
+              ? 'border-[var(--color-accent-500)] bg-[var(--color-accent-500)]/18 shadow-xl shadow-[var(--color-accent-glow-stronger)]'
               : 'border-[var(--glass-border)] hover:border-[var(--glass-border-active)]',
-            'focus-within:border-[var(--color-accent-500)]/60 focus-within:shadow-xl focus-within:shadow-[var(--color-accent-glow-strong)]',
+            'focus-within:border-[var(--color-accent-500)]/65 focus-within:shadow-xl focus-within:shadow-[var(--color-accent-glow-stronger)]',
             isLoading && 'opacity-60'
           )}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          {/* Enhanced inner gradient for depth v10.0 */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
-          {/* Animated border glow on focus */}
+          {/* Quantum enhanced inner gradient for depth */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
+          {/* Animated border glow on focus - Enhanced */}
           <div className="absolute inset-0 rounded-3xl opacity-0 focus-within:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-[var(--color-accent-500)]/30 via-[var(--color-accent-600)]/20 to-[var(--color-accent-500)]/30" />
+            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-[var(--color-accent-500)]/35 via-[var(--color-accent-600)]/25 to-[var(--color-accent-500)]/35" />
           </div>
 
           {/* Image Previews - Ultra Premium */}
@@ -546,14 +546,14 @@ export const ChatInput = forwardRef<ChatInputRef, ChatInputProps>(function ChatI
                 'relative p-3 rounded-2xl transition-all duration-200 ease-spring flex-shrink-0 overflow-hidden min-w-[46px] min-h-[46px]',
                 'focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-inset',
                 canSend
-                  ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-strong)] hover:scale-105 active:scale-100'
+                  ? 'bg-gradient-to-br from-[var(--color-accent-500)] to-[var(--color-accent-600)] text-white shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-stronger)] hover:scale-105 active:scale-100'
                   : 'text-[var(--color-text-muted)] cursor-not-allowed bg-[var(--color-bg-elevated)]'
               )}
               title={canSend ? 'Senden' : 'Nachricht eingeben...'}
               aria-label={canSend ? 'Nachricht senden' : 'Nachricht eingeben zum Senden'}
             >
               {canSend && (
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/18 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               )}
               <Icons.Send />
             </button>

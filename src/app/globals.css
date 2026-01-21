@@ -1,6 +1,6 @@
 /**
- * LotionGPT Global Styles - v10.0 "Ultrathink"
- * Elite Design System with Living Gradients & Quantum Effects
+ * LotionGPT Global Styles - v11.0 "Quantum Elite"
+ * Revolutionary Design System with Aurora Effects & Quantum Gradients
  * Enhanced with animated backgrounds, micro-interactions, and premium aesthetics
  */
 
@@ -42,7 +42,7 @@ body {
 }
 
 /* ============================================
-   ELITE AMBIENT MESH GRADIENT BACKGROUND v10.0
+   QUANTUM AMBIENT MESH GRADIENT BACKGROUND v11.0
    ============================================ */
 
 /* Primary animated background layer */
@@ -54,7 +54,7 @@ body::before {
   pointer-events: none;
   z-index: 0;
   opacity: 1;
-  animation: auroraShift 30s ease-in-out infinite;
+  animation: auroraWave 25s ease-in-out infinite;
 }
 
 /* Secondary animated aurora layer for depth */
@@ -65,8 +65,8 @@ body::after {
   background: var(--gradient-aurora-animated);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
-  animation: auroraPulse 20s ease-in-out infinite;
+  opacity: 0.6;
+  animation: auroraShift 18s ease-in-out infinite;
 }
 
 /* Tertiary noise texture layer */
@@ -168,14 +168,16 @@ code {
 }
 
 /* ============================================
-   FOCUS STYLES - Elite accessible v10.0
+   FOCUS STYLES - Quantum accessible v11.0
    ============================================ */
 
 :focus-visible {
   outline: 2px solid var(--color-accent-500);
   outline-offset: 3px;
   border-radius: var(--radius-xs);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.20),
+              0 0 20px rgba(99, 102, 241, 0.15);
+  transition: all 0.2s var(--ease-out);
 }
 
 :focus:not(:focus-visible) {
@@ -532,9 +534,20 @@ textarea::placeholder {
 }
 
 /* ============================================
-   ACCESSIBILITY v10.0
+   ACCESSIBILITY v10.0 ENHANCED
    ============================================ */
 
+/* Enhanced focus visible */
+.focus-ring-enhanced:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-bg-primary),
+    0 0 0 4px var(--color-accent-500),
+    0 0 20px rgba(99, 102, 241, 0.3);
+  transition: box-shadow var(--duration-fast) var(--ease-out);
+}
+
+/* Screen reader only */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -661,8 +674,56 @@ textarea::placeholder {
 }
 
 /* ============================================
-   ELITE UTILITIES v10.0
+   QUANTUM UTILITIES v11.0
    ============================================ */
+
+/* Premium glassmorphism variants - Enhanced */
+.glass-premium {
+  background: rgba(6, 6, 10, 0.94);
+  backdrop-filter: blur(40px) saturate(190%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06),
+              0 8px 32px rgba(0, 0, 0, 0.65);
+}
+
+.glass-aurora {
+  background: rgba(6, 6, 10, 0.92);
+  backdrop-filter: blur(48px) saturate(195%);
+  -webkit-backdrop-filter: blur(48px) saturate(195%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              0 12px 40px rgba(0, 0, 0, 0.70),
+              0 0 60px rgba(99, 102, 241, 0.08);
+}
+
+/* Enhanced depth effects */
+.depth-subtle {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.depth-medium {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.depth-strong {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75),
+              inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              0 0 50px rgba(99, 102, 241, 0.05);
+}
+
+/* Quantum glow effects */
+.glow-pulse-subtle:hover {
+  animation: quantumPulse 2s ease-in-out infinite;
+}
+
+.glow-aurora-hover:hover {
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.3),
+              0 0 80px rgba(139, 92, 246, 0.2);
+  transition: all 0.3s var(--ease-premium);
+}
 
 /* Subtle border glow effect - Enhanced */
 .border-glow-subtle {
