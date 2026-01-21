@@ -1769,3 +1769,1103 @@
   background-clip: text;
   animation: holographicShift 10s linear infinite;
 }
+
+/* ============================================
+   v12.0 HYPER-PREMIUM ANIMATIONS
+   ============================================ */
+
+/* Border beam animation */
+@keyframes borderBeam {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* Particle float animation */
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx, 100px), var(--ty, -200px)) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Morphing blob animation */
+@keyframes blobMorph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: translate(20px, -15px) scale(1.05);
+  }
+  50% {
+    border-radius: 50% 60% 30% 60% / 30% 40% 70% 60%;
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%;
+    transform: translate(15px, 10px) scale(1.02);
+  }
+}
+
+/* Spotlight effect */
+@keyframes spotlightMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Enhanced shimmer sweep */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-150%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-15deg);
+  }
+}
+
+/* Aurora pulse */
+@keyframes auroraPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Glitch effect for errors */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* Magnetic hover effect */
+@keyframes magneticHover {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.08) translateY(-2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Premium scale in */
+@keyframes premiumScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  60% {
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Elastic button press */
+@keyframes elasticPress {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.92);
+  }
+  70% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Wave ripple */
+@keyframes waveRipple {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Gradient rotate */
+@keyframes gradientRotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* Breathing shadow */
+@keyframes shadowBreathe {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+  }
+}
+
+/* Text reveal */
+@keyframes textReveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Staggered fade in for lists */
+@keyframes staggerIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow sweep effect */
+@keyframes glowSweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Smooth morph */
+@keyframes smoothMorph {
+  0% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  }
+  25% {
+    border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+  }
+  50% {
+    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+  }
+  75% {
+    border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%;
+  }
+  100% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  }
+}
+
+/* Enhanced bounce */
+@keyframes bounceEnhanced {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-8px) scale(1.05, 0.95);
+  }
+  50% {
+    transform: translateY(0) scale(1);
+  }
+  75% {
+    transform: translateY(-4px) scale(1.02, 0.98);
+  }
+}
+
+/* Rotation with scale */
+@keyframes rotateScale {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Pulse ring expansion */
+@keyframes pulseRingExpand {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Slide with fade */
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Wobble effect */
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+
+/* ============================================
+   v12.0 UTILITY CLASSES
+   ============================================ */
+
+/* Border beam effect */
+.border-beam {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-beam::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--beam-gradient);
+  background-size: 200% 100%;
+  border-radius: inherit;
+  z-index: -1;
+  animation: borderBeam var(--beam-duration, 4s) linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.border-beam:hover::before {
+  opacity: 1;
+}
+
+/* Particle container */
+.particles-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--particle-1);
+  animation: particleFloat var(--float-duration) ease-in-out infinite;
+}
+
+.particle:nth-child(2) {
+  background: var(--particle-2);
+  animation-delay: -2s;
+  left: 25%;
+}
+
+.particle:nth-child(3) {
+  background: var(--particle-3);
+  animation-delay: -4s;
+  left: 50%;
+}
+
+.particle:nth-child(4) {
+  background: var(--particle-4);
+  animation-delay: -6s;
+  left: 75%;
+}
+
+/* Morphing blob */
+.blob-morph {
+  animation: blobMorph var(--morph-duration) ease-in-out infinite;
+}
+
+/* Spotlight effect */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--spotlight-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Enhanced shimmer */
+.shimmer-premium {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-premium::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: var(--shimmer-premium);
+  animation: shimmerSweep var(--shimmer-duration) ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Aurora pulse */
+.aurora-pulse {
+  animation: auroraPulse var(--pulse-duration) ease-in-out infinite;
+}
+
+/* Glitch effect for errors */
+.glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Premium scale in */
+.premium-scale-in {
+  animation: premiumScaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Magnetic button */
+.magnetic-btn {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.magnetic-btn:hover {
+  animation: magneticHover 0.4s ease-in-out;
+}
+
+.magnetic-btn:active {
+  animation: elasticPress 0.4s ease-in-out;
+}
+
+/* Ripple effect */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: var(--ripple-color);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple-effect:active::after {
+  animation: waveRipple 0.6s ease-out;
+}
+
+/* Gradient rotation */
+.gradient-rotate {
+  animation: gradientRotate 8s linear infinite;
+}
+
+/* Breathing shadow */
+.shadow-breathe {
+  animation: shadowBreathe 4s ease-in-out infinite;
+}
+
+/* Text reveal animation */
+.text-reveal {
+  animation: textReveal 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Staggered list animation */
+.stagger-in {
+  animation: staggerIn 0.4s ease-out;
+}
+
+/* Glow sweep */
+.glow-sweep {
+  background: var(--gradient-primary);
+  background-size: 200% auto;
+  animation: glowSweep 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smooth morph */
+.smooth-morph {
+  animation: smoothMorph 10s ease-in-out infinite;
+}
+
+/* Enhanced bounce */
+.bounce-enhanced {
+  animation: bounceEnhanced 1s ease-in-out;
+}
+
+/* Rotate with scale */
+.rotate-scale {
+  animation: rotateScale 20s linear infinite;
+}
+
+/* Pulse ring */
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid currentColor;
+  animation: pulseRingExpand 2s ease-out infinite;
+}
+
+/* Slide with fade */
+.slide-fade {
+  animation: slideFade 0.4s ease-out;
+}
+
+/* Wobble effect */
+.wobble:hover {
+  animation: wobble 0.3s ease-in-out;
+}
+
+/* Premium card hover */
+.card-hover-premium {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-hover-premium:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-depth-3),
+              0 0 60px rgba(99, 102, 241, 0.15);
+}
+
+/* Glass morphism enhanced */
+.glass-enhanced {
+  background: rgba(6, 6, 10, 0.92);
+  backdrop-filter: blur(56px) saturate(200%);
+  -webkit-backdrop-filter: blur(56px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Holographic border */
+.holo-border {
+  position: relative;
+  border: 1px solid transparent;
+  background: linear-gradient(rgba(6, 6, 10, 0.9), rgba(6, 6, 10, 0.9)) padding-box,
+              var(--gradient-prism) border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Noise texture overlay */
+.noise-fine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: var(--noise-fine);
+  z-index: 1;
+}
+
+.noise-coarse::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: var(--noise-coarse);
+  z-index: 1;
+}
+
+/* Focus ring premium */
+.focus-ring-premium-v2:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-bg-primary),
+    0 0 0 4px var(--color-accent-500),
+    0 0 0 6px rgba(99, 102, 241, 0.3),
+    0 0 40px rgba(99, 102, 241, 0.2);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Text glow effects */
+.text-glow-subtle-v2 {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.text-glow-accent-v2 {
+  text-shadow:
+    0 0 10px rgba(99, 102, 241, 0.6),
+    0 0 20px rgba(99, 102, 241, 0.4),
+    0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  animation: bounceEnhanced 2s ease-in-out infinite;
+}
+
+/* Loading state premium */
+.loading-premium {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading-premium::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border-radius: inherit;
+}
+
+/* Success state */
+.success-pulse {
+  animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Error shake */
+.error-shake {
+  animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+/* ============================================
+   ABSOLUTE ELITE v12.0 - Transcendental Effects
+   ============================================ */
+
+/* Divine aurora animations */
+@keyframes auroraPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1) translateX(0%) translateY(0%);
+  }
+  25% {
+    opacity: 0.9;
+    transform: scale(1.02) translateX(2%) translateY(-1%);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.98) translateX(-1%) translateY(2%);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(1.01) translateX(-2%) translateY(-1%);
+  }
+}
+
+/* Celestial shimmer */
+@keyframes celestialShimmer {
+  0% {
+    background-position: -300% 0;
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.6;
+  }
+  50% {
+    background-position: 300% 0;
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.6;
+  }
+  100% {
+    background-position: 900% 0;
+    opacity: 0;
+  }
+}
+
+/* Ethereal glow pulse */
+@keyframes etherealGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(99, 102, 241, 0.3),
+      0 0 60px rgba(139, 92, 246, 0.2),
+      0 0 90px rgba(168, 85, 247, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 50px rgba(99, 102, 241, 0.5),
+      0 0 100px rgba(139, 92, 246, 0.35),
+      0 0 150px rgba(168, 85, 247, 0.2);
+    transform: scale(1.03);
+  }
+}
+
+/* Premium ripple expansion */
+@keyframes rippleExpand {
+  0% {
+    transform: scale(0);
+    opacity: 0.6;
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6);
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+    box-shadow: 0 0 0 20px rgba(99, 102, 241, 0);
+  }
+}
+
+/* Text reveal with blur */
+@keyframes textRevealBlur {
+  0% {
+    filter: blur(10px);
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Premium entrance */
+@keyframes premiumEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.92);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Glow oscillation */
+@keyframes glowOscillate {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
+  }
+  25% {
+    box-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 80px rgba(168, 85, 247, 0.6);
+  }
+  75% {
+    box-shadow: 0 0 50px rgba(99, 102, 241, 0.5);
+  }
+}
+
+/* Breathing border */
+@keyframes breathingBorder {
+  0%, 100% {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+  }
+  50% {
+    border-color: rgba(139, 92, 246, 0.7);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+  }
+}
+
+/* Shimmer with glow */
+@keyframes shimmerGlow {
+  0% {
+    background-position: -200% 0;
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+  100% {
+    background-position: 200% 0;
+    filter: brightness(1);
+  }
+}
+
+/* Beam sweep */
+@keyframes beamSweep {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
+/* Magnetic pull */
+@keyframes magneticPullEnhanced {
+  0% {
+    transform: scale(1) translateX(0);
+  }
+  30% {
+    transform: scale(1.1) translateX(5px);
+  }
+  60% {
+    transform: scale(0.95) translateX(-3px);
+  }
+  100% {
+    transform: scale(1) translateX(0);
+  }
+}
+
+/* ============================================
+   v12.0 UTILITY CLASSES - Absolute Elite
+   ============================================ */
+
+.animate-aurora-pulse {
+  animation: auroraPulse 8s ease-in-out infinite;
+}
+
+.animate-celestial-shimmer {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: celestialShimmer 4s ease-in-out infinite;
+}
+
+.animate-ethereal-glow {
+  animation: etherealGlow 3s ease-in-out infinite;
+}
+
+.animate-premium-entrance {
+  animation: premiumEntrance 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-glow-oscillate {
+  animation: glowOscillate 4s ease-in-out infinite;
+}
+
+.animate-breathing-border {
+  animation: breathingBorder 3s ease-in-out infinite;
+}
+
+.animate-shimmer-glow {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerGlow 2.5s ease-in-out infinite;
+}
+
+.animate-magnetic-pull {
+  animation: magneticPullEnhanced 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Enhanced hover effects */
+.hover-ethereal-lift {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-ethereal-lift:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(99, 102, 241, 0.3);
+}
+
+.hover-glow-expand {
+  transition: all 0.4s cubic-bezier(0.12, 0.82, 0.28, 1);
+}
+
+.hover-glow-expand:hover {
+  box-shadow:
+    0 0 40px rgba(99, 102, 241, 0.5),
+    0 0 80px rgba(139, 92, 246, 0.3),
+    0 0 120px rgba(168, 85, 247, 0.2);
+}
+
+/* Premium glass variants v12.0 */
+.glass-diamond {
+  background: rgba(6, 6, 10, 0.95);
+  backdrop-filter: blur(80px) saturate(220%);
+  -webkit-backdrop-filter: blur(80px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 25px 60px rgba(0, 0, 0, 0.75);
+}
+
+.glass-crystal {
+  background: rgba(6, 6, 10, 0.97);
+  backdrop-filter: blur(100px) saturate(250%);
+  -webkit-backdrop-filter: blur(100px) saturate(250%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 30px 80px rgba(0, 0, 0, 0.80);
+}
+
+/* Advanced glow utilities v12.0 */
+.glow-ethereal {
+  box-shadow:
+    0 0 40px rgba(99, 102, 241, 0.4),
+    0 0 80px rgba(139, 92, 246, 0.3),
+    0 0 120px rgba(168, 85, 247, 0.2);
+}
+
+.glow-divine {
+  box-shadow:
+    0 0 60px rgba(99, 102, 241, 0.5),
+    0 0 120px rgba(139, 92, 246, 0.4),
+    0 0 180px rgba(168, 85, 247, 0.3),
+    0 0 240px rgba(99, 102, 241, 0.2);
+}
+
+/* Text effects v12.0 */
+.text-glow-ethereal {
+  text-shadow:
+    0 0 20px rgba(99, 102, 241, 0.6),
+    0 0 40px rgba(139, 92, 246, 0.4),
+    0 0 60px rgba(168, 85, 247, 0.2);
+}
+
+.text-shimmer-premium {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: celestialShimmer 3s linear infinite;
+}
+
+/* Multi-layer depth shadows v12.0 */
+.depth-layer-1 {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.depth-layer-2 {
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.65),
+    0 8px 16px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+.depth-layer-3 {
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.70),
+    0 16px 32px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Border beam effect */
+.border-beam {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-beam::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.6) 45%,
+    rgba(167, 139, 250, 0.8) 50%,
+    rgba(99, 102, 241, 0.6) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: beamSweep 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.border-beam:hover::before {
+  opacity: 1;
+}
+
+/* Ripple click effect */
+.ripple-click {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-click::after {
+  content: '';
+  position: absolute;
+  top: var(--ripple-y, 50%);
+  left: var(--ripple-x, 50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.4);
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 0.6s ease-out;
+  pointer-events: none;
+}
+
+/* Spotlight container effect */
+.spotlight-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(99, 102, 241, 0.12),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+.spotlight-container:hover::before {
+  opacity: 1;
+}
+
+/* Holographic border effect */
+.border-holo {
+  border: 1px solid transparent;
+  background: linear-gradient(45deg,
+    rgba(99, 102, 241, 0.18),
+    rgba(168, 85, 247, 0.15),
+    rgba(236, 72, 153, 0.12),
+    rgba(251, 191, 36, 0.10),
+    rgba(34, 197, 94, 0.12)
+  ) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background-size: 300% 300%;
+  animation: holographicShift 8s linear infinite;
+}
+
+/* Prism border effect */
+.border-prism {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg,
+    rgba(99, 102, 241, 0.3) 0%,
+    rgba(168, 85, 247, 0.25) 25%,
+    rgba(236, 72, 153, 0.2) 50%,
+    rgba(251, 191, 36, 0.15) 75%,
+    rgba(34, 197, 94, 0.2) 100%
+  ) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Text blur reveal */
+.text-reveal-blur {
+  animation: textRevealBlur 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

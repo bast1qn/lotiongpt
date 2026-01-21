@@ -569,32 +569,78 @@ function HomeContent() {
 
   if (isLoadingChats) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)] relative">
-        {/* Aurora background effect for loading */}
+      <div className="flex h-screen w-screen items-center justify-center bg-[var(--color-bg-primary)] relative overflow-hidden">
+        {/* v12.0 Hyper-premium aurora background effects for loading */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute inset-0 bg-[var(--gradient-aurora)] animate-aurora-pulse" />
+        </div>
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-[var(--gradient-aurora)] animate-aurora" />
+          <div className="absolute inset-0 bg-[var(--gradient-aurora-flow)] bg-size-200 animate-gradient-shift" style={{ animationDuration: '25s' }} />
+        </div>
+
+        {/* Particle effects during loading */}
+        <div className="absolute inset-0 pointer-events-none opacity-50">
+          <div className="particles-overlay">
+            <div className="particle" style={{ '--tx': '100px', '--ty': '-200px' } as React.CSSProperties} />
+            <div className="particle" style={{ '--tx': '-80px', '--ty': '-250px' } as React.CSSProperties} />
+            <div className="particle" style={{ '--tx': '120px', '--ty': '-180px' } as React.CSSProperties} />
+            <div className="particle" style={{ '--tx': '-100px', '--ty': '-220px' } as React.CSSProperties} />
+            <div className="particle" style={{ '--tx': '90px', '--ty': '-260px' } as React.CSSProperties} />
+          </div>
         </div>
 
         <div className="flex flex-col items-center gap-6 relative z-10">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] flex items-center justify-center shadow-2xl shadow-[var(--color-accent-glow-ultra)] animate-float-slow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
+          <div className="relative">
+            {/* Multi-layer glow effect */}
+            <div className="absolute inset-0 rounded-3xl bg-[var(--color-accent-500)] blur-2xl opacity-40 animate-ethereal-glow" />
+            <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] flex items-center justify-center shadow-2xl shadow-[var(--glow-divine)] animate-float-slow relative">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+              {/* Shimmer overlay */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/25 via-transparent to-white/10 animate-shimmer" />
+            </div>
           </div>
-          <p className="text-sm text-[var(--color-text-tertiary)] font-medium">Lade Chats...</p>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-sm text-[var(--color-text-secondary)] font-semibold">Lade Chats...</p>
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-500)] animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-400)] animate-bounce" style={{ animationDelay: '150ms' }} />
+              <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-300)] animate-bounce" style={{ animationDelay: '300ms' }} />
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
-      {/* Skip to main content link for accessibility */}
+    <div className="flex h-screen w-screen overflow-hidden bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] relative">
+      {/* v12.0 Ambient particle effects */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
+        <div className="particles-overlay">
+          <div className="particle" style={{ '--tx': '80px', '--ty': '-150px' } as React.CSSProperties} />
+          <div className="particle" style={{ '--tx': '-60px', '--ty': '-200px' } as React.CSSProperties} />
+          <div className="particle" style={{ '--tx': '100px', '--ty': '-180px' } as React.CSSProperties} />
+          <div className="particle" style={{ '--tx': '-80px', '--ty': '-220px' } as React.CSSProperties} />
+          <div className="particle" style={{ '--tx': '120px', '--ty': '-160px' } as React.CSSProperties} />
+        </div>
+      </div>
+
+      {/* v12.0 Enhanced aurora background layers */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute inset-0 bg-[var(--gradient-aurora)] animate-aurora" />
+      </div>
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute inset-0 bg-[var(--gradient-aurora-flow)] bg-size-200 animate-gradient-shift" style={{ animationDuration: '30s' }} />
+      </div>
+
+      {/* Skip to main content link for accessibility - v12.0 enhanced */}
       <a
         href="#main-content"
-        className="skip-to-main focus-ring-enhanced"
+        className="skip-link-premium focus-ring-enhanced"
         aria-label="Zum Hauptinhalt springen"
       >
         Zum Hauptinhalt springen
@@ -613,12 +659,15 @@ function HomeContent() {
       />
 
       <main id="main-content" className="flex-1 flex flex-col h-full min-w-0 bg-[var(--color-bg-primary)] relative z-10" tabIndex={-1}>
-        {/* Quantum Elite Header with Premium Glass Effect */}
-        <header className="flex-shrink-0 flex items-center justify-between px-5 sm:px-7 py-4 border-b border-[var(--color-border-medium)] bg-[var(--color-bg-glass-strong)] backdrop-blur-xl shadow-sm">
-          <div className="flex items-center gap-4">
+        {/* v12.0 Hyper-Premium Header with celestial effects */}
+        <header className="flex-shrink-0 flex items-center justify-between px-5 sm:px-7 py-4 border-b border-[var(--color-border-medium)] bg-[var(--color-bg-glass-strong)] backdrop-blur-xl shadow-sm relative overflow-hidden">
+          {/* Animated gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--color-accent-500)]/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+
+          <div className="flex items-center gap-4 relative z-10">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
+              className="lg:hidden p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px] magnetic-btn"
               aria-label="Menu öffnen"
               aria-expanded={sidebarOpen}
               aria-controls="sidebar"
@@ -628,18 +677,20 @@ function HomeContent() {
             <div className="flex items-center gap-3 group">
               <div className="relative">
                 <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-xl shadow-[var(--color-accent-glow-strong)] animate-pulse-subtle" />
-                <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-[var(--color-accent-500)] blur-md opacity-70" />
+                <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-[var(--color-accent-500)] blur-md opacity-70 animate-glow-pulse" />
               </div>
-              <h1 className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight group-hover:text-[var(--color-accent-300)] transition-colors duration-180">
+              <h1 className="text-sm font-semibold text-[var(--color-text-primary)] tracking-tight group-hover:text-[var(--color-accent-300)] transition-colors duration-200 relative">
                 {currentChat?.title || 'Neuer Chat'}
+                {/* Subtle glow on hover */}
+                <div className="absolute -inset-2 bg-[var(--color-accent-500)]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </h1>
             </div>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 relative z-10">
             <button
               onClick={handleToggleSearch}
-              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px] icon-hover-glow"
               title="Suche im Chat (Strg+/)"
               aria-label="Suche im Chat öffnen"
               aria-expanded={searchVisible}
@@ -651,7 +702,7 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowExportModal(true)}
-              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px] icon-hover-glow"
               title="Chat exportieren"
               aria-label="Chat exportieren"
             >
@@ -663,7 +714,7 @@ function HomeContent() {
             </button>
             <button
               onClick={() => setShowKeyboardShortcuts(true)}
-              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-300)] transition-all duration-180 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px]"
+              className="p-3 hover:bg-[var(--color-bg-elevated)] rounded-2xl text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-300)] transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-500)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)] min-w-[44px] min-h-[44px] icon-hover-glow"
               title="Tastaturkurzel anzeigen"
               aria-label="Tastaturkurzel anzeigen"
             >

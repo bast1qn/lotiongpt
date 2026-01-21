@@ -137,11 +137,12 @@ function ToastItem({ toast, onClose, index }: ToastItemProps) {
         'bg-[var(--color-bg-glass-strong)] backdrop-blur-xl',
         'border', config.borderColor,
         'shadow-xl shadow-black/50',
-        // Enhanced entrance/exit animations
-        isExiting ? 'animate-exit-to-right' : 'animate-toast-in',
+        // v12.0 Elite entrance/exit animations
+        isExiting ? 'animate-exit-to-right' : 'animate-premium-entrance',
         'hover:scale-[1.02] transition-transform duration-200',
-        // Glow effect
-        config.glowColor
+        // v12.0 Enhanced glow effect
+        config.glowColor,
+        'hover-glow-expand'
       )}
       style={{
         animationDelay: isExiting ? '0ms' : `${index * 50}ms`,
@@ -157,19 +158,22 @@ function ToastItem({ toast, onClose, index }: ToastItemProps) {
       {/* Quantum glow effect behind toast */}
       <div className="absolute -inset-2 opacity-25 blur-xl -z-10 bg-gradient-to-br from-white/8 to-transparent pointer-events-none" />
 
-      {/* Progress bar - Premium */}
+      {/* Progress bar - v12.0 Premium */}
       {duration > 0 && (
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/30">
           <div
             className={cn(
-              'h-full transition-all duration-75 ease-out shadow-lg',
+              'h-full transition-all duration-75 ease-out shadow-lg relative overflow-hidden',
               config.progressColor
             )}
             style={{
               width: isPaused ? `${progress}%` : `${progress}%`,
               transitionDuration: isPaused ? '0ms' : '75ms'
             }}
-          />
+          >
+            {/* v12.0 Progress shimmer effect */}
+            <div className="absolute inset-0 animate-shimmer-glow opacity-50" />
+          </div>
         </div>
       )}
 

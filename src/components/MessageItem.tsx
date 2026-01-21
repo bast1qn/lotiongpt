@@ -180,19 +180,22 @@ export function MessageItem({
           }
         }}
       >
-        {/* Quantum Premium Avatar */}
+        {/* v12.0 Hyper-Premium Avatar with glow effects */}
         <div
           className={cn(
             'flex-shrink-0 w-10 h-10 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center relative overflow-hidden',
-            'transition-all duration-200 hover:scale-105',
+            'transition-all duration-300 hover:scale-110',
             isUser
-              ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-[var(--shadow-message-user)]'
-              : 'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-surface)] border border-[var(--color-border-medium)] shadow-[var(--shadow-message-assistant)]'
+              ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] shadow-[var(--shadow-message-user)] hover:shadow-[var(--glow-multi-layer)]'
+              : 'bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-surface)] border border-[var(--color-border-medium)] shadow-[var(--shadow-message-assistant)] hover:shadow-[var(--shadow-depth-2)]'
           )}
           aria-hidden="true"
         >
-          {/* Quantum shine overlay */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/18 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* Enhanced shine overlay with pulse */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/22 via-transparent to-white/8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {isUser && (
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent animate-pulse-subtle" />
+          )}
           {isUser ? (
             <span className="text-white text-sm font-bold relative z-10">B</span>
           ) : (
@@ -457,50 +460,59 @@ export function MessageItem({
             </div>
           )}
 
-          {/* Text content - Ultra Premium Bubbles */}
+          {/* Text content - v12.0 Hyper-Premium Bubbles */}
           {isEditing ? (
-            // Ultra Premium Edit Mode
-            <div className="bg-[var(--color-bg-tertiary)]/90 backdrop-blur-sm border border-[var(--color-accent-500)]/60 rounded-3xl p-5 shadow-xl shadow-[var(--color-accent-glow-strong)]">
+            // v12.0 Ultra Premium Edit Mode with enhanced effects
+            <div className="bg-[var(--color-bg-tertiary)]/95 backdrop-blur-md border border-[var(--color-accent-500)]/60 rounded-3xl p-5 shadow-xl shadow-[var(--color-accent-glow-strong)] relative overflow-hidden">
+              {/* Animated border glow */}
+              <div className="absolute inset-0 rounded-3xl opacity-50">
+                <div className="absolute -inset-[2px] rounded-3xl bg-gradient-to-r from-[var(--color-accent-500)] via-[var(--color-accent-600)] to-[var(--color-accent-500)] animate-gradient-shift" />
+              </div>
               <textarea
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-transparent text-[var(--color-text-primary)] text-[15px] leading-relaxed resize-none focus:outline-none min-h-[100px] max-h-[300px]"
+                className="w-full bg-transparent text-[var(--color-text-primary)] text-[15px] leading-relaxed resize-none focus:outline-none min-h-[100px] max-h-[300px] relative z-10"
                 autoFocus
               />
-              <div className="flex gap-3 mt-4 justify-end">
+              <div className="flex gap-3 mt-4 justify-end relative z-10">
                 <button
                   onClick={onCancelEdit}
-                  className="px-5 py-2.5 text-sm font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-2xl transition-all duration-180 hover:scale-105"
+                  className="px-5 py-2.5 text-sm font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] rounded-2xl transition-all duration-200 hover:scale-105 hover:shadow-md"
                 >
                   Abbrechen
                 </button>
                 <button
                   onClick={handleEditSave}
-                  className="px-5 py-2.5 text-sm font-semibold bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white rounded-2xl transition-all duration-180 shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-105 relative overflow-hidden"
+                  className="px-5 py-2.5 text-sm font-semibold bg-gradient-to-r from-[var(--color-accent-500)] to-[var(--color-accent-600)] hover:to-[var(--color-accent-700)] text-white rounded-2xl transition-all duration-200 shadow-lg shadow-[var(--color-accent-glow-strong)] hover:shadow-xl hover:shadow-[var(--color-accent-glow-ultra)] hover:scale-105 relative overflow-hidden btn-beam"
                 >
                   <span className="relative">Speichern</span>
                 </button>
               </div>
             </div>
           ) : message.content ? (
-            // Quantum Premium Normal Display
+            // v12.0 Hyper-Premium Normal Display
             <div
               className={cn(
-                'relative inline-block rounded-3xl px-5 py-3.5 max-w-full',
-                'transition-all duration-200 overflow-hidden',
+                'message-premium-v12 relative inline-block rounded-3xl px-5 py-3.5 max-w-full',
+                'transition-all duration-300 overflow-hidden',
                 isError
-                  ? 'bg-[var(--color-error-soft)]/95 backdrop-blur-sm text-[var(--color-error)] border border-[var(--color-error)]/55 rounded-tl-2xl shadow-[var(--color-error-glow)]'
+                  ? 'bg-[var(--color-error-soft)]/95 backdrop-blur-sm text-[var(--color-error)] border border-[var(--color-error)]/55 rounded-tl-2xl shadow-[var(--color-error-glow)] animate-error-pulse'
                   : isUser
-                    ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white rounded-tr-2xl shadow-[var(--shadow-message-user)] hover:shadow-[var(--shadow-message-user-hover)]'
-                    : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] border border-[var(--color-border-medium)] rounded-tl-2xl shadow-[var(--shadow-message-assistant)] hover:border-[var(--color-border-accent)]/30',
+                    ? 'bg-gradient-to-br from-[var(--color-accent-500)] via-[var(--color-accent-550)] to-[var(--color-accent-600)] text-white rounded-tr-2xl shadow-[var(--shadow-message-user)] hover:shadow-[var(--glow-pulse-wave)] border-beam'
+                    : 'bg-gradient-to-br from-[var(--color-bg-tertiary)] to-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] border border-[var(--color-border-medium)] rounded-tl-2xl shadow-[var(--shadow-message-assistant)] hover:border-[var(--color-border-accent)]/40 hover:shadow-[var(--shadow-depth-2)]',
                 isSearchMatch && 'ring-2 ring-[var(--color-accent-500)] ring-offset-2 ring-offset-[var(--color-bg-primary)]'
               )}
             >
-              {/* Enhanced gradient overlay for user messages */}
+              {/* v12.0 Enhanced gradient overlay for user messages */}
               {isUser && (
-                <div className="absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-white/8 pointer-events-none" />
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/22 via-transparent to-white/10 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer-premium" />
+                </>
               )}
+              {/* Subtle noise texture for premium feel */}
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none noise-fine" />
               <div
                 className="relative text-[15px] leading-[1.75] prose prose-invert prose-p:last:mb-0 prose-p:my-1.5 prose-headings:my-2.5 prose-headings:font-semibold prose-a:text-[var(--color-accent-300)] prose-a:no-underline prose-a:border-b prose-a:border-[var(--color-accent-500)]/45 hover:prose-a:border-[var(--color-accent-500)]/75 prose-code:bg-[var(--color-bg-primary)]/55 prose-code:px-2 prose-code:py-1 prose-code:rounded-lg prose-code:text-sm prose-code:font-mono prose-code:border prose-code:border-[var(--color-border-subtle)] prose-pre:bg-[var(--color-bg-primary)]/85 prose-pre:border prose-pre:border-[var(--color-border-medium)] prose-pre:rounded-2xl max-w-none"
                 dangerouslySetInnerHTML={{ __html: formatMessageWithHighlight(message.content) }}
