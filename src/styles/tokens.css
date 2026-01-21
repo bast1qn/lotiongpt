@@ -869,7 +869,8 @@
   --z-depth-9: 90;
   --z-depth-10: 100;
   --z-transcendental: 99999;
-}
+
+  /* Message 3D Transforms */
   --message-hover-transform: perspective(1000px) rotateX(0deg) translateZ(20px);
   --message-3d-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
                         0 0 40px rgba(99, 102, 241, 0.15);
